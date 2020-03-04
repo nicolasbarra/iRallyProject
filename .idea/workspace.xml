@@ -1,10 +1,61 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="c7accad3-e0ee-44c6-9eda-d3762be94344" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+    <list default="true" id="c7accad3-e0ee-44c6-9eda-d3762be94344" name="Default Changelist" comment="Merge branch 'master' of https://github.com/cis350/350S20-9&#10;&#10;# Conflicts:&#10;#&#9;README.md">
+      <change afterPath="$PROJECT_DIR$/iRallyAndroidApp/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/iRallyAndroidApp/.idea/codeStyles/Project.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/iRallyAndroidApp/.idea/gradle.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/iRallyAndroidApp/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/iRallyAndroidApp/.idea/runConfigurations.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/iRallyAndroidApp/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/iRallyAndroidApp/app/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/iRallyAndroidApp/app/build.gradle" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/iRallyAndroidApp/app/proguard-rules.pro" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/iRallyAndroidApp/app/src/androidTest/java/edu/upenn/cis350/irally/ExampleInstrumentedTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/iRallyAndroidApp/app/src/main/AndroidManifest.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/iRallyAndroidApp/app/src/main/java/edu/upenn/cis350/irally/UserProfileScrollingActivity.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/iRallyAndroidApp/app/src/main/java/edu/upenn/cis350/irally/data/LoginDataSource.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/iRallyAndroidApp/app/src/main/java/edu/upenn/cis350/irally/data/LoginRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/iRallyAndroidApp/app/src/main/java/edu/upenn/cis350/irally/data/Result.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/iRallyAndroidApp/app/src/main/java/edu/upenn/cis350/irally/data/model/LoggedInUser.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/iRallyAndroidApp/app/src/main/java/edu/upenn/cis350/irally/ui/login/LoggedInUserView.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/iRallyAndroidApp/app/src/main/java/edu/upenn/cis350/irally/ui/login/LoginActivity.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/iRallyAndroidApp/app/src/main/java/edu/upenn/cis350/irally/ui/login/LoginFormState.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/iRallyAndroidApp/app/src/main/java/edu/upenn/cis350/irally/ui/login/LoginResult.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/iRallyAndroidApp/app/src/main/java/edu/upenn/cis350/irally/ui/login/LoginViewModel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/iRallyAndroidApp/app/src/main/java/edu/upenn/cis350/irally/ui/login/LoginViewModelFactory.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/iRallyAndroidApp/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/iRallyAndroidApp/app/src/main/res/drawable/ic_launcher_background.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/iRallyAndroidApp/app/src/main/res/layout/activity_login.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/iRallyAndroidApp/app/src/main/res/layout/activity_user_profile_scrolling.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/iRallyAndroidApp/app/src/main/res/layout/content_user_profile_scrolling.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/iRallyAndroidApp/app/src/main/res/menu/menu_user_profile_scrolling.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/iRallyAndroidApp/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/iRallyAndroidApp/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/iRallyAndroidApp/app/src/main/res/mipmap-hdpi/ic_launcher.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/iRallyAndroidApp/app/src/main/res/mipmap-hdpi/ic_launcher_round.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/iRallyAndroidApp/app/src/main/res/mipmap-mdpi/ic_launcher.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/iRallyAndroidApp/app/src/main/res/mipmap-mdpi/ic_launcher_round.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/iRallyAndroidApp/app/src/main/res/mipmap-xhdpi/ic_launcher.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/iRallyAndroidApp/app/src/main/res/mipmap-xhdpi/ic_launcher_round.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/iRallyAndroidApp/app/src/main/res/mipmap-xxhdpi/ic_launcher.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/iRallyAndroidApp/app/src/main/res/mipmap-xxhdpi/ic_launcher_round.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/iRallyAndroidApp/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/iRallyAndroidApp/app/src/main/res/mipmap-xxxhdpi/ic_launcher_round.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/iRallyAndroidApp/app/src/main/res/values/colors.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/iRallyAndroidApp/app/src/main/res/values/dimens.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/iRallyAndroidApp/app/src/main/res/values/strings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/iRallyAndroidApp/app/src/main/res/values/styles.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/iRallyAndroidApp/app/src/test/java/edu/upenn/cis350/irally/ExampleUnitTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/iRallyAndroidApp/build.gradle" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/iRallyAndroidApp/gradle.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/iRallyAndroidApp/gradle/wrapper/gradle-wrapper.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/iRallyAndroidApp/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/iRallyAndroidApp/gradlew" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/iRallyAndroidApp/gradlew.bat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/iRallyAndroidApp/settings.gradle" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -68,7 +119,16 @@
       <option name="presentableId" value="Default" />
       <updated>1583281746602</updated>
       <workItem from="1583281748385" duration="1195000" />
+      <workItem from="1583283014212" duration="470000" />
     </task>
+    <task id="LOCAL-00001" summary="init website">
+      <created>1583283092995</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1583283092995</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -84,15 +144,24 @@
       </list>
     </option>
   </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="init website" />
+    <MESSAGE value="Merge branch 'master' of https://github.com/cis350/350S20-9&#10;&#10;# Conflicts:&#10;#&#9;README.md" />
+    <option name="LAST_COMMIT_MESSAGE" value="Merge branch 'master' of https://github.com/cis350/350S20-9&#10;&#10;# Conflicts:&#10;#&#9;README.md" />
+  </component>
   <component name="WindowStateProjectService">
-    <state x="418" y="121" key="CommitChangelistDialog2" timestamp="1583282997389">
+    <state x="418" y="121" key="CommitChangelistDialog2" timestamp="1583283481138">
       <screen x="0" y="23" width="1680" height="991" />
     </state>
-    <state x="418" y="121" key="CommitChangelistDialog2/0.23.1680.991@0.23.1680.991" timestamp="1583282997389" />
+    <state x="418" y="121" key="CommitChangelistDialog2/0.23.1680.991@0.23.1680.991" timestamp="1583283481138" />
     <state x="701" y="419" width="277" height="258" key="Github.ShareDialog" timestamp="1583282227606">
       <screen x="0" y="23" width="1680" height="991" />
     </state>
     <state x="701" y="419" width="277" height="258" key="Github.ShareDialog/0.23.1680.991@0.23.1680.991" timestamp="1583282227606" />
+    <state x="440" y="247" key="Vcs.Push.Dialog.v2" timestamp="1583283111626">
+      <screen x="0" y="23" width="1680" height="991" />
+    </state>
+    <state x="440" y="247" key="Vcs.Push.Dialog.v2/0.23.1680.991@0.23.1680.991" timestamp="1583283111626" />
     <state x="620" y="442" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1583282266905">
       <screen x="0" y="23" width="1680" height="991" />
     </state>
