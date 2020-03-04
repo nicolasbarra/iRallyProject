@@ -58,7 +58,6 @@ captures/
 *.iml
 .idea/workspace.xml
 .idea/tasks.xml
-.idea/gradle.xml
 .idea/assetWizardSettings.xml
 .idea/dictionaries
 .idea/libraries
@@ -92,7 +91,6 @@ fastlane/test_output
 fastlane/readme.md
 
 # Version control
-vcs.xml
 
 # lint
 lint/intermediates/
@@ -226,7 +224,6 @@ fabric.properties
 
 # *.iml
 # modules.xml
-# .idea/misc.xml
 # *.ipr
 
 # Sonarlint plugin
@@ -290,9 +287,7 @@ obj/
 .idea/compiler.xml
 .idea/copyright/profiles_settings.xml
 .idea/encodings.xml
-.idea/misc.xml
 .idea/scopes/scope_settings.xml
-.idea/vcs.xml
 .idea/jsLibraryMappings.xml
 .idea/datasources.xml
 .idea/dataSources.ids
