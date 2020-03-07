@@ -4,8 +4,14 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
+// added for testing, may not need below
+var cors = require("cors");
+
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+
+// testing, remove later
+var testAPIRouter = require("./routes/testAPI");
 
 var app = express();
 
@@ -19,8 +25,14 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+// added for testing, may not need below
+app.use(cors());
+
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+
+// testing, remove later
+app.use("/testAPI", testAPIRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
