@@ -22,6 +22,9 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
+# passwords
+atlasdbAdminPassword.js
+
 
 # Created by https://www.gitignore.io/api/node,macos,webstorm
 # Edit at https://www.gitignore.io/?templates=node,macos,webstorm
