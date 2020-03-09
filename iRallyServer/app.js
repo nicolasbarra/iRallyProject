@@ -7,6 +7,17 @@ var logger = require('morgan');
 // added for testing, may not need below
 var cors = require("cors");
 
+// for connection to mongoDB
+var mongoose = require('mongoose');
+var mongoDB = "mongodb+srv://atlasdbAdmin:<password>@cluster1-asdlf.mongodb.net/irally?retryWrites=true&w=majority";
+mongoose.connect('mongodb://localhost/test', {useNewUrlParser: true});
+var db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', function() {
+  // we're connected!
+  console.log("MongoDB database connection established successfully");
+});
+
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
