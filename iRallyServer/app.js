@@ -17,6 +17,7 @@ var mongoDB = `mongodb+srv://atlasdbAdmin:${atlasdbAdminPassword.atlasdbAdminPas
 mongoose.connect(mongoDB, {useNewUrlParser: true, useUnifiedTopology: true});
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
+// TODO: check to see if the below needs to be removed or heavily edited for real use
 db.once('open', function() {
   // we're connected!
   console.log("MongoDB database connection established successfully");
