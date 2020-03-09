@@ -7,10 +7,14 @@ var logger = require('morgan');
 // added for testing, may not need below
 var cors = require("cors");
 
+// to get the password from the password file such that we do not push our
+// password to git
+var atlasdbAdminPassword = require('./atlasdbAdminPassword');
+
 // for connection to mongoDB
 var mongoose = require('mongoose');
-var mongoDB = "mongodb+srv://atlasdbAdmin:<password>@cluster1-asdlf.mongodb.net/irally?retryWrites=true&w=majority";
-mongoose.connect('mongodb://localhost/test', {useNewUrlParser: true});
+var mongoDB = `mongodb+srv://atlasdbAdmin:${atlasdbAdminPassword.atlasdbAdminPassword}@cluster1-asdlf.mongodb.net/iRally?retryWrites=true&w=majority`;
+mongoose.connect(mongoDB, {useNewUrlParser: true, useUnifiedTopology: true});
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function() {
