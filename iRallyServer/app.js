@@ -1,21 +1,21 @@
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
+const createError = require('http-errors');
+const express = require('express');
+const path = require('path');
+const cookieParser = require('cookie-parser');
+const logger = require('morgan');
 
 // added for testing, may not need below
-var cors = require("cors");
+const cors = require("cors");
 
 // to get the password from the password file such that we do not push our
 // password to git
-var atlasdbAdminPassword = require('./atlasdbAdminPassword');
+const atlasdbAdminPassword = require('./atlasdbAdminPassword');
 
 // for connection to mongoDB
-var mongoose = require('mongoose');
-var mongoDB = `mongodb+srv://atlasdbAdmin:${atlasdbAdminPassword.atlasdbAdminPassword}@cluster1-asdlf.mongodb.net/iRally?retryWrites=true&w=majority`;
+const mongoose = require('mongoose');
+const mongoDB = `mongodb+srv://atlasdbAdmin:${atlasdbAdminPassword.atlasdbAdminPassword}@cluster1-asdlf.mongodb.net/iRally?retryWrites=true&w=majority`;
 mongoose.connect(mongoDB, {useNewUrlParser: true, useUnifiedTopology: true});
-var db = mongoose.connection;
+const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 // TODO: check to see if the below needs to be removed or heavily edited for real use
 db.once('open', function() {
@@ -23,13 +23,13 @@ db.once('open', function() {
   console.log("MongoDB database connection established successfully");
 });
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+const indexRouter = require('./routes/index');
+const usersRouter = require('./routes/users');
 
 // testing, remove later
-var testAPIRouter = require("./routes/testAPI");
+const testAPIRouter = require("./routes/testAPI");
 
-var app = express();
+const app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
