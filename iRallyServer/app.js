@@ -14,7 +14,12 @@ const atlasdbAdminPassword = require('./atlasdbAdminPassword');
 // for connection to mongoDB
 const mongoose = require('mongoose');
 const mongoDB = `mongodb+srv://atlasdbAdmin:${atlasdbAdminPassword.atlasdbAdminPassword}@cluster1-asdlf.mongodb.net/iRally?retryWrites=true&w=majority`;
-mongoose.connect(mongoDB, {useNewUrlParser: true, useUnifiedTopology: true});
+mongoose.connect(mongoDB,
+    {
+      useNewUrlParser: true,
+      useUnifiedTopology: true
+    }
+);
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 // TODO: check to see if the below needs to be removed or heavily edited for real use
