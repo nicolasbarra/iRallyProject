@@ -44,8 +44,13 @@ const adminSchema = new Schema(
                     trim: true
                 }
             ],
-            profilePictureLink: String,
-            interests: [String],
+            interests: [
+                {
+                    type: String,
+                    required: [true, 'need to have some interest']
+                }
+            ],
+            profilePictureLink: String
         },
         currentEventAttendees: [
             {
