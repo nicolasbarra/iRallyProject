@@ -16,8 +16,9 @@ const mongoose = require('mongoose');
 const mongoDB = `mongodb+srv://atlasdbAdmin:${atlasdbAdminPassword.atlasdbAdminPassword}@cluster1-asdlf.mongodb.net/iRally?retryWrites=true&w=majority`;
 mongoose.connect(mongoDB,
     {
-      useNewUrlParser: true,
-      useUnifiedTopology: true
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+        useCreateIndex: true
     }
 );
 const db = mongoose.connection;
@@ -30,9 +31,6 @@ db.once('open', function() {
 
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
-
-// testing, remove later
-const testAPIRouter = require("./routes/testAPI");
 
 const app = express();
 
@@ -51,9 +49,6 @@ app.use(cors());
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-
-// testing, remove later
-app.use("/testAPI", testAPIRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
