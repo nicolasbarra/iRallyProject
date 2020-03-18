@@ -44,6 +44,12 @@ const eventSchema = new Schema(
             type: Number,
             required: [true, 'events must have number of attendees, may be zero']
         },
+        interestsOfAttendees: [
+            {
+                type: String,
+                required: [true, 'need to have some interest, start with those of creator']
+            }
+        ],
         comments: [
             {
                 type: mongoose.Schema.Types.ObjectID,
