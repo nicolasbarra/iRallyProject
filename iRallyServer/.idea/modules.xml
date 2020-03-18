@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/iRallyServer.iml" filepath="$PROJECT_DIR$/.idea/iRallyServer.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/irallyserver.iml" filepath="$PROJECT_DIR$/.idea/irallyserver.iml" />
     </modules>
   </component>
 </project>
