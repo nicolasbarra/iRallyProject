@@ -10,9 +10,9 @@ const commentSchema = new Schema(
             unique: true,
             trim: true
         },
-        creator: {
-            type: mongoose.Schema.Types.ObjectID,
-            ref: 'user',
+        author: {
+            type: mongoose.Schema.Types.Mixed,
+            // used mixed type as the author can be an admin or a user
             required: true,
         },
         event: {
