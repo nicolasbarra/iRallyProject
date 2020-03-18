@@ -7,28 +7,6 @@ const logger = require('morgan');
 // added for testing, may not need below
 const cors = require("cors");
 
-// to get the password from the password file such that we do not push our
-// password to git
-const atlasdbAdminPassword = require('./atlasdbAdminPassword');
-
-// for connection to mongoDB
-const mongoose = require('mongoose');
-const mongoDB = `mongodb+srv://atlasdbAdmin:${atlasdbAdminPassword.atlasdbAdminPassword}@cluster1-asdlf.mongodb.net/iRally?retryWrites=true&w=majority`;
-mongoose.connect(mongoDB,
-    {
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
-        useCreateIndex: true
-    }
-);
-const db = mongoose.connection;
-db.on('error', console.error.bind(console, 'connection error:'));
-// TODO: check to see if the below needs to be removed or heavily edited for real use
-db.once('open', function() {
-  // we're connected!
-  console.log("MongoDB database connection established successfully");
-});
-
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 
