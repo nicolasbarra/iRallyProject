@@ -9,6 +9,12 @@ router.get('/', (req, res, next) => {
   res.send('respond with a resource');
 });
 
-// router.post('/create', user_controller.create_user);
+router.post('/create', user_controller.create_user);
+
+router.post('/delete', user_controller.delete_user);
+
+router.post('/addInterest', user_controller.add_interest);
+
+router.post('/removeInterest', user_controller.remove_interest);
 
 module.exports = router;
