@@ -31,14 +31,8 @@ const userSchema = new Schema(
                 trim: true,
                 minlength: 3
             },
-            profilePictureLink: {
-                type: String
-            },
-            interests: [
-                {
-                    type: String
-                }
-            ]
+            profilePictureLink: String,
+            interests: [String]
         },
         eventsAttended: [
             {
@@ -62,6 +56,12 @@ const userSchema = new Schema(
             {
                 type: mongoose.Schema.Types.ObjectID,
                 ref: 'user'
+            }
+        ],
+        comments: [
+            {
+                type: mongoose.Schema.Types.ObjectID,
+                ref: 'comment'
             }
         ]
     },
