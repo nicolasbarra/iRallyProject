@@ -45,13 +45,13 @@ const userSchema = new Schema(
             profilePictureLink: String,
             interests: [String]
         },
-        eventsAttended: [
+        eventsToAttend: [
             {
                 type: mongoose.Schema.Types.ObjectID,
                 ref: 'event'
             }
         ],
-        eventsToAttend: [
+        eventsAttended: [
             {
                 type: mongoose.Schema.Types.ObjectID,
                 ref: 'event'
