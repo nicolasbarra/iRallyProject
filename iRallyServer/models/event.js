@@ -17,8 +17,8 @@ const eventSchema = new Schema(
             minlength: 3
         },
         creator: {
-            type: mongoose.Schema.Types.ObjectID,
-            ref: 'user',
+            type: mongoose.Schema.Types.Mixed,
+            // used mixed type as the creator can be an admin or a user
             required: true,
         },
         description: {
