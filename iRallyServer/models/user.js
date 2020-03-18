@@ -6,7 +6,7 @@ const userSchema = new Schema(
     {
         username: {
             type: String,
-            required: true,
+            required: [true, 'need a username'],
             unique: true,
             trim: true,
             minlength: 3,
@@ -14,32 +14,32 @@ const userSchema = new Schema(
         },
         password: {
             type: String,
-            required: true,
+            required: [true, 'need a password'],
             trim: true,
             minlength: 3
         },
         personalInfo: {
             name: {
                 type: String,
-                required: true,
+                required: [true, 'need a name'],
                 trim: true,
                 minlength: 3
             },
             email: {
                 type: String,
-                required: true,
+                required: [true, 'need an email'],
                 lowercase: true,
                 trim: true,
                 minlength: 3
             },
             gender: {
                 type: String,
-                required: true,
+                required: [true, 'need to give some gender'],
                 trim: true
             },
             genderPronouns: {
                 type: String,
-                required: true,
+                required: [true, 'need to give some gender pronoun'],
                 trim: true
             },
             profilePictureLink: String,
