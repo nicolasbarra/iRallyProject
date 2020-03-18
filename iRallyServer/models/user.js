@@ -42,8 +42,13 @@ const userSchema = new Schema(
                 required: [true, 'need to give some gender pronoun'],
                 trim: true
             },
-            profilePictureLink: String,
-            interests: [String]
+            interests: [
+                {
+                    type: String,
+                    required: [true, 'need to have some interest']
+                }
+            ],
+            profilePictureLink: String
         },
         eventsToAttend: [
             {
