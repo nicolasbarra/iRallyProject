@@ -6,7 +6,7 @@ const adminSchema = new Schema(
     {
         username: {
             type: String,
-            required: true,
+            required: [true, 'need a username'],
             unique: true,
             trim: true,
             minlength: 3,
@@ -14,33 +14,33 @@ const adminSchema = new Schema(
         },
         password: {
             type: String,
-            required: true,
+            required: [true, 'need a password'],
             trim: true,
             minlength: 3
         },
         adminInfo: {
             adminName: {
                 type: String,
-                required: true,
+                required: [true, 'admin account needs a name'],
                 unique: true,
                 trim: true,
                 minlength: 3
             },
             description: {
                 type: String,
-                required: true,
+                required: [true, 'need to have a description'],
                 trim: true,
                 minlength: 3
             },
             politicalAffiliation: {
                 type: String,
-                required: true,
+                required: [true, 'need to give some political affiliation'],
                 trim: true
             },
             goals: [
                 {
                     type: String,
-                    required: true,
+                    required: [true, 'need to give some goals'],
                     trim: true
                 }
             ],
@@ -83,6 +83,4 @@ const adminSchema = new Schema(
     }
 );
 
-const Admin = mongoose.model('Admin', adminSchema);
-
-module.exports = Admin;
+module.exports = mongoose.model('Admin', adminSchema);
