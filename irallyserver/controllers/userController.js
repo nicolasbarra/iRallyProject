@@ -51,9 +51,62 @@ exports.create_user = [
                             // TODO: this may be incorrect
                             res.render('created', {user : user});
                         }
-                    })
+                    });
                 }
-            })
+            });
+        }
+    }
+];
+
+exports.delete_user = [
+    check('username').isString().notEmpty().trim().isLength({ min: 3 }).escape(),
+    (req, res, next) => {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            // TODO: this may be incorrect
+            return res.status(422).json({ errors: errors.array() });
+        } else {
+            // TODO: route content here
+            User.findOneAndDelete({ username: req.body.username}, (err, user) => {
+                if (err) {
+                    return next(err);
+                } else if (user) {
+                    // user with that username exists already
+                    res.send(user + "successfully deleted");
+                } else {
+                    // there is no user with that username
+                    res.send("Unable to delete: there is no user with that username")
+                }
+            });
+        }
+    }
+];
+
+exports.login_user = [
+    check('username').isString().notEmpty().trim().isLength({ min: 3 }).escape(),
+    check('password').isString().notEmpty().trim().isLength({ min: 3 }).escape(),
+    (req, res, next) => {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            // TODO: this may be incorrect
+            return res.status(422).json({ errors: errors.array() });
+        } else {
+            // TODO: route content here
+            User.findOne({ username: req.body.username}, (err, user) => {
+                if (err) {
+                    return next(err);
+                } else if (user) {
+                    // user with that username exists
+                    if (user.password === req.body.password) {
+                        res.send('Success! Password is correct.')
+                    } else {
+                        res.send('Incorrect password.');
+                    }
+                } else {
+                    // there is no user with that username
+                    res.send('Username does not match any account')
+                }
+            });
         }
     }
 ];
