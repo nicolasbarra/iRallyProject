@@ -38,7 +38,7 @@ exports.create_user = [
                             }
                         }
                     );
-                    user.save( (err) => {
+                    user.save( (err, user) => {
                         if (err) {
                             // TODO: this may be incorrect
                             res.type('html').status(200);
