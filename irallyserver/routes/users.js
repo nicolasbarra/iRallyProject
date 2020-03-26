@@ -15,6 +15,8 @@ router.post('/delete', user_controller.delete_user);
 
 router.post('/login', user_controller.login_user);
 
+// router.post('/logout', user_controller.logout_user);
+
 // router.post('/addInterest', user_controller.add_interest);
 
 // router.post('/removeInterest', user_controller.remove_interest);
