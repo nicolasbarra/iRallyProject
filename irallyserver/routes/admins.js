@@ -10,10 +10,12 @@ router.get('/', (req, res, next) => {
 
 router.post('/create', admin_controller.create_admin);
 
+// router.post('/delete', admin_controller.delete_admin);
+
+router.post('/login', admin_controller.login_admin);
+
 router.post('/validateLogin', admin_controller.validate_login_admin);
 
 router.post('/logout', admin_controller.logout_admin);
-
-router.post('/login', admin_controller.login_admin);
 
 module.exports = router;
