@@ -1,4 +1,4 @@
-const { check, validationResult } = require('express-validator');
+const {check, validationResult} = require('express-validator');
 const bcrypt = require('bcrypt');
 
 const Admin = require('../models/admin');
@@ -7,7 +7,7 @@ exports.create_admin = [
     (req, res) => {
         const varData = req.body.formData;
         // make sure admin is not in database already
-        Admin.findOne({'username' : varData.username}, (err, admin) => {
+        Admin.findOne({'username': varData.username}, (err, admin) => {
             if (err) {
                 debug('Unable to read item. Error JSON:', JSON.stringify(err, null, 2));
             } else {
@@ -16,7 +16,7 @@ exports.create_admin = [
                     res.send({success: false});
                 } else {
                     //store hashed password
-                    bcrypt.genSalt(12, (err, salt) =>  {
+                    bcrypt.genSalt(12, (err, salt) => {
                         if (err) {
                             debug(err)
                         } else {
@@ -40,7 +40,7 @@ exports.create_admin = [
                                         }
                                     );
 
-                                    admin.save( (err, admin) =>  {
+                                    admin.save((err, admin) => {
                                         if (err) {
                                             debug('Unable to add item. Error JSON:', JSON.stringify(err, null, 2));
                                         } else {
@@ -67,7 +67,7 @@ exports.login_admin = [
         if (!formData.username || !formData.password) {
             res.json({err: true});
         }
-        Admin.findOne({'username' : formData.username}, (err, admin) => {
+        Admin.findOne({'username': formData.username}, (err, admin) => {
             if (err) {
                 debug('Unable to read item. Error JSON:', JSON.stringify(err, null, 2));
             } else {
@@ -103,7 +103,7 @@ exports.validate_login_admin = [
 
 exports.logout_admin = [
     (req, res) => {
-        req.session.destroy( (err) => {
+        req.session.destroy((err) => {
             debug('this is session that will be destroyed', req.session);
             if (err) {
                 debug(err);
@@ -113,5 +113,5 @@ exports.logout_admin = [
                 res.send({success: true});
             }
         });
-      }
+    }
 ];
