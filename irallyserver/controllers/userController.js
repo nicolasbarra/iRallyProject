@@ -1,23 +1,23 @@
-const { check, validationResult } = require("express-validator");
+const {check, validationResult} = require("express-validator");
 
 const User = require('../models/user');
 
 exports.create_user = [
-    check('username').isString().notEmpty().trim().isLength({ min: 3 }).escape(),
-    check('password').isString().notEmpty().trim().isLength({ min: 3 }).escape(),
-    check('name').isString().notEmpty().trim().isLength({ min: 3 }).escape(),
-    check('email').isString().notEmpty().trim().isLength({ min: 3 }).isEmail().normalizeEmail(),
+    check('username').isString().notEmpty().trim().isLength({min: 3}).escape(),
+    check('password').isString().notEmpty().trim().isLength({min: 3}).escape(),
+    check('name').isString().notEmpty().trim().isLength({min: 3}).escape(),
+    check('email').isString().notEmpty().trim().isLength({min: 3}).isEmail().normalizeEmail(),
     check('gender').notEmpty().escape(),
     check('genderPronouns').notEmpty().escape(),
-    check('interests').isString().notEmpty().trim().isLength({ min: 3 }).escape(),
+    check('interests').isString().notEmpty().trim().isLength({min: 3}).escape(),
     (req, res, next) => {
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
             // TODO: this may be incorrect
-            return res.status(422).json({ errors: errors.array() });
+            return res.status(422).json({errors: errors.array()});
         } else {
             // TODO: route content here
-            User.findOne({ username: req.body.username}, (err, user) => {
+            User.findOne({username: req.body.username}, (err, user) => {
                 if (err) {
                     return next(err);
                 } else if (user) {
@@ -38,7 +38,7 @@ exports.create_user = [
                             }
                         }
                     );
-                    user.save( (err, user) => {
+                    user.save((err, user) => {
                         if (err) {
                             // TODO: this may be incorrect
                             res.type('html').status(200);
@@ -49,7 +49,7 @@ exports.create_user = [
                             // return next(err);
                         } else {
                             // TODO: this may be incorrect
-                            res.render('created', {user : user});
+                            res.render('created', {user: user});
                         }
                     });
                 }
@@ -59,15 +59,15 @@ exports.create_user = [
 ];
 
 exports.delete_user = [
-    check('username').isString().notEmpty().trim().isLength({ min: 3 }).escape(),
+    check('username').isString().notEmpty().trim().isLength({min: 3}).escape(),
     (req, res, next) => {
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
             // TODO: this may be incorrect
-            return res.status(422).json({ errors: errors.array() });
+            return res.status(422).json({errors: errors.array()});
         } else {
             // TODO: route content here
-            User.findOneAndDelete({ username: req.body.username}, (err, user) => {
+            User.findOneAndDelete({username: req.body.username}, (err, user) => {
                 if (err) {
                     return next(err);
                 } else if (user) {
@@ -83,16 +83,16 @@ exports.delete_user = [
 ];
 
 exports.login_user = [
-    check('username').isString().notEmpty().trim().isLength({ min: 3 }).escape(),
-    check('password').isString().notEmpty().trim().isLength({ min: 3 }).escape(),
+    check('username').isString().notEmpty().trim().isLength({min: 3}).escape(),
+    check('password').isString().notEmpty().trim().isLength({min: 3}).escape(),
     (req, res, next) => {
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
             // TODO: this may be incorrect
-            return res.status(422).json({ errors: errors.array() });
+            return res.status(422).json({errors: errors.array()});
         } else {
             // TODO: route content here
-            User.findOne({ username: req.body.username}, (err, user) => {
+            User.findOne({username: req.body.username}, (err, user) => {
                 if (err) {
                     return next(err);
                 } else if (user) {
