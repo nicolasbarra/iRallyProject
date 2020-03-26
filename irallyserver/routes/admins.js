@@ -4,16 +4,16 @@ const router = express.Router();
 const admin_controller = require('../controllers/adminController');
 
 /* GET admins listing. */
-router.get('/', function(req, res, next) {
+router.get('/', (req, res, next) => {
     res.send('respond with a resource');
 });
 
-router.post('/addAdmin', admin_controller.add_admin);
+router.post('/create', admin_controller.create_admin);
 
-router.post('/checkLoggedIn', admin_controller.check_login);
+router.post('/validateLogin', admin_controller.validate_login_admin);
 
 router.post('/logout', admin_controller.logout_admin);
 
-router.post('/checkAdmin', admin_controller.check_admin);
+router.post('/login', admin_controller.login_admin);
 
 module.exports = router;
