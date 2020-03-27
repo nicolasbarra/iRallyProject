@@ -1,7 +1,9 @@
 package edu.upenn.cis350.irally.ui.login
 
+import edu.upenn.cis350.irally.ui.register.RegisterActivity
 import android.app.Activity
 import android.content.Context
+import android.content.Intent
 import androidx.lifecycle.Observer
 import android.os.Bundle
 import androidx.annotation.StringRes
@@ -10,10 +12,7 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
 import android.view.inputmethod.EditorInfo
-import android.widget.Button
-import android.widget.EditText
-import android.widget.ProgressBar
-import android.widget.Toast
+import android.widget.*
 import androidx.lifecycle.ViewModelProvider
 
 import edu.upenn.cis350.irally.R
@@ -30,6 +29,16 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         setContentView(R.layout.activity_login)
+
+        //set register button activity
+        val register = findViewById<TextView>(R.id.register)
+        register.setOnClickListener(object: View.OnClickListener {
+            override fun onClick(view: View): Unit {
+                // Handler code here.
+                val intent = Intent(context, RegisterActivity::class.java);
+                startActivity(intent);
+            }
+        })
 
         context = this
 
