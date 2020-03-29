@@ -10,6 +10,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import edu.upenn.cis350.irally.R
 import edu.upenn.cis350.irally.ui.login.LoginActivity
+import edu.upenn.cis350.irally.ui.profile.ProfileActivity
 import kotlinx.android.synthetic.main.activity_register.*
 
 class RegisterActivity : AppCompatActivity() {
@@ -21,8 +22,10 @@ class RegisterActivity : AppCompatActivity() {
 
         //GENDER SPINNER
         val spinner = findViewById<Spinner>(R.id.gender_spinner)
-        val adapter = ArrayAdapter.createFromResource(this,
-                R.array.gender_array, android.R.layout.simple_spinner_item)
+        val adapter = ArrayAdapter.createFromResource(
+            this,
+            R.array.gender_array, android.R.layout.simple_spinner_item
+        )
         //Specify the layout to use when the list of choices appears
         //Specify the layout to use when the list of choices appears
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
@@ -33,13 +36,11 @@ class RegisterActivity : AppCompatActivity() {
 
         //BACK TO LOGIN PAGE
         val login = login
-        login.setOnClickListener(object: View.OnClickListener {
-            override fun onClick(view: View): Unit {
-                // Handler code here.
-                val intent = Intent(LoginActivity.context, LoginActivity::class.java);
-                startActivity(intent);
-            }
-        })
+        login.setOnClickListener {
+            // Handler code here.
+            val intent = Intent(LoginActivity.context, LoginActivity::class.java);
+            startActivity(intent);
+        }
 
 
         //getting the stuff from xml
@@ -52,12 +53,12 @@ class RegisterActivity : AppCompatActivity() {
         val pronouns_txt = pronouns
 
 
-
         //functions to check validity of inputs
         //check length
         fun isValidLength(input: String, len: Int): Boolean {
             return input.length >= len
         }
+
         fun isEmailValid(email: String): Boolean {
             return !email.isNullOrEmpty() && email.length > 2 &&
                     Patterns.EMAIL_ADDRESS.matcher(email).matches()
@@ -76,7 +77,8 @@ class RegisterActivity : AppCompatActivity() {
 
             if (username.isNullOrEmpty() || password.isNullOrEmpty() ||
                 confirm_password.isNullOrEmpty() || interests.isNullOrEmpty()
-                || email.isNullOrEmpty() || name.isNullOrEmpty() || pronouns.isNullOrEmpty()) {
+                || email.isNullOrEmpty() || name.isNullOrEmpty() || pronouns.isNullOrEmpty()
+            ) {
                 return "One or more fields left blank."
             }
             if (!isValidLength(username, 3)) {
@@ -90,13 +92,12 @@ class RegisterActivity : AppCompatActivity() {
             }
             if (!isEmailValid(email)) {
                 return "Please enter an email address."
-            }
-            else return ""
+            } else return ""
         }
         //Regis
         // ter back to login
         val submit = register
-        submit.setOnClickListener(object: View.OnClickListener {
+        submit.setOnClickListener(object : View.OnClickListener {
             override fun onClick(view: View): Unit {
                 if (isDataValid() == "") {
                     val intent = Intent(LoginActivity.context, LoginActivity::class.java);

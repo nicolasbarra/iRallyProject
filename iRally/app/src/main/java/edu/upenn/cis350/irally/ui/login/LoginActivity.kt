@@ -16,6 +16,7 @@ import android.widget.*
 import androidx.lifecycle.ViewModelProvider
 
 import edu.upenn.cis350.irally.R
+import edu.upenn.cis350.irally.ui.profile.ProfileActivity
 
 class LoginActivity : AppCompatActivity() {
 
@@ -29,6 +30,8 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         setContentView(R.layout.activity_login)
+
+
 
         //set register button activity
         val register = findViewById<TextView>(R.id.register)
@@ -46,6 +49,7 @@ class LoginActivity : AppCompatActivity() {
         val password = findViewById<EditText>(R.id.password)
         val login = findViewById<Button>(R.id.login)
         val loading = findViewById<ProgressBar>(R.id.loading)
+
 
         loginViewModel = ViewModelProvider(this, LoginViewModelFactory())
             .get(LoginViewModel::class.java)
@@ -142,4 +146,7 @@ fun EditText.afterTextChanged(afterTextChanged: (String) -> Unit) {
 
         override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {}
     })
+
+
+
 }

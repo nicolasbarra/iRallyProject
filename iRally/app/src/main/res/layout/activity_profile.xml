@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/layout">
+
+
+        <ImageView
+            android:id="@+id/cover_photo"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:src="@drawable/cover"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:scaleType="centerCrop"></ImageView>
+
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+
+            android:clickable="true"
+            app:civ_border_width="3dp"
+            app:civ_border_color="#FFFFFFFF"
+
+            android:id="@+id/profile_picture"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_below="@+id/cover_photo"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="-130dp"
+            android:elevation="5dp"
+            android:padding="20dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/man" />
+
+        <RelativeLayout
+            android:id="@+id/profile_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/cover_photo"
+            android:background="@color/colorPrimary"
+            android:elevation="4dp"
+            android:paddingBottom="70dp">
+
+
+            <ImageView
+                android:id="@+id/edit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginRight="16dp"
+                android:clickable="true"
+
+                android:src="@android:drawable/ic_menu_edit" />
+
+            <TextView
+                android:id="@+id/profile_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="70dp"
+                android:text="Filler Name"
+                android:textColor="#fff"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/profile_description"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/profile_pronouns"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="10dp"
+                android:text="Interests here??"
+                android:textColor="#fff"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/profile_pronouns"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/profile_name"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="10dp"
+                android:text="(pronouns go here)"
+                android:textColor="#F9FDFF"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+        </RelativeLayout>
+        />
+
+    </RelativeLayout>
+</ScrollView>
