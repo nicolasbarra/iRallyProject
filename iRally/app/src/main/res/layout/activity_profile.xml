@@ -73,17 +73,6 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/profile_description"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/profile_pronouns"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="10dp"
-                android:text="Interests here??"
-                android:textColor="#fff"
-                android:textSize="16sp" />
-
-            <TextView
                 android:id="@+id/profile_pronouns"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -94,8 +83,26 @@
                 android:textColor="#F9FDFF"
                 android:textSize="18sp"
                 android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/profile_description"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/profile_pronouns"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="10dp"
+                android:text="Interests here??"
+                android:textColor="#fff"
+                android:textSize="16sp" />
+
+            <Button
+                android:id="@+id/create_event_from_profile"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="8dp"
+                android:text="Create an event"
+                />
         </RelativeLayout>
-        />
 
     </RelativeLayout>
 </ScrollView>

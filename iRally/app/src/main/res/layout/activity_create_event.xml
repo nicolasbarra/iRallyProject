@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:fitsSystemWindows="true">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="56dp"
+        android:paddingLeft="24dp"
+        android:paddingRight="24dp">
+
+
+        <TextView android:id="@+id/create_event_page_label"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp"
+            android:text="CREATE AN EVENT"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="24dp"/>
+
+    <!--  Name Label -->
+        <com.google.android.material.textfield.TextInputLayout
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp">
+            <EditText android:id="@+id/event_name"
+                android:layout_width="match_parent"
+                android:hint="Event title"
+                android:autofillHints="Event title"
+                android:inputType="text|textNoSuggestions"
+                android:layout_height="wrap_content"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp">
+            <EditText android:id="@+id/event_description"
+                android:layout_width="match_parent"
+                android:hint="Event description"
+                android:autofillHints="Event description"
+                android:inputType="text|textNoSuggestions"
+                android:layout_height="wrap_content"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp">
+            <EditText android:id="@+id/event_address"
+                android:layout_width="match_parent"
+                android:hint="Event address"
+                android:autofillHints="Event address"
+                android:inputType="text|textNoSuggestions"
+                android:layout_height="wrap_content"/>
+
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="56dp"
+        android:paddingLeft="24dp"
+        android:gravity="center"
+        android:paddingRight="24dp">
+        <Button
+            android:id="@+id/event_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Event date"
+            android:layout_marginRight="7dp"
+
+            android:paddingHorizontal="20dp"
+            android:onClick="showTimePickerDialog" />
+
+        <!-- Signup Button -->
+        <Button
+
+            android:id="@+id/event_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="showDatePickerDialog"
+            android:paddingHorizontal="20dp"
+            android:layout_marginLeft="7dp"
+            android:text="Event time" />
+    </LinearLayout>
+
+        <Button
+        android:id="@+id/submit_event"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:layout_marginBottom="24dp"
+        android:padding="12dp"
+        android:background="@color/colorPrimary"
+        android:text="Create Event"/>
+    </LinearLayout>
+</ScrollView>

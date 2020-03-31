@@ -8,6 +8,7 @@ import android.widget.Spinner
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import edu.upenn.cis350.irally.R
+import edu.upenn.cis350.irally.ui.event.CreateEventActivity
 import edu.upenn.cis350.irally.ui.login.LoginActivity
 import kotlinx.android.synthetic.main.activity_profile.*
 import kotlinx.android.synthetic.main.activity_register.*
@@ -25,6 +26,13 @@ class ProfileActivity : AppCompatActivity() {
         val profilePronouns = profile_pronouns
         val profileName = profile_name
 
+        val createEvent = create_event_from_profile
+        create_event_from_profile.setOnClickListener {
+            // Handler code here.
+            //CHANGE BACK TO LOGIN
+            val intent = Intent(LoginActivity.context, CreateEventActivity::class.java);
+            startActivity(intent);
+        }
 
 
 

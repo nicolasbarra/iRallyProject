@@ -9,6 +9,7 @@ import android.widget.Spinner
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import edu.upenn.cis350.irally.R
+import edu.upenn.cis350.irally.ui.event.CreateEventActivity
 import edu.upenn.cis350.irally.ui.login.LoginActivity
 import edu.upenn.cis350.irally.ui.profile.ProfileActivity
 import kotlinx.android.synthetic.main.activity_register.*
@@ -38,7 +39,8 @@ class RegisterActivity : AppCompatActivity() {
         val login = login
         login.setOnClickListener {
             // Handler code here.
-            val intent = Intent(LoginActivity.context, LoginActivity::class.java);
+            //CHANGE BACK TO LOGIN
+            val intent = Intent(LoginActivity.context, ProfileActivity::class.java);
             startActivity(intent);
         }
 
