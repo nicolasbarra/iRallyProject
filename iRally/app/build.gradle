@@ -28,7 +28,11 @@ android {
 dependencies {
     def lifecycle_version = "2.2.0"
     //hayley added
+    compile 'com.squareup.picasso:picasso:2.5.2'
+    //also hayley added
     implementation 'de.hdodenhof:circleimageview:2.1.0'
+    //hayley added
+    implementation 'com.android.volley:volley:1.1.1'
     //hayley added
     implementation 'com.google.android.libraries.places:places:1.0.0'
     implementation fileTree(dir: 'libs', include: ['*.jar'])

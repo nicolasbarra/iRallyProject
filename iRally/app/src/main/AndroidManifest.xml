@@ -50,7 +50,8 @@
             </intent-filter>
 
         </activity>
-        <activity android:name=".ui.event.EventPageActivity"
+
+        <activity android:name=".ui.profile.ProfilePicture"
             android:label="iRally">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

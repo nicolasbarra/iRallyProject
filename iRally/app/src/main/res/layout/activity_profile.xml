@@ -51,8 +51,8 @@
 
             <ImageView
                 android:id="@+id/edit"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="22dp"
+                android:layout_height="20dp"
                 android:layout_alignParentRight="true"
                 android:layout_marginLeft="16dp"
                 android:layout_marginTop="16dp"
@@ -105,4 +105,13 @@
         </RelativeLayout>
 
     </RelativeLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:id="@+id/event_button_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        ></LinearLayout>
+
+
 </ScrollView>
