@@ -13,6 +13,7 @@ import edu.upenn.cis350.irally.R
 import edu.upenn.cis350.irally.ui.login.LoginActivity
 import kotlinx.android.synthetic.main.activity_create_event.*
 import kotlinx.android.synthetic.main.activity_register.*
+import org.json.JSONObject
 
 
 class CreateEventActivity : AppCompatActivity() {
@@ -43,14 +44,23 @@ class CreateEventActivity : AppCompatActivity() {
             } else if (eventName.length < 4 || eventDescription.length < 4) {
                 return "Please make sure event name and description are at least 3 characters long"
             }
-            else return "shouldn't happen"
+            else return "okgo"
         }
         //Regis
         // ter back to login
         val submitEvent = submit_event
         submitEvent.setOnClickListener {
-            if (isDataValid() == "shouldn't happen") {
-                // doooo something, create the event
+            if (isDataValid() == "okgo") {
+
+                val eventName = eventNameTxt.text.toString().toLowerCase()
+                val eventDescription = eventDescriptionTxt.text.toString()
+                //make this a real address
+                val eventAddress = eventAddressTxt.text.toString()
+
+//                val eventJSON = JSONObject()
+//
+//                {"eventId": idk,"eventName":eventName,"creator":USER??,"description":eventDescription,
+//                    "address":eventAddress,"dateTime":??,"numberOfAttendees":0,"interestsOfAttendees":userinterests??}
             } else {
                 Toast.makeText(
                     applicationContext,
