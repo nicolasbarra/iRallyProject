@@ -9,5 +9,6 @@ data class LoggedInUser(
     val email: String,
     val gender: String,
     val genderPronouns: String,
-    val profilePictureLink: String?
+    val profilePictureLink: String?,
+    val interests: MutableSet<String>?
 )

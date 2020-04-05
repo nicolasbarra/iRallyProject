@@ -47,6 +47,7 @@ class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel()
                             } else {
                                 ""
                             }
+                            val interests: MutableSet<String>? =
                             if (!displayName.isNullOrEmpty() && !email.isNullOrEmpty()
                                 && !gender.isNullOrEmpty() && !genderPronouns.isNullOrEmpty()
                             ) {
@@ -93,7 +94,6 @@ class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel()
     private fun getUser(username: String) {
         try {
             Log.v("PROCESS", "in getUser")
-            val interests: MutableSet<String>? = null
 
             val requestBody = JSONObject()
             requestBody.put("username", username)

@@ -44,6 +44,7 @@ class ProfileActivity : AppCompatActivity() {
         profile_pronouns.text = LoginRepository.user?.genderPronouns
         val profileName = profile_name
         profileName.text = LoginRepository.user?.displayName
+        profile_description.text = "LoginRepository.user?"
         val editPicture = edit
 
 
