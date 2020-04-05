@@ -14,6 +14,7 @@ import edu.upenn.cis350.irally.ui.login.LoginActivity
 import kotlinx.android.synthetic.main.activity_create_event.*
 import kotlinx.android.synthetic.main.activity_register.*
 import org.json.JSONObject
+import java.util.*
 
 
 class CreateEventActivity : AppCompatActivity() {
@@ -33,13 +34,13 @@ class CreateEventActivity : AppCompatActivity() {
         fun isDataValid(): String {
 
             //read in the inputs
-            val eventName = eventNameTxt.text.toString().toLowerCase()
+            val eventName = eventNameTxt.text.toString().toLowerCase(Locale.ROOT)
             val eventDescription = eventDescriptionTxt.text.toString()
             //make this a real address
             val eventAddress = eventAddressTxt.text.toString()
 
-            return if (eventName.isNullOrEmpty() || eventDescription.isNullOrEmpty() ||
-                eventAddress.isNullOrEmpty()
+            return if (eventName.isEmpty() || eventDescription.isEmpty() ||
+                eventAddress.isEmpty()
             ) {
                 "One or more fields left blank"
             } else if (eventName.length < 4 || eventDescription.length < 4) {
@@ -52,7 +53,7 @@ class CreateEventActivity : AppCompatActivity() {
         submitEvent.setOnClickListener {
             if (isDataValid() == "okgo") {
 
-                val eventName = eventNameTxt.text.toString().toLowerCase()
+                val eventName = eventNameTxt.text.toString().toLowerCase(Locale.ROOT)
                 val eventDescription = eventDescriptionTxt.text.toString()
                 //make this a real address
                 val eventAddress = eventAddressTxt.text.toString()
