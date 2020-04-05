@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.android.volley.toolbox.NetworkImageView
 import com.squareup.picasso.Picasso
 import edu.upenn.cis350.irally.R
+import edu.upenn.cis350.irally.data.LoginRepository
 import edu.upenn.cis350.irally.ui.event.CreateEventActivity
 import edu.upenn.cis350.irally.ui.login.LoginActivity
 import kotlinx.android.synthetic.main.activity_profile.*
@@ -23,10 +24,14 @@ class ProfileActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profile)
 
+
+
         val profilePicture = profile_picture
         val editProfilePicture = edit
         val profilePronouns = profile_pronouns
+        profilePronouns.text = LoginRepository.user?.genderPronouns
         val profileName = profile_name
+        profileName.text = LoginRepository.user?.displayName
         val editPicture = edit
         val deleteProfile = delete_profile
 
