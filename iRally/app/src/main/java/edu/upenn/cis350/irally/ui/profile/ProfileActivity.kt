@@ -1,5 +1,6 @@
 package edu.upenn.cis350.irally.ui.profile
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Patterns
@@ -20,8 +21,6 @@ class ProfileActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-
         setContentView(R.layout.activity_profile)
 
         val profilePicture = profile_picture
@@ -29,7 +28,47 @@ class ProfileActivity : AppCompatActivity() {
         val profilePronouns = profile_pronouns
         val profileName = profile_name
         val editPicture = edit
-        val linearLayout = event_button_layout
+        val deleteProfile = delete_profile
+
+        deleteProfile.setOnClickListener{
+            val url = "http://10.0.2.2:9000/users/delete"
+            //todo: what is this json supposed to be?
+
+           // val jsonObjectRequest:
+            //TODO: uncomment this
+            //                    val jsonObjectRequest = JsonObjectRequest(url, newUserJSON,
+            //                        Response.Listener { response ->
+            //                            if (response.status === 'Success') {
+            //                                Toast.makeText(
+            //                                    applicationContext,
+            //                                    "Account deleted.",
+            //                                    Toast.LENGTH_LONG
+            //                                ).show()
+            //                            }
+            //                            else {
+            //                                Toast.makeText(
+            //                                    applicationContext,
+            //                                    "Something went wrong.",
+            //                                    Toast.LENGTH_LONG
+            //                                ).show()
+            //                            }
+            //                        },
+            //                        Response.ErrorListener { error ->
+            //                            Toast.makeText(
+            //                                applicationContext,
+            //                                ("Network connection error. Please try again." +
+            //                                        "Error: %s").format(error.toString()),
+            //                                Toast.LENGTH_LONG
+            //                            ).show()
+            //
+            //                        }
+            //                    )
+
+            // Access the RequestQueue through your singleton class.
+            //     MySingleton.getInstance(this).addToRequestQueue(jsonObjectRequest)
+            val intent = Intent(this, LoginActivity::class.java);
+            startActivity(intent);
+        }
 
 
         val createEvent = create_event_from_profile

@@ -27,8 +27,5 @@ class DatePickerFragment : DialogFragment(), DatePickerDialog.OnDateSetListener 
             val dateString = "$month / $day / $year"
             event_date.text = dateString
         }
-
     }
-
-
 }

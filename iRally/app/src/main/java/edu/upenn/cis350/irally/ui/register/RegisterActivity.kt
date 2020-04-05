@@ -43,8 +43,8 @@ class RegisterActivity : AppCompatActivity() {
         val login = login
         login.setOnClickListener {
             // Handler code here.
-            //CHANGE BACK TO LOGIN
-            val intent = Intent(LoginActivity.context, ProfileActivity::class.java);
+            //TODO: GET RID OF IT
+            val intent = Intent(this, ProfileActivity::class.java);
             startActivity(intent);
         }
 
@@ -80,6 +80,7 @@ class RegisterActivity : AppCompatActivity() {
             val name = name_txt.text.toString()
             val interests = interests_txt.text.toString()
             val pronouns = pronouns_txt.text.toString()
+            var gender: String? = spinner.selectedItem.toString()
 
             if (username.isNullOrEmpty() || password.isNullOrEmpty() ||
                 confirm_password.isNullOrEmpty() || interests.isNullOrEmpty()
@@ -98,7 +99,9 @@ class RegisterActivity : AppCompatActivity() {
             }
             if (!isEmailValid(email)) {
                 return "Please enter an email address."
-            } else return ""
+            } else return "{\"username\":" + username + ",\"password\":" + password+ ",\n" +
+                    "\"personalInfo\":{\"name\":" + name +",\"email\":" + email + ",\"gender\" +\n" +
+                    ":" + gender + ",\"genderPronouns\":" + pronouns + ",\"interests\":" + interests + "}}"
         }
 
 
@@ -109,57 +112,43 @@ class RegisterActivity : AppCompatActivity() {
         submit.setOnClickListener(object : View.OnClickListener {
             override fun onClick(view: View): Unit {
                 //ADD CASE WHERE USER ALREADY EXISTS
-                if (isDataValid() == "") {
+                if (isDataValid().contains("{")) {
 
-                    val username = username_txt.text.toString().toLowerCase()
-                    val password = password_txt.text.toString()
-                    val confirm_password = confirm_password_txt.text.toString()
-                    val email = email_txt.text.toString()
-                    val name = name_txt.text.toString()
-                    val interests = interests_txt.text.toString()
-                    val pronouns = pronouns_txt.text.toString()
-                    var gender: String? = spinner.selectedItem.toString()
+                    val newUserJSON = JSONObject(isDataValid())
 
-
-                    val newUserJSON = JSONObject(
-                        "{\"username\":username,\"password\":password,\n" +
-                                "\"personalInfo\":{\"name\":name,\"email\":email,\"gender\" +\n" +
-                                ":gender,\"genderPronouns\":pronouns,\"interests\":interests}}"
-                    )
-
-                    val url = "http://10.0.2.2:9000/users/"
-
-                    val jsonObjectRequest = JsonObjectRequest(url, newUserJSON,
-                        Response.Listener { response ->
-                            if (response.status === 'Success') {
-                                Toast.makeText(
-                                    applicationContext,
-                                    "Successfully registered. Return to login page to login.",
-                                    Toast.LENGTH_LONG
-                                ).show()
-                            }
-                            else {
-                                Toast.makeText(
-                                    applicationContext,
-                                    "Username already taken. Please choose new username.",
-                                    Toast.LENGTH_LONG
-                                ).show()
-                            }
-                        },
-                        Response.ErrorListener { error ->
-                            Toast.makeText(
-                                applicationContext,
-                                ("Network connection error. Please try again. " +
-                                        "Error: %s").format(error.toString()),
-                                Toast.LENGTH_LONG
-                            ).show()
-
-                        }
-                    )
+                    val url = "http://10.0.2.2:9000/users/create"
+//TODO: uncomment this
+//                    val jsonObjectRequest = JsonObjectRequest(url, newUserJSON,
+//                        Response.Listener { response ->
+//                            if (response.status === 'Success') {
+//                                Toast.makeText(
+//                                    applicationContext,
+//                                    "Successfully registered. Return to login page to login.",
+//                                    Toast.LENGTH_LONG
+//                                ).show()
+//                            }
+//                            else {
+//                                Toast.makeText(
+//                                    applicationContext,
+//                                    "Username already taken. Please choose new username.",
+//                                    Toast.LENGTH_LONG
+//                                ).show()
+//                            }
+//                        },
+//                        Response.ErrorListener { error ->
+//                            Toast.makeText(
+//                                applicationContext,
+//                                ("Network connection error. Please try again. " +
+//                                        "Error: %s").format(error.toString()),
+//                                Toast.LENGTH_LONG
+//                            ).show()
+//
+//                        }
+//                    )
 
 // Access the RequestQueue through your singleton class.
-                    //TODO: this is a loginActivity
-                    MySingleton.getInstance(LoginActivity.context).addToRequestQueue(jsonObjectRequest)
+                    //TODO: uncomment, change login??
+               //     MySingleton.getInstance(this).addToRequestQueue(jsonObjectRequest)
 
                     //DO SOMETHING WITH THE JSON
                 } else {

@@ -35,13 +35,11 @@ class LoginActivity : AppCompatActivity() {
 
         //set register button activity
         val register = findViewById<TextView>(R.id.register)
-        register.setOnClickListener(object: View.OnClickListener {
-            override fun onClick(view: View): Unit {
-                // Handler code here.
-                val intent = Intent(context, RegisterActivity::class.java);
-                startActivity(intent);
-            }
-        })
+        register.setOnClickListener {
+            // Handler code here.
+            val intent = Intent(context, RegisterActivity::class.java);
+            startActivity(intent);
+        }
 
         context = this
 

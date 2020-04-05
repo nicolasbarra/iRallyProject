@@ -86,8 +86,7 @@ class ProfilePicture : AppCompatActivity() {
             if (uri != null) {
                 imageView.setImageURI(uri)
                 createImageData(uri)
-                //HOPE THIS WORKKS
-
+                //HOPE THIS WORKS
             }
         }
         super.onActivityResult(requestCode, resultCode, data)

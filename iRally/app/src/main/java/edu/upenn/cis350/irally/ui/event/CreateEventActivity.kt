@@ -38,13 +38,13 @@ class CreateEventActivity : AppCompatActivity() {
             //make this a real address
             val eventAddress = eventAddressTxt.text.toString()
 
-            if (eventName.isNullOrEmpty() || eventDescription.isNullOrEmpty() ||
-                    eventAddress.isNullOrEmpty()) {
-                return "One or more fields left blank"
+            return if (eventName.isNullOrEmpty() || eventDescription.isNullOrEmpty() ||
+                eventAddress.isNullOrEmpty()
+            ) {
+                "One or more fields left blank"
             } else if (eventName.length < 4 || eventDescription.length < 4) {
-                return "Please make sure event name and description are at least 3 characters long"
-            }
-            else return "okgo"
+                "Please make sure event name and description are at least 3 characters long"
+            } else "okgo"
         }
         //Regis
         // ter back to login
@@ -56,6 +56,48 @@ class CreateEventActivity : AppCompatActivity() {
                 val eventDescription = eventDescriptionTxt.text.toString()
                 //make this a real address
                 val eventAddress = eventAddressTxt.text.toString()
+
+                //TODO: CREATE EVENT JSON
+                val newEventJSONObject = JSONObject(
+                    "{eventId:TODO,eventName:" + eventName +
+                            "create:USER???,description:" + eventDescription + ",address:" + eventAddress
+                            + "dateTime:DATETIME???,attendees????:???,numberOfAttendees:" + 0 + "interestsOfAttendees:" +
+                            "interestsOfAttendees????}")
+
+                val url = "http://10.0.2.2:9000/event/create"
+//TODO: uncomment this
+//                    val jsonObjectRequest = JsonObjectRequest(url, newEventJSON,
+//                        Response.Listener { response ->
+//                            if (response.status === 'Success') {
+//                                Toast.makeText(
+//                                    applicationContext,
+//                                    "Event created. Return to profile.",
+//                                    Toast.LENGTH_LONG
+//                                ).show()
+//                            }
+//                            else {
+//                                Toast.makeText(
+//                                    applicationContext,
+//                                    "Something went wrong. Please try again.",
+//                                    Toast.LENGTH_LONG
+//                                ).show()
+//                            }
+//                        },
+//                        Response.ErrorListener { error ->
+//                            Toast.makeText(
+//                                applicationContext,
+//                                ("Network connection error. Please try again. " +
+//                                        "Error: %s").format(error.toString()),
+//                                Toast.LENGTH_LONG
+//                            ).show()
+//
+//                        }
+//                    )
+
+// Access the RequestQueue through your singleton class.
+                //TODO: uncomment, change login??
+                //     MySingleton.getInstance(this).addToRequestQueue(jsonObjectRequest)
+
 
 //                val eventJSON = JSONObject()
 //
@@ -75,10 +117,13 @@ class CreateEventActivity : AppCompatActivity() {
 
     fun showTimePickerDialog(v: View) {
         TimePickerFragment().show(supportFragmentManager, "timePicker")
+
     }
 
     fun showDatePickerDialog(v: View) {
         val newFragment = DatePickerFragment()
         newFragment.show(supportFragmentManager, "datePicker")
+
     }
+
 }
