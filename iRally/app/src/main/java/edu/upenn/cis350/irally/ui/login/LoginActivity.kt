@@ -18,6 +18,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import edu.upenn.cis350.irally.R
 import edu.upenn.cis350.irally.data.model.LoggedInUser
+import edu.upenn.cis350.irally.ui.profile.ProfileActivity
 import edu.upenn.cis350.irally.ui.register.RegisterActivity
 import kotlinx.android.synthetic.main.activity_login.*
 
@@ -114,12 +115,13 @@ class LoginActivity : AppCompatActivity() {
     private fun updateUiWithUser(model: LoggedInUser) {
         val welcome = getString(R.string.welcome)
         val displayName = model.displayName
-        // TODO : initiate successful logged in experience
         Toast.makeText(
             applicationContext,
             "$welcome $displayName",
             Toast.LENGTH_LONG
         ).show()
+        val intent = Intent(this, ProfileActivity::class.java);
+        startActivity(intent);
     }
 
     private fun showLoginFailed(errorString: String) {
@@ -140,7 +142,4 @@ fun EditText.afterTextChanged(afterTextChanged: (String) -> Unit) {
 
         override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {}
     })
-
-
-
 }
