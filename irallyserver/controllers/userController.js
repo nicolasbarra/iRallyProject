@@ -45,7 +45,7 @@ exports.create_user = [
                             }
                         }
                     );
-                    user.save((err, user) => {
+                    user.save((err) => {
                         if (err) {
                             return res.json({
                                 status: 'Failure',
