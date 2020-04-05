@@ -15,6 +15,8 @@ router.post('/imageUploadAdmin', (req, res) => {
         Admin.findOneAndUpdate({'username' : username}, {profilePicURL: req.file.location});
         return res.json({'imageURL' : req.file.location});
     })
-}) 
+});
 
 module.exports = router;
+
+// TODO: move this file to index
