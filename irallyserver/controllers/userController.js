@@ -32,7 +32,7 @@ exports.create_user = [
                     });
                 } else {
                     // there is no user with that username, so we can safely save them to database
-                    const interestList = req.body.interests.split(',').map(x=>x.trim());;
+                    const interestList = req.body.interests.split(',').map(x => x.trim());
                     const user = new User(
                         {
                             username: req.body.username,
@@ -168,6 +168,40 @@ exports.profile_user = [
                 } else if (user) {
                     // user with that username exists
                     user.password = "";
+                    return res.json(user);
+                } else {
+                    // there is no user with that username
+                    return res.json({
+                        status: 'Failure',
+                        errors: 'No user with that username can be found.'
+                    });
+                }
+            });
+        }
+    }
+];
+
+exports.add_interest = [
+    check('username').isString().notEmpty().trim().isLength({min: 3}).escape(),
+    check('interest').isString().notEmpty().trim().isLength({min: 3}).escape(),
+    (req, res) => {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            return res.json({
+                status: 'Failure',
+                errors: errors.array(),
+            });
+        } else {
+            User.findOne({username: req.body.username}, (err, user) => {
+                if (err) {
+                    return res.json({
+                        status: 'Failure',
+                        errors: err,
+                    });
+                } else if (user) {
+                    // user with that username exists
+                    user.personalInfo.interests.push(req.body.interest);
+                    user.save();
                     return res.json(user);
                 } else {
                     // there is no user with that username
