@@ -24,42 +24,18 @@
         <activity
             android:name=".ui.register.RegisterActivity"
             android:label="iRally">
-            <intent-filter>
-             <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter>
-
         </activity>
-        <activity android:name=".ui.profile.ProfileActivity"
+        <activity
+            android:name=".ui.profile.ProfileActivity"
             android:label="iRally">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-
-
         </activity>
-        <activity android:name=".ui.event.CreateEventActivity"
+        <activity
+            android:name=".ui.event.CreateEventActivity"
             android:label="iRally">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-
         </activity>
-
-        <activity android:name=".ui.profile.ProfilePicture"
+        <activity
+            android:name=".ui.profile.ProfilePicture"
             android:label="iRally">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-
-
         </activity>
     </application>
 
