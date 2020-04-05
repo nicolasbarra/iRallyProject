@@ -126,7 +126,7 @@ exports.login_user = [
                     // there is no user with that username
                     return res.json({
                         status: 'Failure',
-                        errors: 'No user with given username found',
+                        errors: 'No user with that username can be found',
                         passwordStatus: null
                     });
                 }
@@ -159,7 +159,7 @@ exports.profile_user = [
                     // there is no user with that username
                     return res.json({
                         status: 'Failure',
-                        errors: 'No user with that username found',
+                        errors: 'No user with that username can be found.'
                     });
                 }
             });
