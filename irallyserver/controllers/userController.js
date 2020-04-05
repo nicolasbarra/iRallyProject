@@ -10,19 +10,26 @@ exports.create_user = [
     check('gender').notEmpty().escape(),
     check('genderPronouns').notEmpty().escape(),
     check('interests').isString().notEmpty().trim().isLength({min: 3}).escape(),
-    (req, res, next) => {
+    (req, res) => {
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
-            // TODO: this may be incorrect
-            return res.status(422).json({errors: errors.array()});
+            return res.json({
+                status: 'Failure',
+                errors: errors.array()
+            });
         } else {
-            // TODO: route content here
             User.findOne({username: req.body.username}, (err, user) => {
                 if (err) {
-                    return next(err);
+                    return res.json({
+                        status: 'Failure',
+                        errors: err
+                    });
                 } else if (user) {
                     // user with that username exists already
-                    res.send('Username is taken, please try another');
+                    return res.json({
+                        status: 'Failure',
+                        errors: 'Username is taken, please try another.'
+                    });
                 } else {
                     // there is no user with that username, so we can safely save them to database
                     const user = new User(
@@ -40,16 +47,15 @@ exports.create_user = [
                     );
                     user.save((err, user) => {
                         if (err) {
-                            // TODO: this may be incorrect
-                            res.type('html').status(200);
-                            res.write('uh oh: ' + err);
-                            console.log(err);
-                            res.end();
-                            return res;
-                            // return next(err);
+                            return res.json({
+                                status: 'Failure',
+                                errors: err
+                            })
                         } else {
-                            // TODO: this may be incorrect
-                            res.render('created', {user: user});
+                            return res.json({
+                                status: 'Success',
+                                errors: null
+                            });
                         }
                     });
                 }
@@ -85,26 +91,44 @@ exports.delete_user = [
 exports.login_user = [
     check('username').isString().notEmpty().trim().isLength({min: 3}).escape(),
     check('password').isString().notEmpty().trim().isLength({min: 3}).escape(),
-    (req, res, next) => {
+    (req, res) => {
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
-            // TODO: this may be incorrect
-            return res.status(422).json({errors: errors.array()});
+            return res.json({
+                status: 'Failure',
+                errors: errors.array(),
+                passwordStatus: null
+            });
         } else {
-            // TODO: route content here
             User.findOne({username: req.body.username}, (err, user) => {
                 if (err) {
-                    return next(err);
+                    return res.json({
+                        status: 'Failure',
+                        errors: err,
+                        passwordStatus: null
+                    });
                 } else if (user) {
                     // user with that username exists
                     if (user.password === req.body.password) {
-                        res.send('Success! Password is correct.')
+                        return res.json({
+                            status: 'Success',
+                            errors: null,
+                            passwordStatus: 'Correct'
+                        });
                     } else {
-                        res.send('Incorrect password.');
+                        return res.json({
+                            status: 'Success',
+                            errors: null,
+                            passwordStatus: 'Incorrect'
+                        });
                     }
                 } else {
                     // there is no user with that username
-                    res.send('Username does not match any account')
+                    return res.json({
+                        status: 'Failure',
+                        errors: 'No user with given username found',
+                        passwordStatus: null
+                    });
                 }
             });
         }
