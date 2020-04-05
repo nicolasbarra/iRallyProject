@@ -12,11 +12,9 @@ const cors = require("cors");
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const adminsRouter = require('./routes/admins');
-const fileRouter = require('./routes/imageUpload')
+const fileRouter = require('./routes/imageUpload');
 
 const app = express();
-
-// view engine setup
 
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
