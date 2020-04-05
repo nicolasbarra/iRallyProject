@@ -97,7 +97,7 @@ class CreateEventActivity : AppCompatActivity() {
 
 // Access the RequestQueue through your singleton class.
                 //TODO: uncomment, change login??
-                //     RequestQueueSingleton.getInstance(this).addToRequestQueue(jsonObjectRequest)
+                //     edu.upenn.cis350.irally.data.RequestQueueSingleton.getInstance(this).addToRequestQueue(jsonObjectRequest)
 
 
 //                val eventJSON = JSONObject()

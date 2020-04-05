@@ -11,6 +11,7 @@ import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import com.android.volley.Request
 import com.android.volley.Response
+import edu.upenn.cis350.irally.data.RequestQueueSingleton
 import java.io.IOException
 
 class ProfilePicture : AppCompatActivity() {
