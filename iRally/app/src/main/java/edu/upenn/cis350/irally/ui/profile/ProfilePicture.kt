@@ -61,7 +61,7 @@ class ProfilePicture : AppCompatActivity() {
             }
         ) {
             override fun getByteData(): MutableMap<String, FileDataPart> {
-                var params = HashMap<String, FileDataPart>()
+                val params = HashMap<String, FileDataPart>()
                 params["imageFile"] = FileDataPart("image", imageData!!, "jpeg")
                 return params
             }
