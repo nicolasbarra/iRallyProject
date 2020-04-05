@@ -2,18 +2,21 @@ package edu.upenn.cis350.irally.ui.register
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.util.Patterns
-import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.Spinner
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.android.volley.Response
+import com.android.volley.toolbox.JsonObjectRequest
 import edu.upenn.cis350.irally.R
+import edu.upenn.cis350.irally.data.RequestQueueSingleton
+import edu.upenn.cis350.irally.ui.login.LoginActivity
 import edu.upenn.cis350.irally.ui.profile.ProfileActivity
 import kotlinx.android.synthetic.main.activity_register.*
 import org.json.JSONObject
 import java.util.*
-
 
 class RegisterActivity : AppCompatActivity() {
 
@@ -29,12 +32,9 @@ class RegisterActivity : AppCompatActivity() {
             R.array.gender_array, android.R.layout.simple_spinner_item
         )
         //Specify the layout to use when the list of choices appears
-        //Specify the layout to use when the list of choices appears
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         // Apply the adapter to the spinner
-        // Apply the adapter to the spinner
         spinner.adapter = adapter
-
 
         //BACK TO LOGIN PAGE
         val login = login
@@ -45,8 +45,7 @@ class RegisterActivity : AppCompatActivity() {
             startActivity(intent);
         }
 
-
-        //getting the stuff from xml
+        // getting the stuff from xml
         val usernameTxt = username
         val passwordTxt = password
         val confirmPasswordTxt = confirm_password
@@ -54,7 +53,6 @@ class RegisterActivity : AppCompatActivity() {
         val nameTxt = name
         val interestsTxt = interests
         val pronounsTxt = pronouns
-
 
         //functions to check validity of inputs
         //check length
@@ -68,7 +66,6 @@ class RegisterActivity : AppCompatActivity() {
         }
 
         fun isDataValid(): String {
-
             //read in the inputs
             val username = usernameTxt.text.toString().toLowerCase(Locale.ROOT)
             val password = passwordTxt.text.toString()
@@ -92,45 +89,73 @@ class RegisterActivity : AppCompatActivity() {
                 return "Please create a password that is at least 5 characters long."
             }
             if (confirmPassword != password) {
-                return "Please make sure your password is typed correctly."
+                return "Please make sure your password is typed correctly and your passwords match."
             }
-            if (!isEmailValid(email)) {
-                return "Please enter an email address."
-            } else return "{\"username\":" + username + ",\"password\":" + password+ ",\n" +
-                    "\"personalInfo\":{\"name\":" + name +",\"email\":" + email + ",\"gender\" +\n" +
-                    ":" + gender + ",\"genderPronouns\":" + pronouns + ",\"interests\":" + interests + "}}"
+            return if (!isEmailValid(email)) {
+                "Please enter an email address."
+            } else "success"
         }
 
-
-
-        //Regis
-        // ter back to login
+        //Register back to login
         val submit = register
         submit.setOnClickListener {
-            //ADD CASE WHERE USER ALREADY EXISTS
-            if (isDataValid().contains("{")) {
+            val validDataMessage = isDataValid()
+            if (validDataMessage == "success") {
 
-                val newUserJSON = JSONObject(isDataValid())
+                val username = usernameTxt.text.toString().toLowerCase(Locale.ROOT)
+                val password = passwordTxt.text.toString()
+                val confirmPassword = confirmPasswordTxt.text.toString()
+                val email = emailTxt.text.toString()
+                val name = nameTxt.text.toString()
+                val interests = interestsTxt.text.toString()
+                val pronouns = pronounsTxt.text.toString()
+                val gender: String? = spinner.selectedItem.toString()
 
-                val url = "http://10.0.2.2:9000/users/create"
-                //TODO: uncomment this
-                //                    val jsonObjectRequest = JsonObjectRequest(url, newUserJSON,
-                //                        Response.Listener { response ->
-                //                            if (response.status === 'Success') {
-                //                                Toast.makeText(
-                //                                    applicationContext,
-                //                                    "Successfully registered. Return to login page to login.",
-                //                                    Toast.LENGTH_LONG
-                //                                ).show()
-                //                            }
-                //                            else {
-                //                                Toast.makeText(
-                //                                    applicationContext,
-                //                                    "Username already taken. Please choose new username.",
-                //                                    Toast.LENGTH_LONG
-                //                                ).show()
-                //                            }
-                //                        },
+                val registerRequestBody = JSONObject()
+                registerRequestBody.put("username", username)
+                registerRequestBody.put("password", password)
+                registerRequestBody.put("name", name).put("email", email)
+                registerRequestBody.put("gender", gender)
+                registerRequestBody.put("genderPronouns", pronouns)
+                registerRequestBody.put("interests", interests)
+
+                val registerJsonObjectRequest = JsonObjectRequest(
+                    "http://10.0.2.2:9000/users/create",
+                    registerRequestBody,
+                    Response.Listener { response ->
+                        Log.v("PROCESS", "got a response (register")
+                        Log.v("RESPONSE", response.toString())
+                        if (response.getString("status") == "Success") {
+                            Log.v("Response Success", "User created")
+                            Toast.makeText(
+                                applicationContext,
+                                "New user successfully registered.",
+                                Toast.LENGTH_LONG
+                            ).show()
+                        } else {
+                            Log.v("Response Success", "User not created due to error")
+                            Log.v("ERROR", response.getString("errors"))
+                            Toast.makeText(
+                                applicationContext,
+                                "Unable to register user: ${response.getString("errors")}",
+                                Toast.LENGTH_LONG
+                            ).show()
+                        }
+                    },
+                    Response.ErrorListener { error ->
+                        Log.e("Response Error", "Error occurred", error)
+                        Toast.makeText(
+                            applicationContext,
+                            "Unable to register user: ${error.message}",
+                            Toast.LENGTH_LONG
+                        ).show()
+                    }
+                )
+
+                RequestQueueSingleton.getInstance(LoginActivity.context)
+                    .addToRequestQueue(registerJsonObjectRequest)
+
+                //
                 //                        Response.ErrorListener { error ->
                 //                            Toast.makeText(
                 //                                applicationContext,
@@ -142,15 +167,10 @@ class RegisterActivity : AppCompatActivity() {
                 //                        }
                 //                    )
 
-                // Access the RequestQueue through your singleton class.
-                //TODO: uncomment, change login??
-                //     edu.upenn.cis350.irally.data.RequestQueueSingleton.getInstance(this).addToRequestQueue(jsonObjectRequest)
-
-                //DO SOMETHING WITH THE JSON
             } else {
                 Toast.makeText(
                     applicationContext,
-                    isDataValid(),
+                    validDataMessage,
                     Toast.LENGTH_LONG
                 ).show()
             }
