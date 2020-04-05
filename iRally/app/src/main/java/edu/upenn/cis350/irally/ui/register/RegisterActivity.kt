@@ -36,15 +36,6 @@ class RegisterActivity : AppCompatActivity() {
         // Apply the adapter to the spinner
         spinner.adapter = adapter
 
-        //BACK TO LOGIN PAGE
-        val login = login
-        login.setOnClickListener {
-            // Handler code here.
-            //TODO: GET RID OF IT
-            val intent = Intent(this, ProfileActivity::class.java);
-            startActivity(intent);
-        }
-
         // getting the stuff from xml
         val usernameTxt = username
         val passwordTxt = password
