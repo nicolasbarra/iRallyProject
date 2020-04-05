@@ -46,7 +46,7 @@ class Register extends Component {
     };
 
     render() {
-        if (this.props.isAuthenticated) {
+        if (this.props.isAuthenticated || this.props.username) {
             return <Redirect to='/'/>
         }
         return (
