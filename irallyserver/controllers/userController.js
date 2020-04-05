@@ -32,7 +32,7 @@ exports.create_user = [
                     });
                 } else {
                     // there is no user with that username, so we can safely save them to database
-                    const interestList = req.body.interests.split(',');
+                    const interestList = req.body.interests.split(',').map(x=>x.trim());;
                     const user = new User(
                         {
                             username: req.body.username,
