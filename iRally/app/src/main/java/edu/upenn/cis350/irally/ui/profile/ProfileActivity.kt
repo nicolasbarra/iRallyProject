@@ -24,6 +24,9 @@ class ProfileActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profile)
 
+        val logout = logout
+        val addInterestText = add_interest_type
+        val sendInterest = add_interest_send
 
 
         val profilePicture = profile_picture
@@ -34,6 +37,7 @@ class ProfileActivity : AppCompatActivity() {
         profileName.text = LoginRepository.user?.displayName
         val editPicture = edit
         val deleteProfile = delete_profile
+
 
         deleteProfile.setOnClickListener{
             val url = "http://10.0.2.2:9000/users/delete"
