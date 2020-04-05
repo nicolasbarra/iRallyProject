@@ -67,8 +67,8 @@ class LoginDataSource {
             RequestQueueSingleton.getInstance(LoginActivity.context)
                 .addToRequestQueue(loginJsonObjectRequest)
 
+            Log.v("PROCESS", "result is $result")
             if (result) {
-                Log.v("PROCESS", "results is $result")
                 var displayName: String? = null
                 var email: String? = null
                 var gender: String? = null
