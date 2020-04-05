@@ -51,7 +51,7 @@ class EventPageActivity: AppCompatActivity() {
 
             // Access the RequestQueue through your singleton class.
             //TODO: uncomment, change login??
-            //     MySingleton.getInstance(this).addToRequestQueue(jsonObjectRequest)
+            //     RequestQueueSingleton.getInstance(this).addToRequestQueue(jsonObjectRequest)
         }
     }
 }

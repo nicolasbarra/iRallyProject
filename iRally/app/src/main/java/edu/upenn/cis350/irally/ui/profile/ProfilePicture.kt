@@ -11,8 +11,6 @@ import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import com.android.volley.Request
 import com.android.volley.Response
-import com.android.volley.toolbox.Volley
-import kotlinx.android.synthetic.main.activity_profile.*
 import java.io.IOException
 
 class ProfilePicture : AppCompatActivity() {
@@ -69,7 +67,7 @@ class ProfilePicture : AppCompatActivity() {
             }
         }
         //I CHANGED THIS
-        MySingleton.getInstance(this).addToRequestQueue(request)
+        RequestQueueSingleton.getInstance(this).addToRequestQueue(request)
     }
 
     @Throws(IOException::class)

@@ -65,7 +65,7 @@ class ProfileActivity : AppCompatActivity() {
             //                    )
 
             // Access the RequestQueue through your singleton class.
-            //     MySingleton.getInstance(this).addToRequestQueue(jsonObjectRequest)
+            //     RequestQueueSingleton.getInstance(this).addToRequestQueue(jsonObjectRequest)
             val intent = Intent(this, LoginActivity::class.java);
             startActivity(intent);
         }
