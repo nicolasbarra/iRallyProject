@@ -110,10 +110,12 @@ exports.login_user = [
                 } else if (user) {
                     // user with that username exists
                     if (user.password === req.body.password) {
+                        user.password = "";
                         return res.json({
                             status: 'Success',
                             errors: null,
-                            passwordStatus: 'Correct'
+                            passwordStatus: 'Correct',
+                            user: user
                         });
                     } else {
                         return res.json({
