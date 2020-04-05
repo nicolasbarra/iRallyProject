@@ -50,7 +50,7 @@ exports.create_user = [
                             return res.json({
                                 status: 'Failure',
                                 errors: err
-                            })
+                            });
                         } else {
                             return res.json({
                                 status: 'Success',
@@ -66,22 +66,33 @@ exports.create_user = [
 
 exports.delete_user = [
     check('username').isString().notEmpty().trim().isLength({min: 3}).escape(),
-    (req, res, next) => {
+    (req, res) => {
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
-            // TODO: this may be incorrect
-            return res.status(422).json({errors: errors.array()});
+            return res.json({
+                status: 'Failure',
+                errors: errors.array()
+            });
         } else {
-            // TODO: route content here
             User.findOneAndDelete({username: req.body.username}, (err, user) => {
                 if (err) {
-                    return next(err);
+                    return res.json({
+                        status: 'Failure',
+                        errors: err
+                    });
                 } else if (user) {
-                    // user with that username exists already
-                    res.send(user + "successfully deleted");
+                    // user with that username exists
+                    return res.json({
+                        status: 'Success',
+                        errors: null,
+                        username: user.personalInfo.name
+                    });
                 } else {
                     // there is no user with that username
-                    res.send("Unable to delete: there is no user with that username")
+                    return res.json({
+                        status: 'Failure',
+                        errors: "Unable to delete: there is no user with that username"
+                    });
                 }
             });
         }
