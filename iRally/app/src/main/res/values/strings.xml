@@ -17,4 +17,6 @@
     <string name="event_time">Event time</string>
     <string name="event_date">Event date</string>
     <string name="create_event">Create Event</string>
+    <string name="delete_my_profile">Delete my profile</string>
+    <string name="interests_here">Interests here??</string>
 </resources>

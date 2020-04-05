@@ -53,7 +53,7 @@
                 android:id="@+id/edit"
                 android:layout_width="22dp"
                 android:layout_height="20dp"
-                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
                 android:layout_marginLeft="16dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginRight="16dp"
@@ -91,7 +91,7 @@
                 android:layout_below="@+id/profile_pronouns"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="10dp"
-                android:text="Interests here??"
+                android:text="@string/interests_here"
                 android:textColor="#fff"
                 android:textSize="16sp" />
 
@@ -104,8 +104,8 @@
                     android:id="@+id/delete_profile"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Delete my profile"
-                    android:textSize="8dp"
+                    android:text="@string/delete_my_profile"
+                    android:textSize="8sp"
                     />
 
                 <Button
@@ -113,7 +113,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Create an event"
-                    android:textSize="8dp" />
+                    android:textSize="8sp" />
 
                 <Button
                     android:id="@+id/logout"
