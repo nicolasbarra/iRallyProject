@@ -6,7 +6,6 @@ import com.android.volley.toolbox.HttpHeaderParser
 import java.io.*
 import kotlin.math.min
 
-
 open class VolleyFileUploadRequest(
     method: Int,
     url: String,
