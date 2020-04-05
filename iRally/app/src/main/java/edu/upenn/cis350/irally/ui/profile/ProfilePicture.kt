@@ -22,7 +22,7 @@ class ProfilePicture : AppCompatActivity() {
     private var imageData: ByteArray? = null
 
     // TODO: what goes here???
-    private val postURL: String = "http://10.0.2.2:9000/users" // remember to use your own api
+    private val postURL: String = "http://10.0.2.2:9000/users"
 
     companion object {
         private const val IMAGE_PICK_CODE = 999
