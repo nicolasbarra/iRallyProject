@@ -9,6 +9,7 @@ import com.android.volley.toolbox.ImageLoader
 import com.android.volley.toolbox.Volley
 
 class RequestQueueSingleton constructor(context: Context) {
+
     companion object {
         @Volatile
         private var INSTANCE: RequestQueueSingleton? = null
@@ -25,6 +26,7 @@ class RequestQueueSingleton constructor(context: Context) {
         ImageLoader(requestQueue,
             object : ImageLoader.ImageCache {
                 private val cache = LruCache<String, Bitmap>(20)
+
                 override fun getBitmap(url: String): Bitmap {
                     return cache.get(url)
                 }
@@ -34,6 +36,7 @@ class RequestQueueSingleton constructor(context: Context) {
                 }
             })
     }
+
     val requestQueue: RequestQueue by lazy {
         // applicationContext is key, it keeps you from leaking the
         // Activity or BroadcastReceiver if someone passes one in.
