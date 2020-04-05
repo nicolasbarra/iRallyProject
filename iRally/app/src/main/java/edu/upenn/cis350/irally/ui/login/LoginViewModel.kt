@@ -11,6 +11,7 @@ import edu.upenn.cis350.irally.data.LoginRepository
 import edu.upenn.cis350.irally.R
 import edu.upenn.cis350.irally.data.RequestQueueSingleton
 import edu.upenn.cis350.irally.data.model.LoggedInUser
+import org.json.JSONArray
 import org.json.JSONObject
 
 class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel() {
@@ -47,7 +48,14 @@ class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel()
                             } else {
                                 ""
                             }
-                            val interests: MutableSet<String>? =
+                            val interestsJSONArray: JSONArray =
+                                personalInfo.getJSONArray("interests")
+                            Log.v("interests", interestsJSONArray.toString())
+                            val interests = mutableSetOf<String>()
+                            for (i in 0 until interestsJSONArray.length()) {
+                                interests.add(interestsJSONArray.get(i).toString())
+                            }
+                            Log.v("interests arry final", interests.toString())
                             if (!displayName.isNullOrEmpty() && !email.isNullOrEmpty()
                                 && !gender.isNullOrEmpty() && !genderPronouns.isNullOrEmpty()
                             ) {
@@ -57,7 +65,8 @@ class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel()
                                     email,
                                     gender,
                                     genderPronouns,
-                                    profilePictureLink
+                                    profilePictureLink,
+                                    interests
                                 )
                                 _loginResult.value =
                                     LoginResult(success = user)
@@ -91,59 +100,60 @@ class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel()
 
     // TODO: don't do this here, do this once the user has logged in using viewmodel
     // https://developer.android.com/topic/libraries/architecture/viewmodel
-    private fun getUser(username: String) {
-        try {
-            Log.v("PROCESS", "in getUser")
-
-            val requestBody = JSONObject()
-            requestBody.put("username", username)
-
-            val jsonObjectRequest = JsonObjectRequest(
-                "http://10.0.2.2:9000/users/",
-                requestBody,
-                Response.Listener { response ->
-                    if (response.has("status")) {
-                        // error occured
-                        _loginResult.value = LoginResult(error = "Unable to retrieve profile.")
-                    } else {
-                        val personalInfo = response.getJSONObject("personalInfo")
-                        val displayName = personalInfo.getString("name")
-                        val email = personalInfo.getString("email")
-                        val gender = personalInfo.getString("gender")
-                        val genderPronouns = personalInfo.getString("genderPronouns")
-                        val profilePictureLink = personalInfo.getString("profilePictureLink")
-                        if (!displayName.isNullOrEmpty() && !email.isNullOrEmpty()
-                            && !gender.isNullOrEmpty() && !genderPronouns.isNullOrEmpty()
-                        ) {
-                            val user = LoggedInUser(
-                                username,
-                                displayName,
-                                email,
-                                gender,
-                                genderPronouns,
-                                profilePictureLink
-                            )
-                            _loginResult.value =
-                                LoginResult(success = user)
-                            LoginRepository.setLoggedInUser(user)
-                        } else {
-                            _loginResult.value = LoginResult(error = "Profile information missing")
-                        }
-                    }
-                },
-                Response.ErrorListener { error ->
-                    Log.e("Response Error", "Error occurred", error)
-                    _loginResult.value = LoginResult(error = "Unable to retrieve profile.")
-                }
-            )
-
-            // Add the request to the RequestQueue.
-            RequestQueueSingleton.getInstance(LoginActivity.context)
-                .addToRequestQueue(jsonObjectRequest)
-        } catch (e: Throwable) {
-            _loginResult.value = LoginResult(error = "Error logging in: ${e.message}")
-        }
-    }
+//    private fun getUser(username: String) {
+//        try {
+//            Log.v("PROCESS", "in getUser")
+//
+//            val requestBody = JSONObject()
+//            requestBody.put("username", username)
+//
+//            val jsonObjectRequest = JsonObjectRequest(
+//                "http://10.0.2.2:9000/users/",
+//                requestBody,
+//                Response.Listener { response ->
+//                    if (response.has("status")) {
+//                        // error occured
+//                        _loginResult.value = LoginResult(error = "Unable to retrieve profile.")
+//                    } else {
+//                        val personalInfo = response.getJSONObject("personalInfo")
+//                        val displayName = personalInfo.getString("name")
+//                        val email = personalInfo.getString("email")
+//                        val gender = personalInfo.getString("gender")
+//                        val genderPronouns = personalInfo.getString("genderPronouns")
+//                        val profilePictureLink = personalInfo.getString("profilePictureLink")
+//                        if (!displayName.isNullOrEmpty() && !email.isNullOrEmpty()
+//                            && !gender.isNullOrEmpty() && !genderPronouns.isNullOrEmpty()
+//                        ) {
+//                            val user = LoggedInUser(
+//                                username,
+//                                displayName,
+//                                email,
+//                                gender,
+//                                genderPronouns,
+//                                profilePictureLink
+//
+//                            )
+//                            _loginResult.value =
+//                                LoginResult(success = user)
+//                            LoginRepository.setLoggedInUser(user)
+//                        } else {
+//                            _loginResult.value = LoginResult(error = "Profile information missing")
+//                        }
+//                    }
+//                },
+//                Response.ErrorListener { error ->
+//                    Log.e("Response Error", "Error occurred", error)
+//                    _loginResult.value = LoginResult(error = "Unable to retrieve profile.")
+//                }
+//            )
+//
+//            // Add the request to the RequestQueue.
+//            RequestQueueSingleton.getInstance(LoginActivity.context)
+//                .addToRequestQueue(jsonObjectRequest)
+//        } catch (e: Throwable) {
+//            _loginResult.value = LoginResult(error = "Error logging in: ${e.message}")
+//        }
+//    }
 
     fun loginDataChanged(username: String, password: String) {
         if (!isUserNameValid(username)) {
