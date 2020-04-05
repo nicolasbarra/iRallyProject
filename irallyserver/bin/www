@@ -27,7 +27,6 @@ const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function () {
     debug("MongoDB database connection established successfully");
-    // TODO: check to see if the below needs to be removed or heavily edited for real use
 });
 
 /**
