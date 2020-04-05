@@ -1,13 +1,12 @@
-const {check, validationResult} = require('express-validator');
+const { check, validationResult } = require('express-validator');
 const bcrypt = require('bcrypt');
 
 const Admin = require('../models/admin');
 
 exports.create_admin = [
     (req, res) => {
-        const varData = req.body.formData;
         // make sure admin is not in database already
-        Admin.findOne({'username': varData.username}, (err, admin) => {
+        Admin.findOne({'username' : req.body.username}, (err, admin) => {
             if (err) {
                 debug('Unable to read item. Error JSON:', JSON.stringify(err, null, 2));
             } else {
@@ -16,36 +15,35 @@ exports.create_admin = [
                     res.send({success: false});
                 } else {
                     //store hashed password
-                    bcrypt.genSalt(12, (err, salt) => {
+                    bcrypt.genSalt(12, (err, salt) =>  {
                         if (err) {
                             debug(err)
                         } else {
-                            bcrypt.hash(varData.password, salt, (err, hash) => {
+                            bcrypt.hash(req.body.password, salt, (err, hash) => {
                                 if (err) {
                                     debug(err);
                                     res.send({success: false});
                                 } else {
-                                    debug('Form data: ', varData);
                                     const admin = new Admin(
                                         {
-                                            username: varData.username,
+                                            username: req.body.username,
                                             password: hash,
                                             adminInfo: {
-                                                adminName: varData.firstName + " " + varData.lastName,
-                                                description: varData.description,
-                                                politicalAffiliation: varData.politicalAffiliation,
-                                                goals: varData.goals,
-                                                interests: varData.interests,
+                                                adminName: req.body.firstName + " " + req.body.lastName,
+                                                description: req.body.description,
+                                                politicalAffiliation: req.body.politicalAffiliation,
+                                                goals: req.body.goals,
+                                                interests: req.body.interests,
                                             }
                                         }
                                     );
 
-                                    admin.save((err, admin) => {
+                                    admin.save( (err, admin) =>  {
                                         if (err) {
                                             debug('Unable to add item. Error JSON:', JSON.stringify(err, null, 2));
                                         } else {
-                                            console.log('Added item:', JSON.stringify(admin, null, 2));
-                                            req.session.user = varData.username;
+                                            debug('Added item:', JSON.stringify(admin, null, 2));
+                                            req.session.user = req.body.username;
                                             res.send({success: true, username: req.session.user});
                                         }
                                     });
@@ -61,27 +59,32 @@ exports.create_admin = [
 
 exports.login_admin = [
     (req, res) => {
-        const formData = req.body.formData;
-        debug(formData);
+        //const formData = req.body.formData;
         //ensure neither username nor password field was left blank
-        if (!formData.username || !formData.password) {
+        if (!req.body.username || !req.body.password) {
             res.json({err: true});
         }
-        Admin.findOne({'username': formData.username}, (err, admin) => {
+        debug("LOGIN SUCCEEDED", req.body.username);
+        Admin.findOne({'username' : req.body.username}, (err, admin) => {
             if (err) {
                 debug('Unable to read item. Error JSON:', JSON.stringify(err, null, 2));
             } else {
                 if (admin) {
                     debug("admin", admin);
                     //compare hashed password to stored password which was hashed in the same way
-                    bcrypt.compare(formData.password, admin.password, (err, match) => {
+                    bcrypt.compare(req.body.password, admin.password, (err, match) => {
                         if (err) {
                             debug(err);
                             res.json({err: err});
                         } else {
                             if (match) {
-                                req.session.user = formData.username;
-                                res.send({success: true, username: req.session.user});
+                                req.session.user = req.body.username;                              
+                                debug("REQ.SESSION SUCCESS", req.session.user);
+                                debug("REQ.SESSION SUCCESS2", req.session);
+                                req.session.save(() => {
+                                    debug("what the fck");
+                                    res.send({success: true, username: req.session.user});
+                                });                              
                             } else {
                                 res.json({success: false});
                             }
@@ -103,7 +106,7 @@ exports.validate_login_admin = [
 
 exports.logout_admin = [
     (req, res) => {
-        req.session.destroy((err) => {
+        req.session.destroy( (err) => {
             debug('this is session that will be destroyed', req.session);
             if (err) {
                 debug(err);
@@ -113,5 +116,14 @@ exports.logout_admin = [
                 res.send({success: true});
             }
         });
+      }
+];
+
+exports.profile_admin = [
+  (req, res) => {
+      debug("this is req.session.user", req.session);
+      Admin.findOne({'username' : req.session.user}, (err, admin) => {
+          res.send({admin: admin});
+      });
     }
 ];
