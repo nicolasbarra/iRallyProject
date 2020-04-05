@@ -32,7 +32,7 @@ exports.create_user = [
                     });
                 } else {
                     // there is no user with that username, so we can safely save them to database
-                    // TODO: parse the interests input to be a string array
+                    var interestList = req.body.interests.split(",");
                     const user = new User(
                         {
                             username: req.body.username,
@@ -42,7 +42,7 @@ exports.create_user = [
                                 email: req.body.email,
                                 gender: req.body.gender,
                                 genderPronouns: req.body.genderPronouns,
-                                interests: ['default temporary interest'],
+                                interests: interestList,
                             }
                         }
                     );
