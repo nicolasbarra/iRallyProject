@@ -32,6 +32,7 @@ exports.create_user = [
                     });
                 } else {
                     // there is no user with that username, so we can safely save them to database
+                    // TODO: parse the interests input to be a string array
                     const user = new User(
                         {
                             username: req.body.username,
