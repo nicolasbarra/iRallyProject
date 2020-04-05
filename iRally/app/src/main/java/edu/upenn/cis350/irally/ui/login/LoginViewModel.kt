@@ -36,7 +36,35 @@ class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel()
                         if (response.getString("passwordStatus") == "Correct") {
                             // password is correct
                             Log.v("Response Success", "Password correct")
-                            getUser(username)
+                            val userJson = response.getJSONObject("user")
+                            val personalInfo = userJson.getJSONObject("personalInfo")
+                            val displayName = personalInfo.getString("name")
+                            val email = personalInfo.getString("email")
+                            val gender = personalInfo.getString("gender")
+                            val genderPronouns = personalInfo.getString("genderPronouns")
+                            val profilePictureLink = if (personalInfo.has("profilePictureLink")) {
+                                personalInfo.getString("profilePictureLink")
+                            } else {
+                                ""
+                            }
+                            if (!displayName.isNullOrEmpty() && !email.isNullOrEmpty()
+                                && !gender.isNullOrEmpty() && !genderPronouns.isNullOrEmpty()
+                            ) {
+                                val user = LoggedInUser(
+                                    username,
+                                    displayName,
+                                    email,
+                                    gender,
+                                    genderPronouns,
+                                    profilePictureLink
+                                )
+                                _loginResult.value =
+                                    LoginResult(success = user)
+                                LoginRepository.setLoggedInUser(user)
+                            } else {
+                                _loginResult.value =
+                                    LoginResult(error = "Profile information missing")
+                            }
                         } else {
                             // password is incorrect
                             Log.v("Response Success", "Password incorrect")
