@@ -21,7 +21,7 @@ class ProfilePicture : AppCompatActivity() {
     private lateinit var sendButton: Button
     private var imageData: ByteArray? = null
 
-    //what goes here???
+    // TODO: what goes here???
     private val postURL: String = "http://10.0.2.2:9000/users" // remember to use your own api
 
     companion object {
