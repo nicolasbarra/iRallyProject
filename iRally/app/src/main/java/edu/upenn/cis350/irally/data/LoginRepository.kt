@@ -25,7 +25,6 @@ class LoginRepository() {
 
         fun logout() {
             user = null
-            // TODO: revoke authentication
         }
 
         fun setLoggedInUser(loggedInUser: LoggedInUser) {
