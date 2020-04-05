@@ -81,11 +81,6 @@ const adminSchema = new Schema(
                 type: mongoose.Schema.Types.ObjectID,
                 ref: 'comment'
             }
-        ],
-        profilePicURL: [
-            {
-                type: String,
-            }
         ]
     },
     {
