@@ -19,4 +19,5 @@
     <string name="create_event">Create Event</string>
     <string name="delete_my_profile">Delete my profile</string>
     <string name="interests_here">Interests here??</string>
+    <string name="interests_separated_by_commas_ex_womens_rights_gun_reform">Interests (separated by commas; ex. Womens\' rights, Gun reform)</string>
 </resources>
