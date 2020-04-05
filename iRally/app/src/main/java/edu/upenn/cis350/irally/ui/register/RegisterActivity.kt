@@ -8,14 +8,11 @@ import android.widget.ArrayAdapter
 import android.widget.Spinner
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.android.volley.Request
-import com.android.volley.Response
-import com.android.volley.toolbox.JsonObjectRequest
 import edu.upenn.cis350.irally.R
-import edu.upenn.cis350.irally.ui.login.LoginActivity
 import edu.upenn.cis350.irally.ui.profile.ProfileActivity
 import kotlinx.android.synthetic.main.activity_register.*
 import org.json.JSONObject
+import java.util.*
 
 
 class RegisterActivity : AppCompatActivity() {
@@ -50,13 +47,13 @@ class RegisterActivity : AppCompatActivity() {
 
 
         //getting the stuff from xml
-        val username_txt = username
-        val password_txt = password
-        val confirm_password_txt = confirm_password
-        val email_txt = email
-        val name_txt = name
-        val interests_txt = interests
-        val pronouns_txt = pronouns
+        val usernameTxt = username
+        val passwordTxt = password
+        val confirmPasswordTxt = confirm_password
+        val emailTxt = email
+        val nameTxt = name
+        val interestsTxt = interests
+        val pronounsTxt = pronouns
 
 
         //functions to check validity of inputs
@@ -66,25 +63,25 @@ class RegisterActivity : AppCompatActivity() {
         }
 
         fun isEmailValid(email: String): Boolean {
-            return !email.isNullOrEmpty() && email.length > 2 &&
+            return email.isNotEmpty() && email.length > 2 &&
                     Patterns.EMAIL_ADDRESS.matcher(email).matches()
         }
 
         fun isDataValid(): String {
 
             //read in the inputs
-            val username = username_txt.text.toString().toLowerCase()
-            val password = password_txt.text.toString()
-            val confirm_password = confirm_password_txt.text.toString()
-            val email = email_txt.text.toString()
-            val name = name_txt.text.toString()
-            val interests = interests_txt.text.toString()
-            val pronouns = pronouns_txt.text.toString()
-            var gender: String? = spinner.selectedItem.toString()
+            val username = usernameTxt.text.toString().toLowerCase(Locale.ROOT)
+            val password = passwordTxt.text.toString()
+            val confirmPassword = confirmPasswordTxt.text.toString()
+            val email = emailTxt.text.toString()
+            val name = nameTxt.text.toString()
+            val interests = interestsTxt.text.toString()
+            val pronouns = pronounsTxt.text.toString()
+            val gender: String? = spinner.selectedItem.toString()
 
-            if (username.isNullOrEmpty() || password.isNullOrEmpty() ||
-                confirm_password.isNullOrEmpty() || interests.isNullOrEmpty()
-                || email.isNullOrEmpty() || name.isNullOrEmpty() || pronouns.isNullOrEmpty()
+            if (username.isEmpty() || password.isEmpty() ||
+                confirmPassword.isEmpty() || interests.isEmpty()
+                || email.isEmpty() || name.isEmpty() || pronouns.isEmpty()
             ) {
                 return "One or more fields left blank."
             }
@@ -94,7 +91,7 @@ class RegisterActivity : AppCompatActivity() {
             if (!isValidLength(password, 5)) {
                 return "Please create a password that is at least 5 characters long."
             }
-            if (confirm_password != password) {
+            if (confirmPassword != password) {
                 return "Please make sure your password is typed correctly."
             }
             if (!isEmailValid(email)) {
@@ -109,56 +106,54 @@ class RegisterActivity : AppCompatActivity() {
         //Regis
         // ter back to login
         val submit = register
-        submit.setOnClickListener(object : View.OnClickListener {
-            override fun onClick(view: View): Unit {
-                //ADD CASE WHERE USER ALREADY EXISTS
-                if (isDataValid().contains("{")) {
+        submit.setOnClickListener {
+            //ADD CASE WHERE USER ALREADY EXISTS
+            if (isDataValid().contains("{")) {
 
-                    val newUserJSON = JSONObject(isDataValid())
+                val newUserJSON = JSONObject(isDataValid())
 
-                    val url = "http://10.0.2.2:9000/users/create"
-//TODO: uncomment this
-//                    val jsonObjectRequest = JsonObjectRequest(url, newUserJSON,
-//                        Response.Listener { response ->
-//                            if (response.status === 'Success') {
-//                                Toast.makeText(
-//                                    applicationContext,
-//                                    "Successfully registered. Return to login page to login.",
-//                                    Toast.LENGTH_LONG
-//                                ).show()
-//                            }
-//                            else {
-//                                Toast.makeText(
-//                                    applicationContext,
-//                                    "Username already taken. Please choose new username.",
-//                                    Toast.LENGTH_LONG
-//                                ).show()
-//                            }
-//                        },
-//                        Response.ErrorListener { error ->
-//                            Toast.makeText(
-//                                applicationContext,
-//                                ("Network connection error. Please try again. " +
-//                                        "Error: %s").format(error.toString()),
-//                                Toast.LENGTH_LONG
-//                            ).show()
-//
-//                        }
-//                    )
+                val url = "http://10.0.2.2:9000/users/create"
+                //TODO: uncomment this
+                //                    val jsonObjectRequest = JsonObjectRequest(url, newUserJSON,
+                //                        Response.Listener { response ->
+                //                            if (response.status === 'Success') {
+                //                                Toast.makeText(
+                //                                    applicationContext,
+                //                                    "Successfully registered. Return to login page to login.",
+                //                                    Toast.LENGTH_LONG
+                //                                ).show()
+                //                            }
+                //                            else {
+                //                                Toast.makeText(
+                //                                    applicationContext,
+                //                                    "Username already taken. Please choose new username.",
+                //                                    Toast.LENGTH_LONG
+                //                                ).show()
+                //                            }
+                //                        },
+                //                        Response.ErrorListener { error ->
+                //                            Toast.makeText(
+                //                                applicationContext,
+                //                                ("Network connection error. Please try again. " +
+                //                                        "Error: %s").format(error.toString()),
+                //                                Toast.LENGTH_LONG
+                //                            ).show()
+                //
+                //                        }
+                //                    )
 
-// Access the RequestQueue through your singleton class.
-                    //TODO: uncomment, change login??
-               //     MySingleton.getInstance(this).addToRequestQueue(jsonObjectRequest)
+                // Access the RequestQueue through your singleton class.
+                //TODO: uncomment, change login??
+                //     MySingleton.getInstance(this).addToRequestQueue(jsonObjectRequest)
 
-                    //DO SOMETHING WITH THE JSON
-                } else {
-                    Toast.makeText(
-                        applicationContext,
-                        isDataValid(),
-                        Toast.LENGTH_LONG
-                    ).show()
-                }
+                //DO SOMETHING WITH THE JSON
+            } else {
+                Toast.makeText(
+                    applicationContext,
+                    isDataValid(),
+                    Toast.LENGTH_LONG
+                ).show()
             }
-        })
+        }
     }
 }
