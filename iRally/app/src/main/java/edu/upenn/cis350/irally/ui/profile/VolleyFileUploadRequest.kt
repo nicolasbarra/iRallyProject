@@ -1,4 +1,3 @@
-
 package edu.upenn.cis350.irally.ui.profile
 
 import com.android.volley.*
@@ -10,8 +9,10 @@ open class VolleyFileUploadRequest(
     method: Int,
     url: String,
     listener: Response.Listener<NetworkResponse>,
-    errorListener: Response.ErrorListener) : Request<NetworkResponse>(method, url, errorListener) {
+    errorListener: Response.ErrorListener
+) : Request<NetworkResponse>(method, url, errorListener) {
     private var responseListener: Response.Listener<NetworkResponse>? = null
+
     init {
         this.responseListener = listener
     }
@@ -23,7 +24,7 @@ open class VolleyFileUploadRequest(
 
 
     override fun getHeaders(): MutableMap<String, String> =
-        when(headers) {
+        when (headers) {
             null -> super.getHeaders()
             else -> headers!!.toMutableMap()
         }
@@ -74,7 +75,11 @@ open class VolleyFileUploadRequest(
     }
 
     @Throws(IOException::class)
-    private fun processParams(dataOutputStream: DataOutputStream, params: Map<String, String>, encoding: String) {
+    private fun processParams(
+        dataOutputStream: DataOutputStream,
+        params: Map<String, String>,
+        encoding: String
+    ) {
         try {
             params.forEach {
                 dataOutputStream.writeBytes(divider + boundary + ending)
@@ -83,7 +88,10 @@ open class VolleyFileUploadRequest(
                 dataOutputStream.writeBytes(it.value + ending)
             }
         } catch (e: UnsupportedEncodingException) {
-            throw RuntimeException("Unsupported encoding not supported: $encoding with error: ${e.message}", e)
+            throw RuntimeException(
+                "Unsupported encoding not supported: $encoding with error: ${e.message}",
+                e
+            )
         }
     }
 
