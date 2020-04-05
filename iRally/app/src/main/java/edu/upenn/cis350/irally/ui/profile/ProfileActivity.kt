@@ -76,16 +76,16 @@ class ProfileActivity : AppCompatActivity() {
         }
 
 
-        val createEvent = create_event_from_profile
-        create_event_from_profile.setOnClickListener {
+        val createEvent = create_event
+        create_event.setOnClickListener {
             // Handler code here.
             //CHANGE BACK TO LOGIN
-            val intent = Intent(LoginActivity.context, CreateEventActivity::class.java);
+            val intent = Intent(this, CreateEventActivity::class.java);
             startActivity(intent);
         }
 
         edit.setOnClickListener {
-            val intent = Intent(LoginActivity.context, ProfilePicture::class.java)
+            val intent = Intent(this, ProfilePicture::class.java)
             startActivity(intent);
 
         }

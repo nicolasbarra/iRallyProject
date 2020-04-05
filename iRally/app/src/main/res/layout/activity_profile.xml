@@ -95,20 +95,29 @@
                 android:textColor="#fff"
                 android:textSize="16sp" />
 
-            <Button
-                android:id="@+id/create_event_from_profile"
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="8dp"
-                android:text="Create an event"
-                />
-            <Button
-                android:id="@+id/delete_profile"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="8dp"
-                android:text="Delete my profile"
-                />
+                android:orientation="vertical" >
+
+                <Button
+                    android:id="@+id/delete_profile"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Delete my profile"
+                    android:textSize="8dp"
+                    />
+
+                <Button
+                    android:id="@+id/create_event"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Create an event"
+                    android:textSize="8dp" />
+            </LinearLayout>
+
+
+
         </RelativeLayout>
 
     </RelativeLayout>
