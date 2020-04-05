@@ -1,14 +1,16 @@
 const {check, validationResult} = require('express-validator');
+const session = require ("express-session");
 const bcrypt = require('bcrypt');
 
 const Admin = require('../models/admin');
 
+var currSession = null;
 exports.create_admin = [
     (req, res) => {
         // make sure admin is not in database already
         Admin.findOne({'username': req.body.username}, (err, admin) => {
             if (err) {
-                debug('Unable to read item. Error JSON:', JSON.stringify(err, null, 2));
+                console.log('Unable to read item. Error JSON:', JSON.stringify(err, null, 2));
             } else {
                 if (admin) {
                     // admin already exists
@@ -17,11 +19,11 @@ exports.create_admin = [
                     //store hashed password
                     bcrypt.genSalt(12, (err, salt) => {
                         if (err) {
-                            debug(err)
+                            console.log(err)
                         } else {
                             bcrypt.hash(req.body.password, salt, (err, hash) => {
                                 if (err) {
-                                    debug(err);
+                                    console.log(err);
                                     res.send({success: false});
                                 } else {
                                     const admin = new Admin(
@@ -40,10 +42,10 @@ exports.create_admin = [
 
                                     admin.save((err, admin) => {
                                         if (err) {
-                                            debug('Unable to add item. Error JSON:', JSON.stringify(err, null, 2));
+                                            console.log('Unable to add item. Error JSON:', JSON.stringify(err, null, 2));
                                         } else {
-                                            debug('Added item:', JSON.stringify(admin, null, 2));
-                                            req.session.user = req.body.username;
+                                            req.session.user = req.body.username;      
+                                            currSession = req.body.username;                                      
                                             res.send({success: true, username: req.session.user});
                                         }
                                     });
@@ -63,27 +65,24 @@ exports.login_admin = [
         if (!req.body.username || !req.body.password) {
             res.json({err: true});
         }
-        debug("LOGIN SUCCEEDED", req.body.username);
         Admin.findOne({'username': req.body.username}, (err, admin) => {
             if (err) {
-                debug('Unable to read item. Error JSON:', JSON.stringify(err, null, 2));
+                console.log('Unable to read item. Error JSON:', JSON.stringify(err, null, 2));
             } else {
                 if (admin) {
-                    debug("admin", admin);
                     //compare hashed password to stored password which was hashed in the same way
                     bcrypt.compare(req.body.password, admin.password, (err, match) => {
                         if (err) {
-                            debug(err);
+                            console.log(err);
                             res.json({err: err});
                         } else {
                             if (match) {
-                                req.session.user = req.body.username;
-                                debug("REQ.SESSION SUCCESS", req.session.user);
-                                debug("REQ.SESSION SUCCESS2", req.session);
+                                req.session.user = req.body.username;   
+                                currSession = req.body.username;                         
+                                console.log("LOGIN session", req.session);
                                 req.session.save(() => {
-                                    debug("what the fck");
-                                    res.send({success: true, username: req.session.user});
-                                });
+                                    res.send({success: true, username: req.session.user});       
+                                });              
                             } else {
                                 res.json({success: false});
                             }
@@ -99,19 +98,21 @@ exports.login_admin = [
 
 exports.validate_login_admin = [
     (req, res) => {
-        res.send({user: req.session.user, test: 'test'});
+        console.log("this is VALIDATE req.session.user: " , currSession);
+        res.send({user: currSession, test: 'test'});
     }
 ];
 
 exports.logout_admin = [
     (req, res) => {
         req.session.destroy((err) => {
-            debug('this is session that will be destroyed', req.session);
+            console.log('this is session that will be destroyed', req.session);
             if (err) {
-                debug(err);
+                console.log(err);               
                 res.send({success: false});
             } else {
-                debug('session destroyed');
+                console.log('session destroyed');
+                currSession = null;
                 res.send({success: true});
             }
         });
@@ -120,8 +121,8 @@ exports.logout_admin = [
 
 exports.profile_admin = [
     (req, res) => {
-        debug("this is req.session.user", req.session);
-        Admin.findOne({'username': req.session.user}, (err, admin) => {
+        console.log("this is PROFILE req.session.user", req.session);
+        Admin.findOne({'username': currSession}, (err, admin) => {
             res.send({admin: admin});
         });
     }

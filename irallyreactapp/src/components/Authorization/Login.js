@@ -30,6 +30,7 @@ class Login extends Component {
                 alert("please fill fields!")
             } else if (res.data.success) {
                 this.props.changeState(true, res.data.username);
+                console.log("this is the new state", this.props.username);
             } else {
                 alert("username or password is incorrect");
                 this.props.changeState(false, null);
@@ -39,7 +40,9 @@ class Login extends Component {
   };
 
   render() {  
-     if (this.props.isAuthenticated) {
+      console.log("USERNAME: ", this.props.username);
+     if (this.props.isAuthenticated || this.props.username) {
+        console.log("Should be taken");
         return <Redirect to='/' />
      }   
       return(
