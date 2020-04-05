@@ -4,9 +4,7 @@ const router = express.Router();
 const admin_controller = require('../controllers/adminController');
 
 /* GET admins listing. */
-router.get('/', (req, res, next) => {
-    res.send('respond with a resource');
-});
+router.get('/', admin_controller.profile_admin);
 
 router.post('/create', admin_controller.create_admin);
 
