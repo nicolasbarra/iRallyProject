@@ -17,6 +17,7 @@ import androidx.lifecycle.ViewModelProvider
 
 import edu.upenn.cis350.irally.R
 import edu.upenn.cis350.irally.ui.profile.ProfileActivity
+import kotlinx.android.synthetic.main.activity_login.*
 
 class LoginActivity : AppCompatActivity() {
 
@@ -31,16 +32,6 @@ class LoginActivity : AppCompatActivity() {
 
         setContentView(R.layout.activity_login)
 
-
-
-        //set register button activity
-        val register = findViewById<TextView>(R.id.register)
-        register.setOnClickListener {
-            // Handler code here.
-            val intent = Intent(context, RegisterActivity::class.java);
-            startActivity(intent);
-        }
-
         context = this
 
         val username = findViewById<EditText>(R.id.username)
@@ -48,6 +39,10 @@ class LoginActivity : AppCompatActivity() {
         val login = findViewById<Button>(R.id.login)
         val loading = findViewById<ProgressBar>(R.id.loading)
 
+        register.setOnClickListener {
+            val intent = Intent(context, RegisterActivity::class.java);
+            startActivity(intent);
+        }
 
         loginViewModel = ViewModelProvider(this, LoginViewModelFactory())
             .get(LoginViewModel::class.java)
