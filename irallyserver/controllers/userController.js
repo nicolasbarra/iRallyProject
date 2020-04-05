@@ -126,7 +126,7 @@ exports.login_user = [
                     // there is no user with that username
                     return res.json({
                         status: 'Failure',
-                        errors: 'No user with that username can be found',
+                        errors: 'No user with that username can be found.',
                         passwordStatus: null
                     });
                 }
