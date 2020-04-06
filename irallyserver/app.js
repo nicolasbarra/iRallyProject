@@ -37,7 +37,7 @@ app.use(cors());
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/admins', adminsRouter);
-app.use('/admins', eventsRouter);
+app.use('/events', eventsRouter);
 app.use('/files', fileRouter);
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
