@@ -18,6 +18,7 @@ class LoginRepository() {
         fun logout() {
             user = null
             ProfileActivity.hasUploaded = false
+            EventRepository.eventsCreatedByUser.clear()
         }
 
         fun setLoggedInUser(loggedInUser: LoggedInUser) {
