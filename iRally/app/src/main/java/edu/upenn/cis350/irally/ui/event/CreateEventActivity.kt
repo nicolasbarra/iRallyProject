@@ -23,7 +23,6 @@ class CreateEventActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
 
-
         setContentView(R.layout.activity_create_event)
         val eventNameTxt = event_name
         val eventDescriptionTxt = event_description
@@ -124,7 +123,7 @@ class CreateEventActivity : AppCompatActivity() {
     fun showDatePickerDialog(v: View) {
         val newFragment = DatePickerFragment()
         newFragment.show(supportFragmentManager, "datePicker")
-
+       // event_date.text = newFragment
     }
 
 }

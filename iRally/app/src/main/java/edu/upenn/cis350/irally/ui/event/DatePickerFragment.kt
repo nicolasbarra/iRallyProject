@@ -10,6 +10,9 @@ import kotlinx.android.synthetic.main.activity_create_event.*
 
 class DatePickerFragment : DialogFragment(), DatePickerDialog.OnDateSetListener {
 
+    var dateString = ""
+        get() = field
+
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         // Use the current date as the default date in the picker
         val c = Calendar.getInstance()
@@ -17,15 +20,15 @@ class DatePickerFragment : DialogFragment(), DatePickerDialog.OnDateSetListener 
         val month = c.get(Calendar.MONTH)
         val day = c.get(Calendar.DAY_OF_MONTH)
 
-
         // Create a new instance of DatePickerDialog and return it
         return DatePickerDialog(context!!, this, year, month, day)
     }
 
     override fun onDateSet(view: DatePicker, year: Int, month: Int, day: Int) {
-        if (event_date != null) {
-            val dateString = "$month / $day / $year"
-            event_date.text = dateString
-        }
+        dateString = "$dateString$month $day $year"
+    }
+
+    fun getDate() : String {
+        return dateString
     }
 }

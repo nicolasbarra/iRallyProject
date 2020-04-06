@@ -11,10 +11,6 @@ import androidx.fragment.app.DialogFragment
 
 class TimePickerFragment : DialogFragment(), TimePickerDialog.OnTimeSetListener {
 
-    companion object {
-        lateinit var time: String
-    }
-
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         // Use the current time as the default values for the picker
         val c = Calendar.getInstance()
@@ -26,6 +22,5 @@ class TimePickerFragment : DialogFragment(), TimePickerDialog.OnTimeSetListener 
     }
 
     override fun onTimeSet(view: TimePicker, hourOfDay: Int, minute: Int) {
-        time = "$hourOfDay:$minute"
     }
 }
