@@ -121,14 +121,14 @@ class ProfileActivity : AppCompatActivity() {
                 Log.v("it is not null", "not null")
                 for (i in 0 until EventRepository.eventsCreatedByUser.size) {
                     if (i == 0) {
-                        val eventText = EventRepository.eventsCreatedByUser.elementAt(0)
+                        val eventText = EventRepository.eventsCreatedByUser.elementAt(i)
                         event_created1.text = eventText
                         event_created1.setOnClickListener {
                             loadEventInfo(it, eventText)
                         }
                     } else {
                         val myButton = Button(this)
-                        val eventText = EventRepository.eventsCreatedByUser.elementAt(0)
+                        val eventText = EventRepository.eventsCreatedByUser.elementAt(i)
                         myButton.text = eventText
                         myButton.setOnClickListener {
                             loadEventInfo(it, eventText)
