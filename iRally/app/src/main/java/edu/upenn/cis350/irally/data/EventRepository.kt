@@ -8,6 +8,7 @@ class EventRepository {
     companion object {
         // in-memory cache of the loggedInUser object
         var events: MutableSet<Event> = mutableSetOf()
-        var eventsCreatedByUser: MutableSet<Event> = mutableSetOf()
+        // TODO: make this type event later
+        var eventsCreatedByUser: MutableSet<String> = mutableSetOf()
     }
 }
