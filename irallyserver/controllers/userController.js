@@ -202,7 +202,11 @@ exports.add_interest = [
                     // user with that username exists
                     user.personalInfo.interests.push(req.body.interest);
                     user.save();
-                    return res.json(user);
+                    return res.json({
+                        status: 'Success',
+                        errors: null,
+                        newInterests: user.personalInfo.interests
+                    });
                 } else {
                     // there is no user with that username
                     return res.json({
