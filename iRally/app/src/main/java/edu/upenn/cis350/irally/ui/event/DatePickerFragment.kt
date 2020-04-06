@@ -23,6 +23,8 @@ class DatePickerFragment : DialogFragment(), DatePickerDialog.OnDateSetListener 
     }
 
     override fun onDateSet(view: DatePicker, year: Int, month: Int, day: Int) {
-
+        CreateEventActivity.day = day
+        CreateEventActivity.month = month
+        CreateEventActivity.year = year
     }
 }

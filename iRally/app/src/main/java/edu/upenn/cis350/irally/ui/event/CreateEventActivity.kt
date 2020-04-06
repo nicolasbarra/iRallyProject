@@ -23,6 +23,9 @@ class CreateEventActivity : AppCompatActivity() {
     companion object {
         var hourOfDay: Int? = null
         var minute: Int? = null
+        var year: Int? = null
+        var day: Int? = null
+        var month: Int? = null
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -59,6 +62,10 @@ class CreateEventActivity : AppCompatActivity() {
             if (isDataValid() == "okgo") {
                 Log.v("inCREATeT TIME hour", hourOfDay.toString())
                 Log.v("increateTIME minute", minute.toString())
+                Log.v("increateTIME day", day.toString())
+                Log.v("increateTIME year", year.toString())
+                Log.v("increateTIME month", month.toString())
+
 
 
                 val eventName = eventNameTxt.text.toString().toLowerCase(Locale.ROOT)
