@@ -1,6 +1,5 @@
 package edu.upenn.cis350.irally.ui.register
 
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.util.Patterns
@@ -13,7 +12,6 @@ import com.android.volley.toolbox.JsonObjectRequest
 import edu.upenn.cis350.irally.R
 import edu.upenn.cis350.irally.data.RequestQueueSingleton
 import edu.upenn.cis350.irally.ui.login.LoginActivity
-import edu.upenn.cis350.irally.ui.profile.ProfileActivity
 import kotlinx.android.synthetic.main.activity_register.*
 import org.json.JSONObject
 import java.util.*

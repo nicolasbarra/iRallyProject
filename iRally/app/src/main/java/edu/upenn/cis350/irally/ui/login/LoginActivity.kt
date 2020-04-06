@@ -12,13 +12,11 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.ProgressBar
 import android.widget.Toast
-import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import edu.upenn.cis350.irally.R
 import edu.upenn.cis350.irally.data.model.LoggedInUser
-import edu.upenn.cis350.irally.ui.profile.ProfileActivity
 import edu.upenn.cis350.irally.ui.register.RegisterActivity
 import kotlinx.android.synthetic.main.activity_login.*
 
