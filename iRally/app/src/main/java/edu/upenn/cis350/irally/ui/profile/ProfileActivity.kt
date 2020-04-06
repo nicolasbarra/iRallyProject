@@ -95,6 +95,65 @@ class ProfileActivity : AppCompatActivity() {
             //                            ).show()
         }
 
+        remove_interest.setOnClickListener {
+            val interestRequestBody = JSONObject()
+            val interestToRemove = add_interest_type.text
+            interestRequestBody.put("username", LoginRepository.user?.userId)
+            interestRequestBody.put("interest", interestToRemove)
+
+            val removeJsonObjectRequest = JsonObjectRequest(
+                "http://10.0.2.2:9000/users/removeInterest",
+                interestRequestBody,
+                Response.Listener { response ->
+                    Log.v("PROCESS", "got a response (register")
+                    Log.v("RESPONSE", response.toString())
+                    if (response.getString("status") == "Failure") {
+                        val errors = response.getString("errors")
+                        Log.v("Response Success", "Interest not removed due to error")
+                        Log.v("ERROR", errors)
+                        Toast.makeText(
+                            applicationContext,
+                            "Unable to remove interest: $errors",
+                            Toast.LENGTH_LONG
+                        ).show()
+                    } else {
+                        val newInterestsJSONArray = response.getJSONArray("newInterests")
+                        Log.v("Response Success", "Interest removed: $newInterestsJSONArray")
+                        Toast.makeText(
+                            applicationContext,
+                            "New interest, $interestToRemove, successfully removed.",
+                            Toast.LENGTH_LONG
+                        ).show()
+                        val newInterests = mutableSetOf<String>()
+                        for (i in 0 until newInterestsJSONArray.length()) {
+                            newInterests.add(newInterestsJSONArray.get(i).toString())
+                        }
+                        profile_description.text =
+                            newInterests.toString().filter { e -> e != '[' && e != ']' }
+                    }
+                },
+                Response.ErrorListener { error ->
+                    Log.e("Response Error", "Error occurred", error)
+                    Toast.makeText(
+                        applicationContext,
+                        "Unable to remove interest: ${error.message}",
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
+            )
+
+            RequestQueueSingleton.getInstance(LoginActivity.context)
+                .addToRequestQueue(removeJsonObjectRequest)
+
+            //                        Response.ErrorListener { error ->
+            //                            Toast.makeText(
+            //                                applicationContext,
+            //                                ("Network connection error. Please try again." +
+            //                                        "Error: %s").format(error.toString()),
+            //                                Toast.LENGTH_LONG
+            //                            ).show()
+        }
+
 
         val profilePicture = profile_picture
         val editProfilePicture = edit
