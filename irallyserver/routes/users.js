@@ -14,6 +14,6 @@ router.post('/login', user_controller.login_user);
 
 router.post('/addInterest', user_controller.add_interest);
 
-// router.post('/removeInterest', user_controller.remove_interest);
+router.post('/removeInterest', user_controller.remove_interest);
 
 module.exports = router;

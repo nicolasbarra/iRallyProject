@@ -218,3 +218,41 @@ exports.add_interest = [
         }
     }
 ];
+
+exports.remove_interest = [
+    check('username').isString().notEmpty().trim().isLength({min: 3}).escape(),
+    check('interest').isString().notEmpty().trim().isLength({min: 3}).escape(),
+    (req, res) => {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            return res.json({
+                status: 'Failure',
+                errors: errors.array(),
+            });
+        } else {
+            User.findOne({username: req.body.username}, (err, user) => {
+                if (err) {
+                    return res.json({
+                        status: 'Failure',
+                        errors: err,
+                    });
+                } else if (user) {
+                    // user with that username exists
+                    user.personalInfo.interests.filter(x => x != req.body.interest);
+                    user.save();
+                    return res.json({
+                        status: 'Success',
+                        errors: null,
+                        newInterests: user.personalInfo.interests
+                    });
+                } else {
+                    // there is no user with that username
+                    return res.json({
+                        status: 'Failure',
+                        errors: 'No user with that username can be found.'
+                    });
+                }
+            });
+        }
+    }
+];
