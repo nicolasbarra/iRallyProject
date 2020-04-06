@@ -9,7 +9,7 @@ data class LoggedInUser(
     val email: String,
     val gender: String,
     val genderPronouns: String,
-    val profilePictureLink: String?,
+    var profilePictureLink: String?,
     val interests: MutableSet<String>?,
     val eventsAttended: MutableSet<Event>?,
     val eventsToAttend: MutableSet<Event>?,
