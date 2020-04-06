@@ -8,5 +8,5 @@ data class Event(
     val dateTime: String,
     val attendees: String?,
     val numberOfAttendees: Int,
-    val interestsOfAttendees: String
+    val interestsOfAttendees: MutableSet<String>
 )
