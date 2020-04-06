@@ -39,24 +39,31 @@ exports.create_event = [
                             address: req.body.address,
                             dateTime: req.body.dateTime,
                             numberOfAttendees: 0,
-                            interestsOfAttendees: req.body.interestsOfAttendees,
+                            interestsOfAttendees: user.personalInfo.interests,
                         }
                     );
                     event.save((err, event) => {
                         if (err) {
                             return res.json({
                                 status: 'Failure',
-                                errors: err
+                                errors: 'An event with that name already exists. Please try another.'
                             });
                         } else {
                             if (user.numEventsCreated === 0) {
                                 user.eventsCreated = [event._id];
+                                user.eventsCreatedStrings = [event.eventId + ' on ' + event.dateTime];
                                 user.numEventsCreated = user.numEventsCreated + 1;
                             } else {
                                 user.numEventsCreated = user.numEventsCreated + 1;
-                                user.eventsCreated.push(event._id);
+                                user.eventsCreatedRefs.push(event._id);
+                                user.eventsCreatedStrings.push(event.eventId + ' on ' + event.dateTime);
                             }
                             user.save();
+                            return res.json({
+                                status: 'Success',
+                                errors: null,
+                                event: event
+                            });
                         }
                     });
                 } else {

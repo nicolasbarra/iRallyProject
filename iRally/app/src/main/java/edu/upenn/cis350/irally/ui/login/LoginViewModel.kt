@@ -9,6 +9,7 @@ import com.android.volley.toolbox.JsonObjectRequest
 import edu.upenn.cis350.irally.data.LoginRepository
 
 import edu.upenn.cis350.irally.R
+import edu.upenn.cis350.irally.data.EventRepository
 import edu.upenn.cis350.irally.data.RequestQueueSingleton
 import edu.upenn.cis350.irally.data.model.LoggedInUser
 import org.json.JSONArray
@@ -69,11 +70,17 @@ class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel()
                                     interests,
                                     null,
                                     null,
-                                    null,
-                                    0,
+                                    userJson.getInt("numEventsCreated"),
                                     null,
                                     null
                                 )
+                                val eventsJSONArray: JSONArray =
+                                    userJson.getJSONArray("eventsCreatedStrings")
+                                for (i in 0 until eventsJSONArray.length()) {
+                                    EventRepository.eventsCreatedByUser.add(
+                                        eventsJSONArray.get(i).toString()
+                                    )
+                                }
                                 _loginResult.value =
                                     LoginResult(success = user)
                                 LoginRepository.setLoggedInUser(user)

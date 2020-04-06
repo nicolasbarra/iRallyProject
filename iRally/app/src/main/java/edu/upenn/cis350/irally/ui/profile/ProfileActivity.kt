@@ -13,6 +13,7 @@ import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.NetworkImageView
 import com.squareup.picasso.Picasso
 import edu.upenn.cis350.irally.R
+import edu.upenn.cis350.irally.data.EventRepository
 import edu.upenn.cis350.irally.data.LoginRepository
 import edu.upenn.cis350.irally.data.RequestQueueSingleton
 import edu.upenn.cis350.irally.data.model.Event
@@ -29,6 +30,15 @@ class ProfileActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profile)
+
+        if (EventRepository.eventsCreatedByUser.isNotEmpty()) {
+            Log.v("it is not null", "not null")
+            var eventsString = ""
+            for (event in EventRepository.eventsCreatedByUser) {
+                eventsString = eventsString + event + "\n"
+            }
+            events_created.text = eventsString.removeSuffix("\n")
+        }
 
         logout.setOnClickListener {
             LoginRepository.logout()

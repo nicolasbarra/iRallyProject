@@ -54,10 +54,15 @@ const userSchema = new Schema(
             type: Number,
             required: [true, 'set eventsCreated to zero when creating user']
         },
-        eventsCreated: [
+        eventsCreatedRefs: [
             {
                 type: mongoose.Schema.Types.ObjectID,
                 ref: 'event'
+            }
+        ],
+        eventsCreatedStrings: [
+            {
+                type: String
             }
         ],
         eventsToAttend: [
