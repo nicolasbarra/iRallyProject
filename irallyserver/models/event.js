@@ -34,10 +34,15 @@ const eventSchema = new Schema(
             type: String,
             required: [true, 'events need a date and time']
         },
-        attendees: [
+        attendeesRefs: [
             {
                 type: mongoose.Schema.Types.ObjectID,
                 ref: 'user'
+            }
+        ],
+        attendeesStrings: [
+            {
+                type: String
             }
         ],
         numberOfAttendees: {
