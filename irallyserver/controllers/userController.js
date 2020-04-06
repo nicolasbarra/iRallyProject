@@ -200,13 +200,26 @@ exports.add_interest = [
                     });
                 } else if (user) {
                     // user with that username exists
-                    user.personalInfo.interests.push(req.body.interest);
-                    user.save();
-                    return res.json({
-                        status: 'Success',
-                        errors: null,
-                        newInterests: user.personalInfo.interests
+                    let alreadyPresent = false
+                    user.personalInfo.interests.forEach(x => {
+                        if (x == req.body.interest) {
+                            alreadyPresent = true
+                        }
                     });
+                    if (!alreadyPresent) {
+                        user.personalInfo.interests.push(req.body.interest);
+                        user.save();
+                        return res.json({
+                            status: 'Success',
+                            errors: null,
+                            newInterests: user.personalInfo.interests
+                        });
+                    } else {
+                        return res.json({
+                            status: 'Failure',
+                            errors: `${req.body.interest} is already an interest.`,
+                        });
+                    }
                 } else {
                     // there is no user with that username
                     return res.json({
@@ -238,13 +251,21 @@ exports.remove_interest = [
                     });
                 } else if (user) {
                     // user with that username exists
-                    user.personalInfo.interests.filter(x => x !== req.body.interest);
-                    user.save();
-                    return res.json({
-                        status: 'Success',
-                        errors: null,
-                        newInterests: user.personalInfo.interests
-                    });
+                    const prevSize = user.personalInfo.interests.length;
+                    user.personalInfo.interests = user.personalInfo.interests.filter(x => x != req.body.interest.trim());
+                    if (prevSize === user.personalInfo.interests.length) {
+                        return res.json({
+                            status: 'Failure',
+                            errors: 'Please enter one of your current interests in order to remove it.',
+                        });
+                    } else {
+                        user.save();
+                        return res.json({
+                            status: 'Success',
+                            errors: null,
+                            newInterests: user.personalInfo.interests
+                        });
+                    }
                 } else {
                     // there is no user with that username
                     return res.json({
