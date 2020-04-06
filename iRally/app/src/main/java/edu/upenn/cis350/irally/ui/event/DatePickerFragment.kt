@@ -7,11 +7,9 @@ import android.os.Bundle
 import android.widget.DatePicker
 import androidx.fragment.app.DialogFragment
 import kotlinx.android.synthetic.main.activity_create_event.*
+import kotlinx.android.synthetic.main.activity_event_page.*
 
 class DatePickerFragment : DialogFragment(), DatePickerDialog.OnDateSetListener {
-
-    var dateString = ""
-        get() = field
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         // Use the current date as the default date in the picker
@@ -25,10 +23,6 @@ class DatePickerFragment : DialogFragment(), DatePickerDialog.OnDateSetListener 
     }
 
     override fun onDateSet(view: DatePicker, year: Int, month: Int, day: Int) {
-        dateString = "$dateString$month $day $year"
-    }
 
-    fun getDate() : String {
-        return dateString
     }
 }

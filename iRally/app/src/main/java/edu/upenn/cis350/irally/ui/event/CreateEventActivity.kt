@@ -2,6 +2,7 @@ package edu.upenn.cis350.irally.ui.event
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -18,6 +19,11 @@ import java.util.*
 
 
 class CreateEventActivity : AppCompatActivity() {
+
+    companion object {
+        var hourOfDay: Int? = null
+        var minute: Int? = null
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,43 +52,20 @@ class CreateEventActivity : AppCompatActivity() {
                 "Please make sure event name and description are at least 3 characters long"
             } else "okgo"
         }
-        //Regis
-        // ter back to login
-        val submitEvent = submit_event
-        submitEvent.setOnClickListener {
+
+        submit_event.setOnClickListener {
+            Log.v("inCREATeT TIME hour", hourOfDay.toString())
+            Log.v("increateTIME minute", minute.toString())
             if (isDataValid() == "okgo") {
+                Log.v("inCREATeT TIME hour", hourOfDay.toString())
+                Log.v("increateTIME minute", minute.toString())
+
 
                 val eventName = eventNameTxt.text.toString().toLowerCase(Locale.ROOT)
                 val eventDescription = eventDescriptionTxt.text.toString()
                 //make this a real address
                 val eventAddress = eventAddressTxt.text.toString()
 
-                //TODO: CREATE EVENT JSON
-                val newEventJSONObject = JSONObject(
-                    "{eventId:TODO,eventName:" + eventName +
-                            "create:USER???,description:" + eventDescription + ",address:" + eventAddress
-                            + "dateTime:DATETIME???,attendees????:???,numberOfAttendees:" + 0 + "interestsOfAttendees:" +
-                            "interestsOfAttendees????}")
-
-                val url = "http://10.0.2.2:9000/event/create"
-//TODO: uncomment this
-//                    val jsonObjectRequest = JsonObjectRequest(url, newEventJSON,
-//                        Response.Listener { response ->
-//                            if (response.status === 'Success') {
-//                                Toast.makeText(
-//                                    applicationContext,
-//                                    "Event created. Return to profile.",
-//                                    Toast.LENGTH_LONG
-//                                ).show()
-//                            }
-//                            else {
-//                                Toast.makeText(
-//                                    applicationContext,
-//                                    "Something went wrong. Please try again.",
-//                                    Toast.LENGTH_LONG
-//                                ).show()
-//                            }
-//                        },
 //                        Response.ErrorListener { error ->
 //                            Toast.makeText(
 //                                applicationContext,
@@ -94,15 +77,6 @@ class CreateEventActivity : AppCompatActivity() {
 //                        }
 //                    )
 
-// Access the RequestQueue through your singleton class.
-                //TODO: uncomment, change login??
-                //     edu.upenn.cis350.irally.data.RequestQueueSingleton.getInstance(this).addToRequestQueue(jsonObjectRequest)
-
-
-//                val eventJSON = JSONObject()
-//
-//                {"eventId": idk,"eventName":eventName,"creator":USER??,"description":eventDescription,
-//                    "address":eventAddress,"dateTime":??,"numberOfAttendees":0,"interestsOfAttendees":userinterests??}
             } else {
                 Toast.makeText(
                     applicationContext,
@@ -117,13 +91,9 @@ class CreateEventActivity : AppCompatActivity() {
 
     fun showTimePickerDialog(v: View) {
         TimePickerFragment().show(supportFragmentManager, "timePicker")
-
     }
 
     fun showDatePickerDialog(v: View) {
-        val newFragment = DatePickerFragment()
-        newFragment.show(supportFragmentManager, "datePicker")
-       // event_date.text = newFragment
+        DatePickerFragment().show(supportFragmentManager, "datePicker")
     }
-
 }
