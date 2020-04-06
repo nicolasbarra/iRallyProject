@@ -64,6 +64,10 @@ const adminSchema = new Schema(
                 ref: 'user'
             }
         ],
+        numEventsCreated: {
+            type: Number,
+            required: [true, 'set eventsCreated to zero when creating user']
+        },
         eventsToHost: [
             {
                 type: mongoose.Schema.Types.ObjectID,

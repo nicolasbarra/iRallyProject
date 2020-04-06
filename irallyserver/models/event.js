@@ -6,13 +6,8 @@ const eventSchema = new Schema(
     {
         eventId: {
             type: String,
-            required: [true, 'event needs an id (should be unique)'],
+            required: [true, 'event needs a name (should be unique)'],
             unique: true,
-            trim: true
-        },
-        eventName: {
-            type: String,
-            required: [true, 'event needs a name'],
             trim: true,
             minlength: 3
         },
@@ -31,7 +26,8 @@ const eventSchema = new Schema(
             required: [true, 'events need addresses']
         },
         dateTime: {
-            type: Date,
+            // TODO: make the type of this Date
+            type: String,
             required: [true, 'events need a date and time']
         },
         attendees: [
