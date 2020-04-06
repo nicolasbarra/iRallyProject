@@ -109,7 +109,7 @@ class CreateEventActivity : AppCompatActivity() {
                             Log.v("code has erached here", "or not")
                             val newEvent = Event(
                                 newEventJSON.getString("eventId"),
-                                LoginRepository.user!!,
+                                LoginRepository.user!!.userId,
                                 newEventJSON.getString("description"),
                                 newEventJSON.getString("address"),
                                 newEventJSON.getString("dateTime"),

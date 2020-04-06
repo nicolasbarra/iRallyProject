@@ -16,6 +16,10 @@ const eventSchema = new Schema(
             // used mixed type as the creator can be an admin or a user
             required: [true, 'events must have a creator']
         },
+        creatorId: {
+            type: String,
+            required: [true, 'events must have a creator whose id is store here']
+        },
         description: {
             type: String,
             required: [true, 'events need descriptions'],

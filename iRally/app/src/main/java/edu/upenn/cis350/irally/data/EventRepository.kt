@@ -10,5 +10,6 @@ class EventRepository {
         var events: MutableSet<Event> = mutableSetOf()
         // TODO: make this type event later
         var eventsCreatedByUser: MutableSet<String> = mutableSetOf()
+        var eventSelected: Event? = null
     }
 }

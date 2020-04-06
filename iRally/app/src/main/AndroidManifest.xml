@@ -37,6 +37,10 @@
             android:name=".ui.profile.ProfilePicture"
             android:label="iRally">
         </activity>
+        <activity
+            android:name=".ui.event.EventPageActivity"
+            android:label="iRally">
+        </activity>
     </application>
 
 </manifest>

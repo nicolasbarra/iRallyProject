@@ -2,7 +2,7 @@ package edu.upenn.cis350.irally.data.model
 
 data class Event(
     val eventId: String,
-    val creator: LoggedInUser,
+    val creator: String,
     val description: String,
     val address: String,
     val dateTime: String,
