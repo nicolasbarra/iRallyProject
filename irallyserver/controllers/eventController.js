@@ -71,7 +71,7 @@ exports.create_event = [
                     // there is no user with that username
                     return res.json({
                         status: 'Failure',
-                        errors: "Unable to create event: there is no user with that username"
+                        errors: 'Unable to create event: there is no user with that username'
                     });
                 }
             });
@@ -79,16 +79,58 @@ exports.create_event = [
     }
 ];
 
-exports.add_attendees = [
+exports.add_attendee = [
     (req, res) => {
-        Event.findOne({
-            eventId: req.body.username + req.body.eventName
-        }, (err, event) => {
-            User.findOne({'username': req.body.username}, (err, user) => {       
-                event.numberOfAttendees = event.numberOfAttendees + 1;
-                event.attendees = event.attendees.push(user._id)
-                event.save();
-            });
+        Event.findOne({eventId: req.body.eventId}, (err, event) => {
+            if (err) {
+                return res.json({
+                    status: 'Failure',
+                    errors: err
+                });
+            } else if (event) {
+                User.findOne({'username': req.body.username}, (err, user) => {
+                    if (err) {
+                        return res.json({
+                            status: 'Failure',
+                            errors: err
+                        });
+                    } if (user) {
+                        if (event.numberOfAttendees == 0) {
+                            event.attendeesRefs = [user._id];
+                            event.attendeesStrings = [user.username];
+                        } else {
+                            event.attendeesRefs.push(user._id);
+                            event.attendeesStrings.push(user.username);
+                        }
+                        event.numberOfAttendees = event.numberOfAttendees + 1;
+                        // TODO: add the interests of the attendees
+                        event.save();
+                        if (user.eventsToAttendRefs) {
+                            user.eventsToAttendRefs.push(event._id);
+                            user.eventsToAttendStrings.push(event.eventId)
+                        } else {
+                            user.eventsToAttendRefs = [event._id];
+                            user.eventsCreatedStrings = [event.eventId];
+                        }
+                        user.save();
+                        return res.json({
+                            status: 'Success',
+                            errors: null
+                        });
+                    } else {
+                        return res.json({
+                            status: 'Failure',
+                            errors: 'Unable to join event: User cannot be found.'
+                        });
+                    }
+                });
+            } else {
+                // there is no event with that eventId
+                return res.json({
+                    status: 'Failure',
+                    errors: 'Unable to find event: there is no event with that name.'
+                });
+            }
         })
     }
 ];
