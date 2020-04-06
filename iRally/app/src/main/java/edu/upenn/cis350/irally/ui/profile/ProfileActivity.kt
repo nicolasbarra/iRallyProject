@@ -34,7 +34,7 @@ class ProfileActivity : AppCompatActivity() {
             Log.v("it is not null", "not null")
             var eventsString = ""
             for (event in EventRepository.eventsCreatedByUser) {
-                eventsString = eventsString + event.eventId + " on " + event.dateTime + "\n"
+                eventsString = eventsString + event + "\n"
             }
             events_created.text = eventsString.removeSuffix("\n")
         }
