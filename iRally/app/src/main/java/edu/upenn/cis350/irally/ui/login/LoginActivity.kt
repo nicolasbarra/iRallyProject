@@ -42,8 +42,8 @@ class LoginActivity : AppCompatActivity() {
         val loading = findViewById<ProgressBar>(R.id.loading)
 
         register.setOnClickListener {
-            val intent = Intent(context, RegisterActivity::class.java);
-            startActivity(intent);
+            val intent = Intent(context, RegisterActivity::class.java)
+            startActivity(intent)
         }
 
         loginViewModel = ViewModelProvider(this, LoginViewModelFactory())
