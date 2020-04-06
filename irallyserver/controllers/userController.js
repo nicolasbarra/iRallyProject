@@ -43,7 +43,8 @@ exports.create_user = [
                                 gender: req.body.gender,
                                 genderPronouns: req.body.genderPronouns,
                                 interests: interestList,
-                            }
+                            },
+                            eventsCreated: 0
                         }
                     );
                     user.save((err) => {
