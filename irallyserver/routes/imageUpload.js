@@ -54,7 +54,7 @@ router.post('/imageUploadUser', (req, res) => {
                     });
                 } else if (user) {
                     // user with that username exists
-                    user.adminInfo.profilePictureLink = req.file.location;
+                    user.personalInfo.profilePictureLink = req.file.location;
                     user.save();
                     return res.json({
                         status: 'Success',

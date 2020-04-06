@@ -9,6 +9,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.android.volley.Response
 import com.android.volley.toolbox.JsonObjectRequest
+import com.squareup.picasso.Picasso
 import edu.upenn.cis350.irally.R
 import edu.upenn.cis350.irally.data.EventRepository
 import edu.upenn.cis350.irally.data.LoginRepository
@@ -21,15 +22,23 @@ import org.json.JSONObject
 
 class ProfileActivity : AppCompatActivity() {
 
+    companion object {
+        var hasUploaded = false
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profile)
+
+        if (hasUploaded) {
+            Picasso.with(this).load(LoginRepository.user?.profilePictureLink)
+                .into(profile_picture);
+        }
 
         if (EventRepository.eventsCreatedByUser.isNotEmpty()) {
             if (EventRepository.eventsCreatedByUser.size == 1) {
                 event_created1.text = EventRepository.eventsCreatedByUser.elementAt(0)
                 event_created1.setOnClickListener {
-
                 }
             } else {
                 Log.v("it is not null", "not null")
@@ -37,8 +46,6 @@ class ProfileActivity : AppCompatActivity() {
                     if (i == 0) {
                         event_created1.text = EventRepository.eventsCreatedByUser.elementAt(0)
                         event_created1.setOnClickListener {
-                            
-
                         }
                     } else {
                         val myButton = Button(this)

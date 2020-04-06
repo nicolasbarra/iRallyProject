@@ -1,7 +1,5 @@
 package edu.upenn.cis350.irally.ui.profile
 
-import edu.upenn.cis350.irally.R
-
 import android.app.Activity
 import android.content.Intent
 import android.net.Uri
@@ -10,20 +8,13 @@ import android.util.Log
 import android.widget.Button
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
-import com.android.volley.Request
 import com.android.volley.Response
-import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
-import com.squareup.picasso.Picasso
-import de.hdodenhof.circleimageview.CircleImageView
+import edu.upenn.cis350.irally.R
 import edu.upenn.cis350.irally.data.LoginRepository
-import edu.upenn.cis350.irally.data.RequestQueueSingleton
-import edu.upenn.cis350.irally.ui.login.LoginActivity
-import kotlinx.android.synthetic.main.activity_profile.*
 import org.json.JSONObject
 import java.io.File
 import java.io.IOException
-import java.lang.System.load
 
 class ProfilePicture : AppCompatActivity() {
     private lateinit var imageView: ImageView
@@ -67,9 +58,9 @@ class ProfilePicture : AppCompatActivity() {
             Method.POST,
             postURL,
             Response.Listener {
-                Log.v("response is: $it", "$it")
+                Log.v("response is: $it", JSONObject(String(it.data)).getString("imageURL"))
                 LoginRepository.user?.profilePictureLink =
-                    "https://profilepicturesirally.s3.amazonaws.com/1586203182311"
+                    JSONObject(String(it.data)).getString("imageURL");
                 ProfileActivity.hasUploaded = true
                 val intent = Intent(this, ProfileActivity::class.java)
                 startActivity(intent)
@@ -81,6 +72,12 @@ class ProfilePicture : AppCompatActivity() {
             override fun getByteData(): MutableMap<String, FileDataPart> {
                 var params = HashMap<String, FileDataPart>()
                 params["image"] = FileDataPart("image", imageData!!, "jpeg")
+                return params
+            }
+
+            override fun getParams(): Map<String, String>? {
+                val params: MutableMap<String, String> = HashMap()
+                params["username"] = LoginRepository.user!!.userId!!;
                 return params
             }
         }
