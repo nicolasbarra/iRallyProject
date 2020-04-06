@@ -10,5 +10,12 @@ data class LoggedInUser(
     val gender: String,
     val genderPronouns: String,
     val profilePictureLink: String?,
-    val interests: MutableSet<String>?
+    val interests: MutableSet<String>?,
+    val eventsAttended: MutableSet<Event>?,
+    val eventsToAttend: MutableSet<Event>?,
+    val eventsCreated: MutableSet<Event>?,
+    val numEventsCreated: Int,
+    val adminsFollowed: MutableSet<Event>?,
+    val friends: MutableSet<LoggedInUser>?
+
 )

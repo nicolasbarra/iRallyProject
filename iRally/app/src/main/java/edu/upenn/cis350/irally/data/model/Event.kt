@@ -7,7 +7,7 @@ data class Event(
     val description: String,
     val address: String,
     val dateTime: String,
-    val attendees: String,
+    val attendees: String?,
     val numberOfAttendees: Int,
     val interestsOfAttendees: String
 )

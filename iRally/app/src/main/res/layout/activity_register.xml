@@ -125,7 +125,7 @@
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp">
             <EditText android:id="@+id/pronouns"
-                android:hint="Preferred Pronouns"
+                android:hint="Preferred Pronouns (separate with commas, ex. She, Her, Hers)"
                 android:inputType="text|textNoSuggestions"
                 android:layout_width="match_parent"
                 android:autofillHints="Gender pronouns"
