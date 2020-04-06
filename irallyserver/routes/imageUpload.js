@@ -11,9 +11,27 @@ router.post('/imageUploadAdmin', (req, res) => {
         if (err) {
             console.log(err);
         }
-        let username = req.body.username;       
-        Admin.findOneAndUpdate({'username' : username}, {profilePicURL: req.file.location});
-        return res.json({'imageURL' : req.file.location});
+        let username = req.body.username;     
+        //, {$set: {'adminInfo.profilePictureLink': req.file.location}  
+        Admin.findOne({'username' : username}, (err, admin) => {
+            if (err) {
+                return res.json({
+                    status: 'Failure',
+                    errors: err,
+                });
+            } else if (admin) {
+                // user with that username exists
+                admin.adminInfo.profilePictureLink = req.file.location;
+                admin.save();
+                return res.json({'imageURL' : req.file.location});
+            } else {
+                // there is no user with that username
+                return res.json({
+                    status: 'Failure',
+                    errors: 'No user with that username can be found.'
+                });
+            }
+        });      
     })
 });
 

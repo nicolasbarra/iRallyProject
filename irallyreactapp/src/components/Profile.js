@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {Redirect} from 'react-router-dom';
 import axios from 'axios';
 import Loading from './Authorization/Loading';
+import "./Profile.css"
 
 class Profile extends Component {
     state = {
@@ -38,10 +39,19 @@ class Profile extends Component {
         console.log('first');
         axios.get('http://localhost:9000/admins/') 
         .then (res => {
-            this.setState({
-                currUser: res.data.admin,
-                loading: false
-            })            
+            if (res.data.admin) {
+                console.log(res.data.admin);
+                this.setState({
+                    currUser: res.data.admin,
+                    loading: false,
+                    imageURL: res.data.admin.adminInfo.profilePictureLink
+                })     
+            }  else {
+                this.setState({
+                    currUser: res.data.admin,
+                    loading: false,                   
+                })  
+            }    
         })     
       }
 
@@ -56,12 +66,12 @@ class Profile extends Component {
                 return (
                     <div className="container-fluid"> 
                         <div>
-                            <img src={this.state.imageURL} alt="avatar"/>
                             <h6>Profile Picture</h6>
+                            <img className="img" src={this.state.imageURL} alt="//placehold.it/150"/>                          
                             <label class="custom-file">
-                                <input type="file" onChange={this.fileSelectedHandler} />
-                                <button onClick={this.fileUploadHandler}>Upload</button>
+                                <input type="file" onChange={this.fileSelectedHandler} />                             
                             </label>
+                            <button onClick={this.fileUploadHandler}>Upload</button>
                         </div>
                         <div className="form-group row">
                                 <label htmlFor="Name" className="col-sm-3 control-label">Name: {this.state.currUser.adminInfo.adminName}</label>
