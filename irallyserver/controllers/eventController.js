@@ -39,7 +39,7 @@ exports.create_event = [
                             address: req.body.address,
                             dateTime: req.body.dateTime,
                             numberOfAttendees: 0,
-                            interestsOfAttendees: req.body.interestsOfAttendees,
+                            interestsOfAttendees: user.personalInfo.interests,
                         }
                     );
                     event.save((err, event) => {
