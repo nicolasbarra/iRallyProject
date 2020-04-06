@@ -20,8 +20,7 @@ class ProfilePicture : AppCompatActivity() {
     private lateinit var sendButton: Button
     private var imageData: ByteArray? = null
 
-    // TODO: what goes here???
-    private val postURL: String = "http://10.0.2.2:9000/users"
+    private val postURL: String = "http://10.0.2.2:9000/files/imageUploadUser"
 
     companion object {
         private const val IMAGE_PICK_CODE = 999
@@ -50,12 +49,12 @@ class ProfilePicture : AppCompatActivity() {
     }
 
     private fun uploadImage() {
-        imageData?: return
+        imageData ?: return
         val request = object : VolleyFileUploadRequest(
-            Request.Method.POST,
+            Method.POST,
             postURL,
-            Response.Listener {
-                println("response is: $it")
+            Response.Listener { response ->
+                println("response is: ${response.toString()}")
             },
             Response.ErrorListener {
                 println("error is: $it")
@@ -85,7 +84,6 @@ class ProfilePicture : AppCompatActivity() {
             if (uri != null) {
                 imageView.setImageURI(uri)
                 createImageData(uri)
-                //HOPE THIS WORKS
             }
         }
         super.onActivityResult(requestCode, resultCode, data)
