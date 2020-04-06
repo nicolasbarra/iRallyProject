@@ -55,7 +55,11 @@ class CreateEventActivity : AppCompatActivity() {
                 "One or more fields left blank"
             } else if (eventName.length < 4 || eventDescription.length < 4) {
                 "Please make sure event name and description are at least 3 characters long"
-            } else "okgo"
+            } else if (hourOfDay == null || minute == null || year == null || day == null || month == null) {
+                "Please make sure to select a date and time."
+            } else {
+                "okgo"
+            }
         }
 
         submit_event.setOnClickListener {
