@@ -1,10 +1,10 @@
 const Event = require('../models/event');
-const Admin = require('../models/Admin');
-const User = require('../models/User');
-
+const Admin = require('../models/admin');
+const User = require('../models/user');
+ 
 exports.create_event = [
     (req, res) => {
-        if (admin) {
+        if (req.body.isAdmin) {
             Admin.findOne({'username': req.body.username}, (err, admin) => {             
                 const event = new Event ({
                     eventId: admin.username + req.body.eventName + admin.numEventsCreated,
@@ -36,7 +36,10 @@ exports.create_event = [
                     interestsOfAttendees: req.body.interestsOfAttendees,
                     comments: ""
                 });
-                event.save();
+                event.save((err) => {
+                    user.eventsCreated = user.eventsCreated.push(event._id);
+                    user.save();
+                });           
             })      
         }        
     }
