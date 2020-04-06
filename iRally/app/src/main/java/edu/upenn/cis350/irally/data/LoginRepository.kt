@@ -1,6 +1,7 @@
 package edu.upenn.cis350.irally.data
 
 import edu.upenn.cis350.irally.data.model.LoggedInUser
+import edu.upenn.cis350.irally.ui.profile.ProfileActivity
 
 /**
  * Class that handles authentication w/ login credentials and retrieves user information,
@@ -16,6 +17,7 @@ class LoginRepository() {
 
         fun logout() {
             user = null
+            ProfileActivity.hasUploaded = false
         }
 
         fun setLoggedInUser(loggedInUser: LoggedInUser) {
