@@ -18,8 +18,10 @@ exports.create_event = [
                     interestsOfAttendees: "",
                     comments:""
                 });
+
+                event.save();  
             })       
-            event.save();     
+               
         } else {
             User.findOne({'username': req.body.username}, (err, user) => {             
                 const event = new Event ({
