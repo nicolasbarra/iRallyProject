@@ -5,6 +5,7 @@ const User = require('../models/user');
 exports.create_event = [
     (req, res) => {
         if (req.body.isAdmin) {
+            // TODO: fix the route for this case of the if else statment above
             Admin.findOne({'username': req.body.username}, (err, admin) => {             
                 const event = new Event ({
                     eventId: admin.username + req.body.eventName + admin.numEventsCreated,
@@ -23,24 +24,49 @@ exports.create_event = [
             })       
                
         } else {
-            User.findOne({'username': req.body.username}, (err, user) => {             
-                const event = new Event ({
-                    eventId: user.username + req.body.eventName,
-                    eventName: user.body.eventName,
-                    creator: user._id,
-                    description: req.body.description,
-                    address: req.body.address,
-                    dateTime: req.body.dateTime,
-                    attendees: req.body.attendees,
-                    numberOfAttendees: req.body.numberOfAttendees,
-                    interestsOfAttendees: req.body.interestsOfAttendees,
-                    comments: ""
-                });
-                event.save((err) => {
-                    user.eventsCreated = user.eventsCreated.push(event._id);
-                    user.save();
-                });           
-            })      
+            User.findOne({'username': req.body.username}, (err, user) => {
+                if (err) {
+                    return res.json({
+                        status: 'Failure',
+                        errors: err
+                    });
+                } else if (user) {
+                    const event = new Event (
+                        {
+                            eventId: req.body.eventName,
+                            creator: user._id,
+                            description: req.body.description,
+                            address: req.body.address,
+                            dateTime: req.body.dateTime,
+                            numberOfAttendees: 0,
+                            interestsOfAttendees: req.body.interestsOfAttendees,
+                        }
+                    );
+                    event.save((err, event) => {
+                        if (err) {
+                            return res.json({
+                                status: 'Failure',
+                                errors: err
+                            });
+                        } else {
+                            if (user.numEventsCreated === 0) {
+                                user.eventsCreated = [event._id];
+                                user.numEventsCreated = user.numEventsCreated + 1;
+                            } else {
+                                user.numEventsCreated = user.numEventsCreated + 1;
+                                user.eventsCreated.push(event._id);
+                            }
+                            user.save();
+                        }
+                    });
+                } else {
+                    // there is no user with that username
+                    return res.json({
+                        status: 'Failure',
+                        errors: "Unable to create event: there is no user with that username"
+                    });
+                }
+            });
         }        
     }
 ];
