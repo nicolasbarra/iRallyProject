@@ -35,6 +35,7 @@ exports.create_event = [
                         {
                             eventId: req.body.eventName,
                             creator: user._id,
+                            creatorId: user.username,
                             description: req.body.description,
                             address: req.body.address,
                             dateTime: req.body.dateTime,
