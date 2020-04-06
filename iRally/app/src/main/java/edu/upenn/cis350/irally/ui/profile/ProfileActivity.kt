@@ -15,6 +15,7 @@ import com.squareup.picasso.Picasso
 import edu.upenn.cis350.irally.R
 import edu.upenn.cis350.irally.data.LoginRepository
 import edu.upenn.cis350.irally.data.RequestQueueSingleton
+import edu.upenn.cis350.irally.data.model.Event
 import edu.upenn.cis350.irally.ui.event.CreateEventActivity
 import edu.upenn.cis350.irally.ui.login.LoginActivity
 import kotlinx.android.synthetic.main.activity_profile.*
@@ -35,6 +36,33 @@ class ProfileActivity : AppCompatActivity() {
             val intent = Intent(this, LoginActivity::class.java);
             startActivity(intent);
         }
+
+        var eventsToAttend = ""
+
+        val iteratorEventsAttended = LoginRepository.user?.eventsAttended?.iterator()
+        if (iteratorEventsAttended != null) {
+            while (iteratorEventsAttended.hasNext()) {
+                var e = iteratorEventsAttended.next()
+                eventsToAttend += "\n" + e.eventName
+            }
+        }
+
+        var eventsCreated = ""
+
+        val iteratorEventsCreated = LoginRepository.user?.eventsCreated?.iterator()
+        if (iteratorEventsCreated != null) {
+            while (iteratorEventsCreated.hasNext()) {
+                var e = iteratorEventsCreated.next()
+                eventsCreated += "\n" + e.eventName
+            }
+        }
+
+
+        events_attending.text = eventsToAttend
+        events_created.text = eventsCreated
+
+
+
 
         add_interest_send.setOnClickListener {
             val interestRequestBody = JSONObject()
