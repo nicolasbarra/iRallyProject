@@ -14,7 +14,9 @@ import edu.upenn.cis350.irally.R
 import edu.upenn.cis350.irally.data.EventRepository
 import edu.upenn.cis350.irally.data.LoginRepository
 import edu.upenn.cis350.irally.data.RequestQueueSingleton
+import edu.upenn.cis350.irally.data.model.Event
 import edu.upenn.cis350.irally.ui.event.CreateEventActivity
+import edu.upenn.cis350.irally.ui.event.EventPageActivity
 import edu.upenn.cis350.irally.ui.login.LoginActivity
 import kotlinx.android.synthetic.main.activity_profile.*
 import org.json.JSONArray
@@ -44,8 +46,78 @@ class ProfileActivity : AppCompatActivity() {
                 Log.v("it is not null", "not null")
                 for (i in 0 until EventRepository.eventsCreatedByUser.size) {
                     if (i == 0) {
-                        event_created1.text = EventRepository.eventsCreatedByUser.elementAt(0)
+                        val eventText = EventRepository.eventsCreatedByUser.elementAt(0)
+                        event_created1.text = eventText
                         event_created1.setOnClickListener {
+                            val eventId = eventText.substring(0, eventText.lastIndexOf(" on "))
+
+                            val eventRequestBody = JSONObject()
+                            eventRequestBody.put("eventId", eventId)
+
+                            val eventJsonObjectRequest = JsonObjectRequest(
+                                "http://10.0.2.2:9000/events/",
+                                eventRequestBody,
+                                Response.Listener { response ->
+                                    Log.v("PROCESS", "got a response (register")
+                                    Log.v("RESPONSE", response.toString())
+                                    if (response.getString("status") == "Success") {
+                                        Log.v("Response Success", "Event received")
+                                        val eventJSON = response.getJSONObject("event")
+                                        val interestsOfAttendeesJSONArray: JSONArray =
+                                            eventJSON.getJSONArray("interestsOfAttendees")
+                                        val interestsOfAttendees = mutableSetOf<String>()
+                                        for (j in 0 until interestsOfAttendeesJSONArray.length()) {
+                                            interestsOfAttendees.add(
+                                                interestsOfAttendeesJSONArray.get(j).toString()
+                                            )
+                                        }
+                                        val newEvent = Event(
+                                            eventJSON.getString("eventId"),
+                                            eventJSON.getString("creatorId"),
+                                            eventJSON.getString("description"),
+                                            eventJSON.getString("address"),
+                                            eventJSON.getString("dateTime"),
+                                            null,
+                                            eventJSON.getInt("numberOfAttendees"),
+                                            interestsOfAttendees
+                                        )
+                                        EventRepository.eventSelected = newEvent
+                                        val intent = Intent(this, EventPageActivity::class.java);
+                                        startActivity(intent);
+                                    } else {
+                                        Log.v("Response Success", "Event not found")
+                                        Log.v("ERROR", response.getString("errors"))
+                                        Toast.makeText(
+                                            applicationContext,
+                                            "Unable to load event: ${response.getString("errors")}",
+                                            Toast.LENGTH_LONG
+                                        ).show()
+                                    }
+                                },
+                                Response.ErrorListener { error ->
+                                    Log.e("Response Error", "Error occurred", error)
+                                    Toast.makeText(
+                                        applicationContext,
+                                        "Unable to load event: ${error.message}",
+                                        Toast.LENGTH_LONG
+                                    ).show()
+                                }
+                            )
+
+                            RequestQueueSingleton.getInstance(LoginActivity.context)
+                                .addToRequestQueue(eventJsonObjectRequest)
+
+                            //
+                            //                        Response.ErrorListener { error ->
+                            //                            Toast.makeText(
+                            //                                applicationContext,
+                            //                                ("Network connection error. Please try again. " +
+                            //                                        "Error: %s").format(error.toString()),
+                            //                                Toast.LENGTH_LONG
+                            //                            ).show()
+                            //
+                            //                        }
+                            //                    )
                         }
                     } else {
                         val myButton = Button(this)
