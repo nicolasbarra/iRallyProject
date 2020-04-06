@@ -91,3 +91,28 @@ exports.add_attendees = [
         })
     }
 ];
+
+exports.event = [
+    (req, res) => {
+        Event.findOne({'eventId': req.body.eventId}, (err, event) => {
+            if (err) {
+                return res.json({
+                    status: 'Failure',
+                    errors: err
+                });
+            } else if (event) {
+                return res.json({
+                    status: 'Success',
+                    errors: null,
+                    event: event
+                });
+            } else {
+                // there is no event with that eventId
+                return res.json({
+                    status: 'Failure',
+                    errors: "Unable to find event: there is no event with that name."
+                });
+            }
+        });
+    }
+];
