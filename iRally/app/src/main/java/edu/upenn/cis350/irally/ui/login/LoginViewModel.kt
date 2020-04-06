@@ -69,8 +69,7 @@ class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel()
                                     interests,
                                     null,
                                     null,
-                                    null,
-                                    0,
+                                    userJson.getInt("numEventsCreated"),
                                     null,
                                     null
                                 )
