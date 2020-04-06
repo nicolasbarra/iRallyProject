@@ -238,7 +238,7 @@ exports.remove_interest = [
                     });
                 } else if (user) {
                     // user with that username exists
-                    user.personalInfo.interests.filter(x => x != req.body.interest);
+                    user.personalInfo.interests.filter(x => x !== req.body.interest);
                     user.save();
                     return res.json({
                         status: 'Success',
