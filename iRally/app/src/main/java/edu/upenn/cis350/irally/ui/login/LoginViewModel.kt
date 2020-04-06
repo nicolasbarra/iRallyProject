@@ -66,7 +66,13 @@ class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel()
                                     gender,
                                     genderPronouns,
                                     profilePictureLink,
-                                    interests
+                                    interests,
+                                    null,
+                                    null,
+                                    null,
+                                    0,
+                                    null,
+                                    null
                                 )
                                 _loginResult.value =
                                     LoginResult(success = user)
