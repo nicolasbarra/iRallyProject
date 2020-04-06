@@ -69,7 +69,7 @@ class CreateEventActivity : AppCompatActivity() {
                 val eventTitle: String = event_name.text.toString()
                 val eventDescr: String = event_description.text.toString()
                 val eventAddr: String = event_address.text.toString()
-                val eventDateTime = "$month/$day/$year at $hourOfDay:$minute"
+                val eventDateTime = "$month-$day-$year at $hourOfDay:$minute"
                 eventRequestBody.put("username", LoginRepository.user?.userId)
                     .put("eventName", eventTitle).put("description", eventDescr)
                     .put("address", eventAddr).put("dateTime", eventDateTime)
@@ -120,7 +120,7 @@ class CreateEventActivity : AppCompatActivity() {
                             Log.v("code has erached here as well", "or not")
 
                             EventRepository.events.add(newEvent)
-                            EventRepository.eventsCreatedByUser.add(newEvent)
+                            EventRepository.eventsCreatedByUser.add(newEvent.eventId + " on " + newEvent.dateTime)
                             Log.v("code has erached here0", "or not")
                             if (LoginRepository.user != null) {
                                 Log.v("code has erached here1", "or not")
