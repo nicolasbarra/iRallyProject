@@ -35,8 +35,65 @@ class ProfileActivity : AppCompatActivity() {
             val intent = Intent(this, LoginActivity::class.java);
             startActivity(intent);
         }
-        val addInterestText = add_interest_type
-        val sendInterest = add_interest_send
+
+        add_interest_send.setOnClickListener {
+            val interestRequestBody = JSONObject()
+            val interestToAdd = add_interest_type.text
+            interestRequestBody.put("username", LoginRepository.user?.userId)
+            interestRequestBody.put("interest", interestToAdd)
+
+            val insertJsonObjectRequest = JsonObjectRequest(
+                "http://10.0.2.2:9000/users/addInterest",
+                interestRequestBody,
+                Response.Listener { response ->
+                    Log.v("PROCESS", "got a response (register")
+                    Log.v("RESPONSE", response.toString())
+                    if (response.getString("status") == "Failure") {
+                        val errors = response.getString("errors")
+                        Log.v("Response Success", "Interest not added due to error")
+                        Log.v("ERROR", errors)
+                        Toast.makeText(
+                            applicationContext,
+                            "Unable to add interest: $errors",
+                            Toast.LENGTH_LONG
+                        ).show()
+                    } else {
+                        val newInterestsJSONArray = response.getJSONArray("newInterests")
+                        Log.v("Response Success", "Interest added: $newInterestsJSONArray")
+                        Toast.makeText(
+                            applicationContext,
+                            "New interest, $interestToAdd, successfully added.",
+                            Toast.LENGTH_LONG
+                        ).show()
+                        val newInterests = mutableSetOf<String>()
+                        for (i in 0 until newInterestsJSONArray.length()) {
+                            newInterests.add(newInterestsJSONArray.get(i).toString())
+                        }
+                        profile_description.text =
+                            newInterests.toString().filter { e -> e != '[' && e != ']' }
+                    }
+                },
+                Response.ErrorListener { error ->
+                    Log.e("Response Error", "Error occurred", error)
+                    Toast.makeText(
+                        applicationContext,
+                        "Unable to add interest: ${error.message}",
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
+            )
+
+            RequestQueueSingleton.getInstance(LoginActivity.context)
+                .addToRequestQueue(insertJsonObjectRequest)
+
+            //                        Response.ErrorListener { error ->
+            //                            Toast.makeText(
+            //                                applicationContext,
+            //                                ("Network connection error. Please try again." +
+            //                                        "Error: %s").format(error.toString()),
+            //                                Toast.LENGTH_LONG
+            //                            ).show()
+        }
 
 
         val profilePicture = profile_picture
