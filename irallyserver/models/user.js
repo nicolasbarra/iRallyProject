@@ -65,10 +65,15 @@ const userSchema = new Schema(
                 type: String
             }
         ],
-        eventsToAttend: [
+        eventsToAttendRefs: [
             {
                 type: mongoose.Schema.Types.ObjectID,
                 ref: 'event'
+            }
+        ],
+        eventsToAttendStrings: [
+            {
+                type: String
             }
         ],
         eventsAttended: [
