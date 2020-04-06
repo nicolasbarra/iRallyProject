@@ -1,27 +1,21 @@
 package edu.upenn.cis350.irally.ui.profile
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.util.Patterns
-import android.view.View
-import android.widget.*
+import android.widget.Button
+import android.widget.LinearLayout
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.android.volley.Response
 import com.android.volley.toolbox.JsonObjectRequest
-import com.android.volley.toolbox.NetworkImageView
-import com.squareup.picasso.Picasso
 import edu.upenn.cis350.irally.R
 import edu.upenn.cis350.irally.data.EventRepository
 import edu.upenn.cis350.irally.data.LoginRepository
 import edu.upenn.cis350.irally.data.RequestQueueSingleton
-import edu.upenn.cis350.irally.data.model.Event
 import edu.upenn.cis350.irally.ui.event.CreateEventActivity
 import edu.upenn.cis350.irally.ui.login.LoginActivity
 import kotlinx.android.synthetic.main.activity_profile.*
-import kotlinx.android.synthetic.main.activity_profile_picture.view.*
-import kotlinx.android.synthetic.main.activity_register.*
 import org.json.JSONArray
 import org.json.JSONObject
 
@@ -32,12 +26,31 @@ class ProfileActivity : AppCompatActivity() {
         setContentView(R.layout.activity_profile)
 
         if (EventRepository.eventsCreatedByUser.isNotEmpty()) {
-            Log.v("it is not null", "not null")
-            var eventsString = ""
-            for (event in EventRepository.eventsCreatedByUser) {
-                eventsString = eventsString + event + "\n"
+            if (EventRepository.eventsCreatedByUser.size == 1) {
+                event_created1.text = EventRepository.eventsCreatedByUser.elementAt(0)
+                event_created1.setOnClickListener {
+
+                }
+            } else {
+                Log.v("it is not null", "not null")
+                for (i in 0 until EventRepository.eventsCreatedByUser.size) {
+                    if (i == 0) {
+                        event_created1.text = EventRepository.eventsCreatedByUser.elementAt(0)
+                        event_created1.setOnClickListener {
+                            
+
+                        }
+                    } else {
+                        val myButton = Button(this)
+                        myButton.text = EventRepository.eventsCreatedByUser.elementAt(i)
+                        myButton.setOnClickListener {
+
+                        }
+                        events_created_layout.addView(myButton)
+                    }
+                }
             }
-            events_created.text = eventsString.removeSuffix("\n")
+
         }
 
         logout.setOnClickListener {
@@ -46,7 +59,7 @@ class ProfileActivity : AppCompatActivity() {
             val intent = Intent(this, LoginActivity::class.java);
             startActivity(intent);
         }
-        
+
         add_interest_send.setOnClickListener {
             val interestRequestBody = JSONObject()
             val interestToAdd = add_interest_type.text

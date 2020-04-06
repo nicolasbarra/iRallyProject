@@ -108,16 +108,36 @@
                 android:textSize="16sp" />
 
 
-            <TextView
-                android:id="@+id/events_created"
+            <LinearLayout
                 android:layout_width="wrap_content"
+                android:id="@id/events_created_layout"
                 android:layout_height="wrap_content"
+
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="10dp"
-                android:text="No events created."
-                android:layout_below="@+id/events_created_title"
-                android:textColor="#FFFFFF"
-                android:textSize="12sp" />
+                android:layout_below="@id/events_created_title"
+                android:orientation="vertical" >
+
+                <Button
+                    android:id="@+id/event_created1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="No events created."
+                    />
+
+
+            </LinearLayout>
+
+            <!--TODO: this was just filler, uncomment if u want it-->
+            <!--            <TextView-->
+            <!--                android:id="@+id/events_created"-->
+            <!--                android:layout_width="wrap_content"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:layout_centerHorizontal="true"-->
+            <!--                android:layout_marginTop="10dp"-->
+            <!--                android:text="No events created."-->
+            <!--                android:layout_below="@+id/events_created_layout"-->
+            <!--                android:textColor="#FFFFFF"-->
+            <!--                android:textSize="12sp" />-->
 
             <TextView
                 android:id="@+id/events_attending_title"
@@ -127,21 +147,41 @@
                 android:layout_marginTop="10dp"
                 android:text="Events attending: "
                 android:textStyle="bold"
-                android:layout_below="@+id/events_created"
+                android:layout_below="@+id/events_created_layout"
                 android:textColor="#FFC107"
                 android:textSize="16sp" />
 
-
-            <TextView
-                android:id="@+id/events_attending"
+            <LinearLayout
                 android:layout_width="wrap_content"
+                android:id="@+id/events_attending_layout"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="10dp"
-                android:text="No events currently attending."
-                android:layout_below="@+id/events_attending_title"
-                android:textColor="#FFFFFF"
-                android:textSize="12sp" />
+                android:layout_below="@id/events_attending_title"
+                android:orientation="vertical" >
+
+                <Button
+                    android:id="@+id/test"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Event attending filler"
+                    android:textSize="8sp"
+                    />
+
+
+            </LinearLayout>
+
+            <!--TODO: this was just filler, uncomment if u want it-->
+
+            <!--            <TextView-->
+            <!--            android:id="@+id/events_attending"-->
+            <!--            android:layout_width="wrap_content"-->
+            <!--            android:layout_height="wrap_content"-->
+            <!--            android:layout_centerHorizontal="true"-->
+            <!--            android:layout_marginTop="10dp"-->
+            <!--            android:text="No events currently attending."-->
+            <!--            android:layout_below="@+id/events_attending_title"-->
+            <!--            android:textColor="#FFFFFF"-->
+            <!--            android:textSize="12sp" />-->
 
 
             <LinearLayout
@@ -184,7 +224,7 @@
                     android:layout_height="wrap_content"
                     android:text="Add interest"
                     android:textSize="8dp" />
-                
+
                 <Button
                     android:id="@+id/remove_interest"
                     android:layout_width="wrap_content"
@@ -199,7 +239,7 @@
         </RelativeLayout>
 
     </RelativeLayout>
-    
-    
-    
+
+
+
 </ScrollView>
