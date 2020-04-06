@@ -1,19 +1,18 @@
 package edu.upenn.cis350.irally.ui.event
 
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.FragmentActivity
-import com.google.android.libraries.places.api.model.Place
-import com.google.android.libraries.places.widget.AutocompleteSupportFragment
-import com.google.android.libraries.places.widget.listener.PlaceSelectionListener
+import com.android.volley.Response
+import com.android.volley.toolbox.JsonObjectRequest
 import edu.upenn.cis350.irally.R
+import edu.upenn.cis350.irally.data.LoginRepository
+import edu.upenn.cis350.irally.data.RequestQueueSingleton
 import edu.upenn.cis350.irally.ui.login.LoginActivity
 import kotlinx.android.synthetic.main.activity_create_event.*
-import kotlinx.android.synthetic.main.activity_register.*
+import kotlinx.android.synthetic.main.activity_profile.*
 import org.json.JSONObject
 import java.util.*
 
@@ -57,14 +56,55 @@ class CreateEventActivity : AppCompatActivity() {
         }
 
         submit_event.setOnClickListener {
-            Log.v("inCREATeT TIME hour", hourOfDay.toString())
-            Log.v("increateTIME minute", minute.toString())
             if (isDataValid() == "okgo") {
-                Log.v("inCREATeT TIME hour", hourOfDay.toString())
-                Log.v("increateTIME minute", minute.toString())
-                Log.v("increateTIME day", day.toString())
-                Log.v("increateTIME year", year.toString())
-                Log.v("increateTIME month", month.toString())
+                val eventRequestBody = JSONObject()
+                val interestToAdd = add_interest_type.text
+                eventRequestBody.put("username", LoginRepository.user?.userId)
+                eventRequestBody.put("interest", interestToAdd)
+
+                val insertJsonObjectRequest = JsonObjectRequest(
+                    "http://10.0.2.2:9000/users/addInterest",
+                    eventRequestBody,
+                    Response.Listener { response ->
+                        Log.v("PROCESS", "got a response (register")
+                        Log.v("RESPONSE", response.toString())
+                        if (response.getString("status") == "Failure") {
+                            val errors = response.getString("errors")
+                            Log.v("Response Success", "Interest not added due to error")
+                            Log.v("ERROR", errors)
+                            Toast.makeText(
+                                applicationContext,
+                                "Unable to add interest: $errors",
+                                Toast.LENGTH_LONG
+                            ).show()
+                        } else {
+                            val newInterestsJSONArray = response.getJSONArray("newInterests")
+                            Log.v("Response Success", "Interest added: $newInterestsJSONArray")
+                            Toast.makeText(
+                                applicationContext,
+                                "New interest, $interestToAdd, successfully added.",
+                                Toast.LENGTH_LONG
+                            ).show()
+                            val newInterests = mutableSetOf<String>()
+                            for (i in 0 until newInterestsJSONArray.length()) {
+                                newInterests.add(newInterestsJSONArray.get(i).toString())
+                            }
+                            profile_description.text =
+                                newInterests.toString().filter { e -> e != '[' && e != ']' }
+                        }
+                    },
+                    Response.ErrorListener { error ->
+                        Log.e("Response Error", "Error occurred", error)
+                        Toast.makeText(
+                            applicationContext,
+                            "Unable to add interest: ${error.message}",
+                            Toast.LENGTH_LONG
+                        ).show()
+                    }
+                )
+
+                RequestQueueSingleton.getInstance(LoginActivity.context)
+                    .addToRequestQueue(insertJsonObjectRequest)
 
 
 
