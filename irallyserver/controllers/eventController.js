@@ -51,12 +51,12 @@ exports.create_event = [
                         } else {
                             if (user.numEventsCreated === 0) {
                                 user.eventsCreated = [event._id];
-                                user.eventsCreatedStrings = [event.eventId]
+                                user.eventsCreatedStrings = [event.eventId + ' on ' + event.dateTime];
                                 user.numEventsCreated = user.numEventsCreated + 1;
                             } else {
                                 user.numEventsCreated = user.numEventsCreated + 1;
                                 user.eventsCreatedRefs.push(event._id);
-                                user.eventsCreatedStrings.push(event.eventId)
+                                user.eventsCreatedStrings.push(event.eventId + ' on ' + event.dateTime);
                             }
                             user.save();
                             return res.json({
