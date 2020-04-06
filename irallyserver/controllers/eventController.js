@@ -18,11 +18,12 @@ exports.create_event = [
                     interestsOfAttendees: "",
                     comments:""
                 });
-            })            
+            })       
+            event.save();     
         } else {
             User.findOne({'username': req.body.username}, (err, user) => {             
                 const event = new Event ({
-                    eventId: user.username + req.body.eventName + user.numEventsCreated,
+                    eventId: user.username + req.body.eventName,
                     eventName: user.body.eventName,
                     creator: user._id,
                     description: req.body.description,
@@ -33,7 +34,22 @@ exports.create_event = [
                     interestsOfAttendees: req.body.interestsOfAttendees,
                     comments: ""
                 });
+                event.save();
             })      
         }        
+    }
+];
+
+exports.add_attendees = [
+    (req, res) => {
+        Event.findOne({
+            eventId: req.body.username + req.body.eventName
+        }, (err, event) => {
+            User.findOne({'username': req.body.username}, (err, user) => {       
+                event.numberOfAttendees = event.numberOfAttendees + 1;
+                event.attendees = event.attendees.push(user._id)
+                event.save();
+            });
+        })
     }
 ];
