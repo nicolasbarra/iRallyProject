@@ -29,7 +29,7 @@ class ProfileActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profile)
 
-        logout.setOnClickListener{
+        logout.setOnClickListener {
             LoginRepository.logout()
             finish()
             val intent = Intent(this, LoginActivity::class.java);
@@ -101,11 +101,12 @@ class ProfileActivity : AppCompatActivity() {
         profile_pronouns.text = LoginRepository.user?.genderPronouns
         val profileName = profile_name
         profileName.text = LoginRepository.user?.displayName
-        profile_description.text = "LoginRepository.user?"
+        profile_description.text =
+            LoginRepository.user?.interests.toString().filter { e -> e != '[' && e != ']' }
         val editPicture = edit
 
 
-        delete_profile.setOnClickListener{
+        delete_profile.setOnClickListener {
             val deleteRequestBody = JSONObject()
             deleteRequestBody.put("username", LoginRepository.user?.userId)
 
@@ -174,14 +175,12 @@ class ProfileActivity : AppCompatActivity() {
 
         }
 
-        fun createEventButtons() {
-            val events = LoginRepository.user.events
-            for (i in 0 until events.length()){
+        fun createEventButtons(events: JSONArray) {
+            for (i in 0 until events.length()) {
                 val button = Button(this)
                 button.layoutParams = LinearLayout.LayoutParams(
                     LinearLayout.LayoutParams.WRAP_CONTENT,
                     LinearLayout.LayoutParams.WRAP_CONTENT
-
                 )
                 //val name = events.getJSONObject(i).eventName
 
