@@ -95,6 +95,29 @@
                 android:textColor="#fff"
                 android:textSize="16sp" />
 
+            <TextView
+                android:id="@+id/events_created"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="10dp"
+                android:text="Events created filler"
+                android:layout_below="@+id/profile_description"
+                android:textColor="#FFC107"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/events_attending"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="10dp"
+                android:text="Events attending filler"
+
+                android:layout_below="@+id/events_created"
+                android:textColor="#FFC107"
+                android:textSize="16sp" />
+
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -123,10 +146,10 @@
                     android:textSize="8dp" />
 
                 <EditText android:id="@+id/add_interest_type"
-                    android:hint="New interest"
+                    android:hint="Interest to be added or removed"
                     android:inputType="text|textNoSuggestions"
                     android:layout_width="match_parent"
-                    android:autofillHints="Add an interest"
+                    android:autofillHints="Interest"
                     android:layout_height="wrap_content"
                     android:textSize="8dp"/>
                 <Button
@@ -135,14 +158,22 @@
                     android:layout_height="wrap_content"
                     android:text="Add interest"
                     android:textSize="8dp" />
+                
+                <Button
+                    android:id="@+id/remove_interest"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Remove interest"
+                    android:textSize="8dp" />
+
 
             </LinearLayout>
-
 
 
         </RelativeLayout>
 
     </RelativeLayout>
-
-
+    
+    
+    
 </ScrollView>
