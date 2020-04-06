@@ -50,6 +50,10 @@ const userSchema = new Schema(
             ],
             profilePictureLink: String
         },
+        eventsCreated: {
+            type: Number,
+            required: [true, 'set eventsCreated to zero when creating user']
+        },
         eventsToAttend: [
             {
                 type: mongoose.Schema.Types.ObjectID,
