@@ -36,7 +36,8 @@ exports.create_admin = [
                                                 politicalAffiliation: req.body.politicalAffiliation,
                                                 goals: req.body.goals,
                                                 interests: req.body.interests,
-                                            }
+                                            },
+                                            numEventsCreated: 0
                                         }
                                     );
 
@@ -44,8 +45,8 @@ exports.create_admin = [
                                         if (err) {
                                             console.log('Unable to add item. Error JSON:', JSON.stringify(err, null, 2));
                                         } else {
-                                            req.session.user = req.body.username;      
-                                            currSession = req.body.username;                                      
+                                            req.session.user = req.body.username;
+                                            currSession = req.body.username;
                                             res.send({success: true, username: req.session.user});
                                         }
                                     });
@@ -77,12 +78,12 @@ exports.login_admin = [
                             res.json({err: err});
                         } else {
                             if (match) {
-                                req.session.user = req.body.username;   
-                                currSession = req.body.username;                         
+                                req.session.user = req.body.username;
+                                currSession = req.body.username;
                                 console.log("LOGIN session", req.session);
                                 req.session.save(() => {
-                                    res.send({success: true, username: req.session.user});       
-                                });              
+                                    res.send({success: true, username: req.session.user});
+                                });
                             } else {
                                 res.json({success: false});
                             }
@@ -108,7 +109,7 @@ exports.logout_admin = [
         req.session.destroy((err) => {
             console.log('this is session that will be destroyed', req.session);
             if (err) {
-                console.log(err);               
+                console.log(err);
                 res.send({success: false});
             } else {
                 console.log('session destroyed');
