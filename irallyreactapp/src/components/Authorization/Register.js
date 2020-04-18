@@ -9,7 +9,7 @@ class Register extends Component {
         username: null,
         password: null,
         description: null,
-        politicalAffiliation: null,
+        politicalAffiliation: 'Democrat',
         goals: null,
         interests: null                     
     };
