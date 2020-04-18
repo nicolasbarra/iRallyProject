@@ -20,4 +20,22 @@
     <string name="delete_my_profile">Delete my profile</string>
     <string name="interests_here">Interests here??</string>
     <string name="interests_separated_by_commas_ex_womens_rights_gun_reform">Interests (separated by commas; ex. Womens\' rights, Gun reform)</string>
+    <string name="events_created">Events created:</string>
+    <string name="interests">interests</string>
+    <string name="goals">goals</string>
+    <string name="description">description</string>
+    <string name="political_affiliation">political affiliation</string>
+    <string name="filler_name">Filler Name</string>
+    <string name="cover_photo">Cover Photo</string>
+    <string name="search_for_events_users_or_admins">Search for events, users, or admins</string>
+    <string name="users_found">Users found:</string>
+    <string name="no_users_matching_your_query">No users matching your query.</string>
+    <string name="events_found">Events found:</string>
+    <string name="no_events_matching_your_query">No events matching your query.</string>
+    <string name="admins_found">Admins found:</string>
+    <string name="no_admins_matching_your_query">No admins matching your query.</string>
+    <string name="no_events_to_attend">No events to attend.</string>
+    <string name="events_attending">Events attending:</string>
+    <string name="pronouns_go_here">(pronouns go here)</string>
+    <string name="user_cover_photo">User Cover Photo</string>
 </resources>

@@ -12,7 +12,7 @@ data class LoggedInUser(
     var profilePictureLink: String?,
     val interests: MutableSet<String>?,
     val eventsAttended: MutableSet<Event>?,
-    val eventsToAttend: MutableSet<Event>?,
+    val eventsToAttend: MutableSet<String>,
     var numEventsCreated: Int,
     val adminsFollowed: MutableSet<Event>?,
     val friends: MutableSet<LoggedInUser>?

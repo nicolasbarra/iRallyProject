@@ -113,7 +113,7 @@ class CreateEventActivity : AppCompatActivity() {
                                 newEventJSON.getString("description"),
                                 newEventJSON.getString("address"),
                                 newEventJSON.getString("dateTime"),
-                                null,
+                                mutableSetOf(),
                                 0,
                                 interestsOfAttendees
                             )

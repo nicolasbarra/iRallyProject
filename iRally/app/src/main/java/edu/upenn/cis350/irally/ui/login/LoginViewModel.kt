@@ -57,6 +57,19 @@ class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel()
                                 interests.add(interestsJSONArray.get(i).toString())
                             }
                             Log.v("interests arry final", interests.toString())
+                            val eventsToAttendStringsJson =
+                                if (userJson.has("eventsToAttendStrings")) {
+                                    userJson.getJSONArray("eventsToAttendStrings")
+                                } else {
+                                    JSONArray()
+                                }
+                            val eventsToAttendStrings = mutableSetOf<String>()
+                            for (i in 0 until eventsToAttendStringsJson.length()) {
+                                eventsToAttendStrings.add(
+                                    eventsToAttendStringsJson.get(i).toString()
+                                )
+                            }
+
                             if (!displayName.isNullOrEmpty() && !email.isNullOrEmpty()
                                 && !gender.isNullOrEmpty() && !genderPronouns.isNullOrEmpty()
                             ) {
@@ -69,7 +82,7 @@ class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel()
                                     profilePictureLink,
                                     interests,
                                     null,
-                                    null,
+                                    eventsToAttendStrings,
                                     userJson.getInt("numEventsCreated"),
                                     null,
                                     null

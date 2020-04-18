@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/layout">
+
+
+        <ImageView
+            android:id="@+id/cover_photo"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:src="@drawable/cover"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:scaleType="centerCrop"
+            android:contentDescription="@string/cover_photo" />
+
+
+
+        <de.hdodenhof.circleimageview.CircleImageView
+
+            android:clickable="true"
+            app:civ_border_width="3dp"
+            app:civ_border_color="#FFFFFFFF"
+
+            android:id="@+id/admin_profile_picture"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_below="@+id/cover_photo"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="-130dp"
+            android:elevation="5dp"
+            android:padding="20dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/man" />
+
+        <RelativeLayout
+            android:id="@+id/profile_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/cover_photo"
+            android:background="#A1FFC107"
+            android:elevation="4dp"
+            android:paddingBottom="70dp">
+
+
+
+
+            <TextView
+                android:id="@+id/admin_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="70dp"
+                android:text="@string/filler_name"
+                android:textColor="#606060"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/admin_political_affiliation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/admin_name"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="10dp"
+                android:text="@string/political_affiliation"
+                android:textColor="#F9FDFF"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/admin_profile_description"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/admin_political_affiliation"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="10dp"
+                android:text="@string/description"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="16sp" />
+
+
+
+            <TextView
+                android:id="@+id/admin_goals"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/admin_profile_description"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="10dp"
+                android:text="@string/goals"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/admin_interests"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/admin_goals"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="10dp"
+                android:text="@string/interests"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/events_created_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="10dp"
+                android:text="@string/events_created"
+                android:textStyle="bold"
+                android:layout_below="@+id/admin_interests"
+                android:textColor="#686761"
+                android:textSize="10sp" />
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:id="@+id/admin_events_created_layout"
+                android:layout_height="wrap_content"
+
+                android:layout_centerHorizontal="true"
+                android:layout_below="@+id/events_created_title"
+                android:orientation="vertical" >
+
+                <Button
+                    android:id="@+id/admin_event_created1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:minHeight="0dp"
+                    android:minWidth="0dp"
+                    android:textSize="8sp"
+                    android:text="@string/no_events_created"
+                    />
+
+
+            </LinearLayout>
+
+
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+
+
+</ScrollView>

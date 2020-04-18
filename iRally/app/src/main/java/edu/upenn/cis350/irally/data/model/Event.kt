@@ -6,7 +6,7 @@ data class Event(
     val description: String,
     val address: String,
     val dateTime: String,
-    val attendees: String?,
+    val attendees: MutableSet<String>,
     val numberOfAttendees: Int,
     val interestsOfAttendees: MutableSet<String>
 )

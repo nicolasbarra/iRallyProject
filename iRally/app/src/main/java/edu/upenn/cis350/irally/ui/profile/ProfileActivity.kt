@@ -33,7 +33,7 @@ class ProfileActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profile)
 
-        if (hasUploaded) {
+        if (hasUploaded || !LoginRepository.user?.profilePictureLink.isNullOrEmpty()) {
             Picasso.with(this).load(LoginRepository.user?.profilePictureLink)
                 .into(profile_picture);
         }
@@ -61,13 +61,25 @@ class ProfileActivity : AppCompatActivity() {
                                 interestsOfAttendeesJSONArray.get(j).toString()
                             )
                         }
+                        val attendeesStringsJSONArray =
+                            if (eventJSON.has("eventsToAttendStrings")) {
+                                eventJSON.getJSONArray("eventsToAttendStrings")
+                            } else {
+                                JSONArray()
+                            }
+                        val attendeesStrings = mutableSetOf<String>()
+                        for (k in 0 until attendeesStringsJSONArray.length()) {
+                            attendeesStrings.add(
+                                attendeesStringsJSONArray.get(k).toString()
+                            )
+                        }
                         val newEvent = Event(
                             eventJSON.getString("eventId"),
                             eventJSON.getString("creatorId"),
                             eventJSON.getString("description"),
                             eventJSON.getString("address"),
                             eventJSON.getString("dateTime"),
-                            null,
+                            attendeesStrings,
                             eventJSON.getInt("numberOfAttendees"),
                             interestsOfAttendees
                         )

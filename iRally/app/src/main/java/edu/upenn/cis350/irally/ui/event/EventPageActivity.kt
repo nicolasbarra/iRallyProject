@@ -1,11 +1,18 @@
 package edu.upenn.cis350.irally.ui.event
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.ExpandableListView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.android.volley.Response
+import com.android.volley.toolbox.JsonObjectRequest
 import edu.upenn.cis350.irally.R
 import edu.upenn.cis350.irally.data.EventRepository
+import edu.upenn.cis350.irally.data.LoginRepository
+import edu.upenn.cis350.irally.data.RequestQueueSingleton
+import edu.upenn.cis350.irally.ui.login.LoginActivity
 import kotlinx.android.synthetic.main.activity_event_page.*
 import org.json.JSONObject
 
@@ -32,41 +39,65 @@ class EventPageActivity : AppCompatActivity() {
             EventRepository.eventSelected?.dateTime ?: "Error date and time cannot be found"
 
         val markAsGoing = event_page_button
-
+        var attendingEventBool = false
+        for (i in LoginRepository.user?.eventsToAttend!!) {
+            if (i == EventRepository.eventSelected?.eventId) {
+                attendingEventBool = true
+            }
+        }
+        if (attendingEventBool) {
+            markAsGoing.text = "Going";
+            markAsGoing.isEnabled = false;
+        }
         markAsGoing.setOnClickListener {
-            val url = "http://10.0.2.2:9000/event/addAttendee"
-            //TODO: uncomment this
-            //                    val jsonObjectRequest = JsonObjectRequest(url, newUserJSON,
-            //                        Response.Listener { response ->
-            //                            if (response.status === 'Success') {
-            //                                Toast.makeText(
-            //                                    applicationContext,
-            //                                    "Successfully marked as going.",
-            //                                    Toast.LENGTH_LONG
-            //                                ).show()
-            //                            }
-            //                            else {
-            //                                Toast.makeText(
-            //                                    applicationContext,
-            //                                    "Something went wrong.",
-            //                                    Toast.LENGTH_LONG
-            //                                ).show()
-            //                            }
-            //                        },
-            //                        Response.ErrorListener { error ->
-            //                            Toast.makeText(
-            //                                applicationContext,
-            //                                ("Network connection error. Please try again." +
-            //                                        "Error: %s").format(error.toString()),
-            //                                Toast.LENGTH_LONG
-            //                            ).show()
-            //
-            //                        }
-            //                    )
+            val eventRequestBody = JSONObject()
+            val eventName = EventRepository.eventSelected?.eventId
+            var username = LoginRepository.user?.userId
+            eventRequestBody.put("username", LoginRepository.user?.userId)
+            eventRequestBody.put("eventId", eventName);
+            val eventJsonObjectRequest = JsonObjectRequest(
+                "http://10.0.2.2:9000/events/addAttendee",
+                eventRequestBody,
+                Response.Listener { response ->
+                    if (response.getString("status") == "Failure") {
+                        val errors = response.getString("errors")
+                        Log.v("Response Success", "Unable to join due to error")
+                        Log.v("ERROR", errors)
+                        Toast.makeText(
+                            applicationContext,
+                            "Unable to join event: $errors",
+                            Toast.LENGTH_LONG
+                        ).show()
+                    } else {
+                        Log.v("PROCESS", "got a response (register")
+                        Log.v("RESPONSE", response.toString())
+                        markAsGoing.text = "Going";
+                        markAsGoing.isEnabled = false;
+                        if (eventName != null) {
+                            LoginRepository.user?.eventsToAttend?.add(eventName)
+                        }
+                        if (username != null) {
+                            EventRepository.eventSelected?.attendees?.add(username)
+                        }
+                        Toast.makeText(
+                            applicationContext,
+                            "Added you successfully!",
+                            Toast.LENGTH_LONG
+                        ).show()
+                    }
+                },
+                Response.ErrorListener { error ->
+                    Log.e("Response Error", "Error occurred", error)
+                    Toast.makeText(
+                        applicationContext,
+                        "Unable to add as attendee: ${error.message}",
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
+            )
 
-            // Access the RequestQueue through your singleton class.
-            //TODO: uncomment, change login??
-            //     edu.upenn.cis350.irally.data.RequestQueueSingleton.getInstance(this).addToRequestQueue(jsonObjectRequest)
+            RequestQueueSingleton.getInstance(LoginActivity.context)
+                .addToRequestQueue(eventJsonObjectRequest)
         }
     }
 }

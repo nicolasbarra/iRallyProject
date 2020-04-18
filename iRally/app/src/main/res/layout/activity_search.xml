@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ScrollView
+        android:layout_width="409dp"
+        android:layout_height="729dp"
+        tools:layout_editor_absoluteX="1dp"
+        tools:layout_editor_absoluteY="1dp"
+        tools:ignore="MissingConstraints">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <com.google.android.material.textfield.TextInputLayout
+
+                    android:layout_width="323dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp">
+
+                    <EditText
+                        android:id="@+id/search_text"
+                        android:layout_width="319dp"
+                        android:layout_height="wrap_content"
+                        android:autofillHints="Search for events, users, or admins"
+                        android:hint="@string/search_for_events_users_or_admins" />
+                </com.google.android.material.textfield.TextInputLayout>
+                <ImageView
+                    android:id="@+id/search_button"
+                    android:layout_width="33dp"
+                    android:layout_height="30dp"
+                    android:layout_marginTop="16dp"
+                    android:clickable="true"
+                    android:src="@drawable/baseline_search_black_18dp" />
+                <ImageView
+                    android:id="@+id/map_button"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="10dp"
+                    android:clickable="true"
+                    android:src="@drawable/map" />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/user_search_result_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="@string/users_found"
+                android:textStyle="bold"
+                android:textColor="@color/colorPrimary"
+                android:textSize="16sp" />
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:id="@+id/user_search_result_layout"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:textSize="8sp">
+
+                <Button
+                    android:id="@+id/user_search_result1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/no_users_matching_your_query"
+                    android:textSize="8sp"
+                    />
+
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/event_search_result_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="@string/events_found"
+                android:textStyle="bold"
+                android:textColor="@color/colorPrimary"
+                android:textSize="16sp" />
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:id="@+id/event_search_result_layout"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:textSize="8sp">
+
+                <Button
+                    android:id="@+id/event_search_result1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/no_events_matching_your_query"
+                    android:textSize="8sp"
+                    />
+
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/admin_search_result_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="@string/admins_found"
+                android:textStyle="bold"
+                android:textColor="@color/colorPrimary"
+                android:textSize="16sp" />
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:id="@+id/admin_search_result_layout"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:textSize="8sp">
+
+                <Button
+                    android:id="@+id/admin_search_result1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/no_admins_matching_your_query"
+                    android:textSize="8sp"
+                    />
+
+
+            </LinearLayout>
+        </LinearLayout>
+
+
+    </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>
