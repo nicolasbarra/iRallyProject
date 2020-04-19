@@ -22,7 +22,7 @@
             android:layout_marginBottom="8dp">
             <EditText android:id="@+id/username"
                 android:layout_width="match_parent"
-                android:hint="Username"
+                android:hint="@string/username"
                 android:autofillHints="Username"
                 android:inputType="text|textNoSuggestions"
                 android:layout_height="wrap_content"/>
@@ -36,7 +36,7 @@
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp">
             <EditText android:id="@+id/password"
-                android:hint="Password"
+                android:hint="@string/password"
                 android:inputType="textPassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -51,7 +51,7 @@
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp">
             <EditText android:id="@+id/confirm_password"
-                android:hint="Re-enter your password"
+                android:hint="@string/re_enter_your_password"
                 android:inputType="textPassword"
                 android:layout_width="match_parent"
                 android:autofillHints="Password"
@@ -81,7 +81,7 @@
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp">
             <EditText android:id="@+id/name"
-                android:hint="First name"
+                android:hint="@string/first_name"
                 android:inputType="textPersonName"
                 android:layout_width="match_parent"
                 android:autofillHints="First name"
@@ -95,7 +95,7 @@
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp">
             <EditText android:id="@+id/email"
-                android:hint="Email"
+                android:hint="@string/email"
                 android:inputType="textEmailAddress"
                 android:layout_width="match_parent"
                 android:autofillHints="Email"
@@ -105,13 +105,13 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="18dp"
-            android:text="Gender" />
+            android:text="@string/gender"
+            android:textSize="18sp" />
 
         <Spinner
             android:id="@+id/gender_spinner"
             android:layout_marginTop="8dp"
-            android:hint="Gender"
+            android:hint="@string/gender"
 
             android:autofillHints="Gender"
             android:layout_marginBottom="8dp"
@@ -125,7 +125,7 @@
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp">
             <EditText android:id="@+id/pronouns"
-                android:hint="Preferred Pronouns (separate with commas, ex. She, Her, Hers)"
+                android:hint="@string/preferred_pronouns_separate_with_commas_ex_she_her_hers"
                 android:inputType="text|textNoSuggestions"
                 android:layout_width="match_parent"
                 android:autofillHints="Gender pronouns"
@@ -142,6 +142,6 @@
             android:layout_marginTop="24dp"
             android:layout_marginBottom="24dp"
             android:padding="12dp"
-            android:text="Create Account"/>
+            android:text="@string/create_account" />
     </LinearLayout>
 </ScrollView>

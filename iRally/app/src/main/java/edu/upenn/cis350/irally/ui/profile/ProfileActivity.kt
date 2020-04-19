@@ -1,12 +1,14 @@
 package edu.upenn.cis350.irally.ui.profile
 
 import android.content.Intent
+import android.location.LocationManager
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.Toast
+import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import com.android.volley.Response
 import com.android.volley.toolbox.JsonObjectRequest
@@ -18,7 +20,9 @@ import edu.upenn.cis350.irally.data.RequestQueueSingleton
 import edu.upenn.cis350.irally.data.model.Event
 import edu.upenn.cis350.irally.ui.event.CreateEventActivity
 import edu.upenn.cis350.irally.ui.event.EventPageActivity
+import edu.upenn.cis350.irally.ui.feed.FeedActivity
 import edu.upenn.cis350.irally.ui.login.LoginActivity
+import edu.upenn.cis350.irally.ui.search.SearchActivity
 import kotlinx.android.synthetic.main.activity_profile.*
 import org.json.JSONArray
 import org.json.JSONObject
@@ -33,9 +37,13 @@ class ProfileActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profile)
 
+        //TOOLBAR
+        supportActionBar?.displayOptions = ActionBar.DISPLAY_SHOW_CUSTOM
+        supportActionBar?.setCustomView(R.layout.toolbar)
+
         if (hasUploaded || !LoginRepository.user?.profilePictureLink.isNullOrEmpty()) {
             Picasso.with(this).load(LoginRepository.user?.profilePictureLink)
-                .into(profile_picture);
+                .into(profile_picture)
         }
 
         fun loadEventInfo(view: View, eventText: String) {
@@ -84,8 +92,8 @@ class ProfileActivity : AppCompatActivity() {
                             interestsOfAttendees
                         )
                         EventRepository.eventSelected = newEvent
-                        val intent = Intent(this, EventPageActivity::class.java);
-                        startActivity(intent);
+                        val intent = Intent(this, EventPageActivity::class.java)
+                        startActivity(intent)
                     } else {
                         Log.v("Response Success", "Event not found")
                         Log.v("ERROR", response.getString("errors"))
@@ -151,11 +159,44 @@ class ProfileActivity : AppCompatActivity() {
             }
         }
 
+        // TODO: Figure out WHAT THE FUCK THIS SHIT BELOW IS
+        //TODO: need to create a route to get event from event name!
+        if (LoginRepository.user?.eventsToAttend!!.isNotEmpty()) {
+            if (LoginRepository.user?.eventsToAttend!!.size == 1) {
+                val eventText = LoginRepository.user?.eventsToAttend!!.elementAt(0)
+                event_attending1.text = eventText
+                event_attending1.setOnClickListener {
+                    loadEventInfo(it, eventText)
+                }
+            } else {
+                Log.v("it is not null", "not null")
+                for (i in 0 until LoginRepository.user?.eventsToAttend!!.size) {
+                    //todo: add the route call here
+                    if (i == 0) {
+                        val eventText = LoginRepository.user?.eventsToAttend!!.elementAt(i)
+                        event_attending1.text = eventText
+                        event_attending1.setOnClickListener {
+                            loadEventInfo(it, eventText)
+                        }
+                    } else {
+                        val button = Button(this)
+                        val eventText = LoginRepository.user?.eventsToAttend!!.elementAt(i)
+                        button.text = eventText
+                        button.setOnClickListener {
+                            loadEventInfo(it, eventText)
+                        }
+                        events_attending_layout.addView(button)
+                    }
+                }
+            }
+        }
+        // TODO: figure out what the fuck the shit above is
+
         logout.setOnClickListener {
             LoginRepository.logout()
             finish()
-            val intent = Intent(this, LoginActivity::class.java);
-            startActivity(intent);
+            val intent = Intent(this, LoginActivity::class.java)
+            startActivity(intent)
         }
 
         add_interest_send.setOnClickListener {
@@ -276,15 +317,11 @@ class ProfileActivity : AppCompatActivity() {
             //                            ).show()
         }
 
-
-        val profilePicture = profile_picture
-        val editProfilePicture = edit
         profile_pronouns.text = LoginRepository.user?.genderPronouns
         val profileName = profile_name
         profileName.text = LoginRepository.user?.displayName
         profile_description.text =
             LoginRepository.user?.interests.toString().filter { e -> e != '[' && e != ']' }
-        val editPicture = edit
 
 
         delete_profile.setOnClickListener {
@@ -306,8 +343,8 @@ class ProfileActivity : AppCompatActivity() {
                             Toast.LENGTH_LONG
                         ).show()
                         finish()
-                        val intent = Intent(this, LoginActivity::class.java);
-                        startActivity(intent);
+                        val intent = Intent(this, LoginActivity::class.java)
+                        startActivity(intent)
                     } else {
                         val errors = response.getString("errors")
                         Log.v("Response Success", "User not deleted due to error")
@@ -342,17 +379,23 @@ class ProfileActivity : AppCompatActivity() {
         }
 
 
-        val createEvent = create_event
         create_event.setOnClickListener {
             // Handler code here.
             //CHANGE BACK TO LOGIN
-            val intent = Intent(this, CreateEventActivity::class.java);
-            startActivity(intent);
+            val intent = Intent(this, CreateEventActivity::class.java)
+            startActivity(intent)
+        }
+
+        search_from_profile.setOnClickListener {
+            // Handler code here.
+            //CHANGE BACK TO LOGIN
+            val intent = Intent(this, LocationManager::class.java)
+            startActivity(intent)
         }
 
         edit.setOnClickListener {
             val intent = Intent(this, ProfilePicture::class.java)
-            startActivity(intent);
+            startActivity(intent)
 
         }
 
@@ -368,5 +411,19 @@ class ProfileActivity : AppCompatActivity() {
 
             }
         }
+    }
+
+    //toolbar stuff
+    fun goToProfile(v: View) {
+    }
+
+    fun goToFeed(v: View) {
+        val intent = Intent(this, FeedActivity::class.java)
+        startActivity(intent)
+    }
+
+    fun goToSearch(v: View) {
+        val intent = Intent(this, SearchActivity::class.java)
+        startActivity(intent)
     }
 }

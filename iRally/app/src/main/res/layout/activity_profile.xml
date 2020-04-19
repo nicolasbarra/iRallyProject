@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
 
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -11,23 +10,20 @@
         android:layout_height="wrap_content"
         android:id="@+id/layout">
 
-
         <ImageView
             android:id="@+id/cover_photo"
             android:layout_width="match_parent"
             android:layout_height="150dp"
             android:src="@drawable/cover"
             android:background="?attr/selectableItemBackgroundBorderless"
-            android:scaleType="centerCrop"></ImageView>
-
+            android:contentDescription="@string/cover_photo"
+            android:scaleType="centerCrop" />
 
         <de.hdodenhof.circleimageview.CircleImageView
-            xmlns:app="http://schemas.android.com/apk/res-auto"
 
             android:clickable="true"
             app:civ_border_width="3dp"
             app:civ_border_color="#FFFFFFFF"
-
             android:id="@+id/profile_picture"
             android:layout_width="200dp"
             android:layout_height="200dp"
@@ -48,7 +44,6 @@
             android:elevation="4dp"
             android:paddingBottom="70dp">
 
-
             <ImageView
                 android:id="@+id/edit"
                 android:layout_width="22dp"
@@ -58,7 +53,7 @@
                 android:layout_marginTop="16dp"
                 android:layout_marginRight="16dp"
                 android:clickable="true"
-
+                android:contentDescription="@string/header"
                 android:src="@android:drawable/ic_menu_edit" />
 
             <TextView
@@ -67,7 +62,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="70dp"
-                android:text="Filler Name"
+                android:text="@string/filler_name"
                 android:textColor="#fff"
                 android:textSize="24sp"
                 android:textStyle="bold" />
@@ -79,7 +74,7 @@
                 android:layout_below="@+id/profile_name"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="10dp"
-                android:text="(pronouns go here)"
+                android:text="@string/pronouns_go_here"
                 android:textColor="#F9FDFF"
                 android:textSize="18sp"
                 android:textStyle="bold" />
@@ -101,55 +96,43 @@
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="10dp"
-                android:text="Events created: "
+                android:text="@string/events_created"
                 android:textStyle="bold"
                 android:layout_below="@+id/profile_description"
                 android:textColor="#FFC107"
-                android:textSize="16sp" />
-
+                android:textSize="8sp" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:id="@id/events_created_layout"
                 android:layout_height="wrap_content"
-
                 android:layout_centerHorizontal="true"
                 android:layout_below="@id/events_created_title"
-                android:orientation="vertical" >
+                android:orientation="vertical"
+                android:textSize="8sp">
 
                 <Button
                     android:id="@+id/event_created1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="No events created."
+                    android:minWidth="0dp"
+                    android:minHeight="0dp"
+                    android:text="@string/no_events_created"
+                    android:textSize="8sp"
                     />
 
-
             </LinearLayout>
-
-            <!--TODO: this was just filler, uncomment if u want it-->
-            <!--            <TextView-->
-            <!--                android:id="@+id/events_created"-->
-            <!--                android:layout_width="wrap_content"-->
-            <!--                android:layout_height="wrap_content"-->
-            <!--                android:layout_centerHorizontal="true"-->
-            <!--                android:layout_marginTop="10dp"-->
-            <!--                android:text="No events created."-->
-            <!--                android:layout_below="@+id/events_created_layout"-->
-            <!--                android:textColor="#FFFFFF"-->
-            <!--                android:textSize="12sp" />-->
-
             <TextView
                 android:id="@+id/events_attending_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="10dp"
-                android:text="Events attending: "
+                android:text="@string/events_attending"
                 android:textStyle="bold"
                 android:layout_below="@+id/events_created_layout"
                 android:textColor="#FFC107"
-                android:textSize="16sp" />
+                android:textSize="8sp" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -160,28 +143,17 @@
                 android:orientation="vertical" >
 
                 <Button
-                    android:id="@+id/test"
+                    android:id="@+id/event_attending1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Event attending filler"
+                    android:minWidth="0dp"
+                    android:minHeight="0dp"
+                    android:text="@string/no_events_to_attend"
                     android:textSize="8sp"
                     />
 
 
             </LinearLayout>
-
-            <!--TODO: this was just filler, uncomment if u want it-->
-
-            <!--            <TextView-->
-            <!--            android:id="@+id/events_attending"-->
-            <!--            android:layout_width="wrap_content"-->
-            <!--            android:layout_height="wrap_content"-->
-            <!--            android:layout_centerHorizontal="true"-->
-            <!--            android:layout_marginTop="10dp"-->
-            <!--            android:text="No events currently attending."-->
-            <!--            android:layout_below="@+id/events_attending_title"-->
-            <!--            android:textColor="#FFFFFF"-->
-            <!--            android:textSize="12sp" />-->
 
 
             <LinearLayout
@@ -189,48 +161,42 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical" >
 
-                <Button
-                    android:id="@+id/delete_profile"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/delete_my_profile"
-                    android:textSize="8sp"
-                    />
 
                 <Button
                     android:id="@+id/create_event"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Create an event"
+                    android:minWidth="0dp"
+                    android:minHeight="0dp"
+                    android:text="@string/create_an_event_lower_case"
                     android:textSize="8sp" />
 
-                <Button
-                    android:id="@+id/logout"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Log out"
-                    android:textSize="8dp" />
+
 
                 <EditText android:id="@+id/add_interest_type"
-                    android:hint="Interest to be added or removed"
+                    android:hint="@string/interest_to_be_added_or_removed"
                     android:inputType="text|textNoSuggestions"
                     android:layout_width="match_parent"
                     android:autofillHints="Interest"
                     android:layout_height="wrap_content"
-                    android:textSize="8dp"/>
+                    android:textSize="8sp" />
                 <Button
                     android:id="@+id/add_interest_send"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Add interest"
-                    android:textSize="8dp" />
+                    android:minWidth="0dp"
+                    android:minHeight="0dp"
+                    android:text="@string/add_interest"
+                    android:textSize="8sp" />
 
                 <Button
                     android:id="@+id/remove_interest"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Remove interest"
-                    android:textSize="8dp" />
+                    android:minWidth="0dp"
+                    android:minHeight="0dp"
+                    android:text="@string/remove_interest"
+                    android:textSize="8sp" />
 
 
             </LinearLayout>
@@ -238,8 +204,41 @@
 
         </RelativeLayout>
 
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <Button
+                android:id="@+id/search_from_profile"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:minWidth="0dp"
+                android:minHeight="0dp"
+                android:text="@string/search_bar"
+                android:textSize="8sp" />
+
+            <Button
+                android:id="@+id/logout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="170dp"
+                android:minWidth="0dp"
+                android:minHeight="0dp"
+                android:text="@string/log_out"
+                android:textSize="8sp" />
+
+            <Button
+                android:id="@+id/delete_profile"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:minWidth="0dp"
+                android:minHeight="0dp"
+                android:text="@string/delete_my_profile"
+                android:textSize="8sp" />
+        </LinearLayout>
+
     </RelativeLayout>
-
-
 
 </ScrollView>

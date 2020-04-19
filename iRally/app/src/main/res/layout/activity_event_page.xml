@@ -15,56 +15,52 @@
         android:background="@color/colorPrimary"
         tools:ignore="MissingConstraints">
 
-
         <TextView android:id="@+id/event_page_name"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="24dp"
-            android:text="FILLER EVENT PAGE"
+            android:text="@string/filler_event_page"
             android:gravity="center"
             android:textStyle="bold"
             android:textColor="@color/colorPrimaryDark"
-            android:textSize="24dp"/>
+            android:textSize="24sp" />
 
         <TextView android:id="@+id/event_page_creator"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="24dp"
-            android:text="Event created by: Filler creator"
-            android:gravity="left"
+            android:gravity="start"
+            android:text="@string/event_created_by_filler_creator"
             android:textColor="@color/white"
-            android:textSize="24dp"/>
-
+            android:textSize="24sp" />
 
         <TextView android:id="@+id/event_page_description"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="24dp"
-            android:text="event description"
-            android:gravity="left"
+            android:gravity="start"
+            android:text="@string/event_description"
             android:textStyle="bold|italic"
             android:textColor="@color/colorAccent"
-            android:textSize="24dp"/>
-
+            android:textSize="24sp" />
 
         <TextView android:id="@+id/event_page_address"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="24dp"
-            android:text="event address: address"
+            android:text="@string/event_address_address"
             android:gravity="center"
             android:textColor="@color/white"
-            android:textSize="24dp"/>
+            android:textSize="24sp" />
 
         <TextView android:id="@+id/event_page_date"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="24dp"
-            android:text="event date and time"
+            android:text="@string/event_date_and_time"
             android:gravity="center"
             android:textColor="@color/white"
-            android:textSize="24dp"/>
-
+            android:textSize="24sp" />
 
         <Button
             android:id="@+id/event_page_button"
@@ -73,7 +69,27 @@
             android:layout_marginTop="24dp"
             android:layout_marginBottom="24dp"
             android:padding="12dp"
-            android:text="Mark as going"/>
+            android:text="@string/mark_as_going" />
+
+        <TextView
+            android:id="@+id/event_page_attendees_title"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp"
+            android:gravity="start"
+            android:text="@string/attendees"
+            android:textColor="@color/white"
+            android:textSize="10sp" />
+
+        <TextView
+            android:id="@+id/event_page_attendees"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp"
+            android:gravity="start"
+            android:text="@string/currently_no_attendees"
+            android:textColor="@color/white"
+            android:textSize="10sp" />
 
     </LinearLayout>
 
