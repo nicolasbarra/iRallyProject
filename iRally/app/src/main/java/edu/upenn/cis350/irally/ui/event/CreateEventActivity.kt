@@ -106,7 +106,7 @@ class CreateEventActivity : AppCompatActivity() {
                                     interestsOfAttendeesJSONArray.get(i).toString()
                                 )
                             }
-                            Log.v("code has erached here", "or not")
+                            Log.v("code has reached here", "or not")
                             val newEvent = Event(
                                 newEventJSON.getString("eventId"),
                                 LoginRepository.user!!.userId,

@@ -1,10 +1,11 @@
 package edu.upenn.cis350.irally.ui.event
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.ExpandableListView
 import android.widget.Toast
+import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import com.android.volley.Response
 import com.android.volley.toolbox.JsonObjectRequest
@@ -12,7 +13,10 @@ import edu.upenn.cis350.irally.R
 import edu.upenn.cis350.irally.data.EventRepository
 import edu.upenn.cis350.irally.data.LoginRepository
 import edu.upenn.cis350.irally.data.RequestQueueSingleton
+import edu.upenn.cis350.irally.ui.feed.FeedActivity
 import edu.upenn.cis350.irally.ui.login.LoginActivity
+import edu.upenn.cis350.irally.ui.profile.ProfileActivity
+import edu.upenn.cis350.irally.ui.search.SearchActivity
 import kotlinx.android.synthetic.main.activity_event_page.*
 import org.json.JSONObject
 
@@ -20,8 +24,11 @@ class EventPageActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         setContentView(R.layout.activity_event_page)
+
+        //toolbar
+        supportActionBar?.displayOptions = ActionBar.DISPLAY_SHOW_CUSTOM;
+        supportActionBar?.setCustomView(R.layout.toolbar);
 
         event_page_name.text =
             EventRepository.eventSelected?.eventId ?: "Error: Unable to set event."
@@ -37,6 +44,15 @@ class EventPageActivity : AppCompatActivity() {
 
         event_page_date.text =
             EventRepository.eventSelected?.dateTime ?: "Error date and time cannot be found"
+
+        // TODO: FIX HAYLEY BELOW
+        for (i in 0 until EventRepository.eventSelected!!.attendees!!.size) {
+            if (event_page_attendees.text == "Currently no attendees") {
+                event_page_attendees.text = ""
+            }
+            event_page_attendees.append("\n" + i)
+        }
+
 
         val markAsGoing = event_page_button
         var attendingEventBool = false
@@ -99,5 +115,21 @@ class EventPageActivity : AppCompatActivity() {
             RequestQueueSingleton.getInstance(LoginActivity.context)
                 .addToRequestQueue(eventJsonObjectRequest)
         }
+    }
+
+    //toolbar stuff
+    fun goToProfile(v: View) {
+        val intent = Intent(this, ProfileActivity::class.java)
+        startActivity(intent)
+    }
+
+    fun goToFeed(v: View) {
+        val intent = Intent(this, FeedActivity::class.java)
+        startActivity(intent)
+    }
+
+    fun goToSearch(v: View) {
+        val intent = Intent(this, SearchActivity::class.java)
+        startActivity(intent)
     }
 }
