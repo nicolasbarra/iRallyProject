@@ -1,7 +1,6 @@
 package edu.upenn.cis350.irally.ui.profile
 
 import android.content.Intent
-import android.location.LocationManager
 import android.os.Bundle
 import android.util.Log
 import android.view.View
