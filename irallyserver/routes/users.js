@@ -16,4 +16,8 @@ router.post('/addInterest', user_controller.add_interest);
 
 router.post('/removeInterest', user_controller.remove_interest);
 
+router.post('/addFriend', user_controller.add_friend);
+
+router.post('/removeFriend', user_controller.remove_friend);
+
 module.exports = router;

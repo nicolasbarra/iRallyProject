@@ -94,6 +94,11 @@ const userSchema = new Schema(
                 ref: 'user'
             }
         ],
+        friendsString:[
+            {
+                type: [String]
+            }
+        ],
         comments: [
             {
                 type: mongoose.Schema.Types.ObjectID,
