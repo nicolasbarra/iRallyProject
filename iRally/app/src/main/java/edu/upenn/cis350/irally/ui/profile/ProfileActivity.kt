@@ -386,13 +386,6 @@ class ProfileActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        search_from_profile.setOnClickListener {
-            // Handler code here.
-            //CHANGE BACK TO LOGIN
-            val intent = Intent(this, LocationManagerActivity::class.java)
-            startActivity(intent)
-        }
-
         edit.setOnClickListener {
             val intent = Intent(this, ProfilePicture::class.java)
             startActivity(intent)
