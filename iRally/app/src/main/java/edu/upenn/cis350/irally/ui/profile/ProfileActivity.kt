@@ -14,6 +14,7 @@ import com.android.volley.toolbox.JsonObjectRequest
 import com.squareup.picasso.Picasso
 import edu.upenn.cis350.irally.R
 import edu.upenn.cis350.irally.data.EventRepository
+import edu.upenn.cis350.irally.data.LocationManagerActivity
 import edu.upenn.cis350.irally.data.LoginRepository
 import edu.upenn.cis350.irally.data.RequestQueueSingleton
 import edu.upenn.cis350.irally.data.model.Event
@@ -388,7 +389,7 @@ class ProfileActivity : AppCompatActivity() {
         search_from_profile.setOnClickListener {
             // Handler code here.
             //CHANGE BACK TO LOGIN
-            val intent = Intent(this, LocationManager::class.java)
+            val intent = Intent(this, LocationManagerActivity::class.java)
             startActivity(intent)
         }
 

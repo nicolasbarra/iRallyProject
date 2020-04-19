@@ -50,6 +50,10 @@
         <activity
             android:name=".ui.feed.FeedActivity"
             android:label="@string/app_name" />
+        <activity
+            android:name=".data.LocationManagerActivity"
+            android:label="@string/app_name" />
+
     </application>
 
 </manifest>
