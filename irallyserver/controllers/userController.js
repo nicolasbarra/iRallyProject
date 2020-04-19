@@ -291,16 +291,20 @@ exports.add_friend = [
                 errors: errors.array(),
             });
         } else {
-            User.findOne({username: req.body.currUser}, (err, user) => {
+            User.findOne({"username" : { "$in" : [  
+                req.body.currUsername,req.body.friendUsername ]}}, (err, users) => {
                 if (err) {
                     return res.json({
                         status: 'Failure',
                         errors: err,
                     });
-                } else if (user) {
+                } else if (users.length == 2) {
                     // user with that username exists
-                    user.personalInfo.interests = user.friends.push()
-                   
+                    let currUser = (users[0].username == req.body.currUsername) ? users[0] : users[1];
+                    let friendUser = (users[0].username == req.body.friendUsername) ? users[0] : users[1];  
+                    currUser.friends = currUser.push(friendUser._id);
+                    currUser.friendsString = currUser.push(friendUser._id);
+                    currUser.save();
                 } else {
                     // there is no user with that username
                     return res.json({
@@ -324,16 +328,20 @@ exports.delete_friend = [
                 errors: errors.array(),
             });
         } else {
-            User.findOne({username: req.body.currUser}, (err, user) => {
+            User.findOne({"username" : { "$in" : [  
+                req.body.currUsername,req.body.friendUsername ]}}, (err, users) => {
                 if (err) {
                     return res.json({
                         status: 'Failure',
                         errors: err,
                     });
-                } else if (user) {
+                } else if (users.length == 2) {
                     // user with that username exists
-                    user.personalInfo.interests = user.friends.push()
-                   
+                    let currUser = (users[0].username == req.body.currUsername) ? users[0] : users[1];
+                    let friendUser = (users[0].username == req.body.friendUsername) ? users[0] : users[1];  
+                    currUser.friends = currUser.friends.filter(x => x != friendUser._id);
+                    currUser.friendsString = currUser.friendsString.filter(x => x != friendUser.username);
+                    currUser.save();
                 } else {
                     // there is no user with that username
                     return res.json({
