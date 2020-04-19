@@ -20,4 +20,8 @@ router.post('/addFriend', user_controller.add_friend);
 
 router.post('/removeFriend', user_controller.remove_friend);
 
+router.post('/eventFeed', user_controller.get_event_feed);
+
+
+
 module.exports = router;

@@ -1,3 +1,7 @@
+
+
+const app = express();
+
 const createError = require('http-errors');
 const express = require('express');
 const path = require('path');
@@ -14,8 +18,6 @@ const usersRouter = require('./routes/users');
 const adminsRouter = require('./routes/admins');
 const eventsRouter = require('./routes/events');
 const fileRouter = require('./routes/imageUpload');
-
-const app = express();
 
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());

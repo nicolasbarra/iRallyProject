@@ -96,7 +96,7 @@ const userSchema = new Schema(
         ],
         friendsString:[
             {
-                type: [String]
+                type: String
             }
         ],
         comments: [
