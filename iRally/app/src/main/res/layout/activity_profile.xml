@@ -100,7 +100,7 @@
                 android:textStyle="bold"
                 android:layout_below="@+id/profile_description"
                 android:textColor="#FFC107"
-                android:textSize="8sp" />
+                android:textSize="12sp" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -132,7 +132,7 @@
                 android:textStyle="bold"
                 android:layout_below="@+id/events_created_layout"
                 android:textColor="#FFC107"
-                android:textSize="8sp" />
+                android:textSize="12sp" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -208,16 +208,6 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
-
-            <Button
-                android:id="@+id/search_from_profile"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-
-                android:minWidth="0dp"
-                android:minHeight="0dp"
-                android:text="@string/search_bar"
-                android:textSize="8sp" />
 
             <Button
                 android:id="@+id/logout"
