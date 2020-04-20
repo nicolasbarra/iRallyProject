@@ -1,7 +1,27 @@
 const {check, validationResult} = require("express-validator");
 
 const User = require('../models/user');
+const Event = require('../models/event');
 
+function getData(username) {
+    return new Promise ((resolve, reject) => {
+       User.find({username : username}, (err, user) => {
+        if (err) {
+            reject(res.json({
+                status: 'Failure',
+                errors: err,
+            }))
+        } else if (user) {
+            resolve(user);
+        } else {     
+            reject(res.json({
+                status: 'Failure',
+                errors: 'No user with that username can be found.'
+            }));
+        }
+       })
+    })
+}
 exports.create_user = [
     check('username').isString().notEmpty().trim().isLength({min: 3}).escape(),
     check('password').isString().notEmpty().trim().isLength({min: 3}).escape(),
@@ -372,10 +392,21 @@ exports.get_event_feed = [
                     });
                 } else if (user) {
                     // user with that username exists
-                    let friendsList = user.friendsString;
-                    for ()
-                   
-                
+                     let friendsList = user.friendsString;
+                    // friendsList.forEach(function(friend) {
+
+
+                    // })    
+
+                    User.find({"username" : { "$in" : friendsList}}).populate('eventsToAttendRefs').exec(function(err, friends) {
+                        let eventsList = [];
+                        friends.forEach(function(friend) {
+                            friend.eventsToAttendRefs.forEach(function(event) {
+                                eventsList.add(event.eventId);
+                            })      
+                        })
+                        return res.json(eventsList);
+                    })
                 } else {
                     // there is no user with that username
                     return res.json({
