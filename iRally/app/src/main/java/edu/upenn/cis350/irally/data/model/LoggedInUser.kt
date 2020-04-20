@@ -16,5 +16,5 @@ data class LoggedInUser(
     val eventsToAttend: MutableSet<String>,
     var numEventsCreated: Int,
     val adminsFollowed: MutableSet<Event>?,
-    val friends: MutableSet<LoggedInUser>?
+    val friends: MutableSet<String>?
 )

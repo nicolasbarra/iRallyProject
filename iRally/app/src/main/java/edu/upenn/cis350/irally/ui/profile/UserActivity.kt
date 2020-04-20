@@ -6,18 +6,26 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Button
+import android.widget.Toast
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
+import com.android.volley.Response
+import com.android.volley.toolbox.JsonObjectRequest
 import com.squareup.picasso.Picasso
 import edu.upenn.cis350.irally.R
+import edu.upenn.cis350.irally.data.RequestQueueSingleton
 import edu.upenn.cis350.irally.data.loadEventInfo
+import edu.upenn.cis350.irally.data.model.LoggedInUser
 import edu.upenn.cis350.irally.data.repository.EventRepository
 import edu.upenn.cis350.irally.data.repository.LoginRepository
 import edu.upenn.cis350.irally.ui.feed.FeedActivity
+import edu.upenn.cis350.irally.ui.login.LoginActivity
 import edu.upenn.cis350.irally.ui.search.SearchActivity
 import kotlinx.android.synthetic.main.activity_profile.*
 import kotlinx.android.synthetic.main.activity_user.*
 import kotlinx.android.synthetic.main.activity_user.profile_picture
+import org.json.JSONArray
+import org.json.JSONObject
 
 class UserActivity : AppCompatActivity() {
 
@@ -33,6 +41,13 @@ class UserActivity : AppCompatActivity() {
         if (!userInfo.profilePictureLink.isNullOrEmpty()) {
             Picasso.with(this).load(userInfo.profilePictureLink)
                 .into(profile_picture)
+        }
+
+        for (i in LoginRepository.user?.friends!!) {
+            if (i == userInfo.userId) {
+                friend.text = getString(R.string.already_friends)
+                friend.isEnabled = false;
+            }
         }
 
         if (!userInfo.eventsCreated.isNullOrEmpty()) {
@@ -74,7 +89,49 @@ class UserActivity : AppCompatActivity() {
         }
 
         friend.setOnClickListener {
-            // TODO: set friend button onclick listener
+            val requestBody = JSONObject()
+            requestBody.put("currUsername", LoginRepository.user?.userId)
+            requestBody.put("friendUsername", userInfo.userId)
+
+            val jsonObjectRequest = JsonObjectRequest(
+                "http://10.0.2.2:9000/users/addFriend",
+                requestBody,
+                Response.Listener { response ->
+                    Log.v("PROCESS", "got a response")
+                    Log.v("RESPONSE", response.toString())
+                    if (response.getString("status") == "Success") {
+                        LoginRepository.user?.friends?.add(userInfo.userId)
+                        friend.text = getString(R.string.already_friends)
+                        friend.isEnabled = false;
+                        Log.v("Response Success", "Added Friend")
+                        Toast.makeText(
+                            applicationContext,
+                            "Added ${userInfo.displayName} as a friend!",
+                            Toast.LENGTH_LONG
+                        ).show()
+                    } else {
+                        Log.v("Response Success", "User not found")
+                        Log.v("ERROR", response.getString("errors"))
+                        Toast.makeText(
+                            applicationContext,
+                            "Unable to friend user: ${response.getString("errors")}",
+                            Toast.LENGTH_LONG
+                        ).show()
+                    }
+                },
+                Response.ErrorListener { error ->
+                    Log.e("Response Error", "Error occurred", error)
+                    Toast.makeText(
+                        applicationContext,
+                        "Unable to friend user: ${error.message}",
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
+            )
+
+            RequestQueueSingleton.getInstance(LoginActivity.context)
+                .addToRequestQueue(jsonObjectRequest)
+
         }
 
         //toolbar

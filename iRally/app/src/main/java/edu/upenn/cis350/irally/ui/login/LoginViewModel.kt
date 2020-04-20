@@ -77,6 +77,12 @@ class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel()
                                 eventsString.add(event)
                                 EventRepository.eventsCreatedByUser.add(event)
                             }
+                            val friendsJSONArray: JSONArray =
+                                userJson.getJSONArray("friendsString")
+                            val friendsStrings = mutableSetOf<String>()
+                            for (i in 0 until friendsJSONArray.length()) {
+                                friendsStrings.add(friendsJSONArray.get(i).toString())
+                            }
                             if (!displayName.isNullOrEmpty() && !email.isNullOrEmpty()
                                 && !gender.isNullOrEmpty() && !genderPronouns.isNullOrEmpty()
                             ) {
@@ -93,7 +99,7 @@ class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel()
                                     eventsToAttendStrings,
                                     userJson.getInt("numEventsCreated"),
                                     null,
-                                    null
+                                    friendsStrings
                                 )
                                 _loginResult.value =
                                     LoginResult(success = user)
