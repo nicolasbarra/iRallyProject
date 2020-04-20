@@ -13,7 +13,7 @@ import com.android.volley.toolbox.JsonObjectRequest
 import edu.upenn.cis350.irally.R
 import edu.upenn.cis350.irally.data.repository.LoginRepository
 import edu.upenn.cis350.irally.data.RequestQueueSingleton
-import edu.upenn.cis350.irally.data.loadEventInfo
+import edu.upenn.cis350.irally.data.load.loadEventInfo
 import edu.upenn.cis350.irally.ui.login.LoginActivity
 import edu.upenn.cis350.irally.ui.profile.ProfileActivity
 import edu.upenn.cis350.irally.ui.search.SearchActivity
@@ -47,13 +47,23 @@ class FeedActivity : AppCompatActivity() {
                             if (i == 0) {
                                 feed_event1.text = eventText
                                 feed_event1.setOnClickListener {
-                                    loadEventInfo(it, eventText, this, applicationContext)
+                                    loadEventInfo(
+                                        it,
+                                        eventText,
+                                        this,
+                                        applicationContext
+                                    )
                                 }
                             } else {
                                 val myButton = Button(this)
                                 myButton.text = eventText
                                 myButton.setOnClickListener {
-                                    loadEventInfo(it, eventText, this, applicationContext)
+                                    loadEventInfo(
+                                        it,
+                                        eventText,
+                                        this,
+                                        applicationContext
+                                    )
                                 }
                                 event_in_feed_layout.addView(myButton)
                             }

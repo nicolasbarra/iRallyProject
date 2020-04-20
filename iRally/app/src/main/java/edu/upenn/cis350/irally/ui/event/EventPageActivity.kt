@@ -14,7 +14,7 @@ import edu.upenn.cis350.irally.R
 import edu.upenn.cis350.irally.data.repository.EventRepository
 import edu.upenn.cis350.irally.data.repository.LoginRepository
 import edu.upenn.cis350.irally.data.RequestQueueSingleton
-import edu.upenn.cis350.irally.data.loadProfileInfo
+import edu.upenn.cis350.irally.data.load.loadProfileInfo
 import edu.upenn.cis350.irally.ui.feed.FeedActivity
 import edu.upenn.cis350.irally.ui.login.LoginActivity
 import edu.upenn.cis350.irally.ui.profile.ProfileActivity
@@ -53,14 +53,24 @@ class EventPageActivity : AppCompatActivity() {
                     val attendeeText = EventRepository.eventSelected!!.attendees.elementAt(0)
                     attendee1.text = attendeeText
                     attendee1.setOnClickListener {
-                        loadProfileInfo(it, attendeeText, this, applicationContext)
+                        loadProfileInfo(
+                            it,
+                            attendeeText,
+                            this,
+                            applicationContext
+                        )
                     }
                 } else {
                     val myButton = Button(this)
                     val attendeeText = EventRepository.eventSelected!!.attendees.elementAt(i)
                     myButton.text = attendeeText
                     myButton.setOnClickListener {
-                        loadProfileInfo(it, attendeeText, this, applicationContext)
+                        loadProfileInfo(
+                            it,
+                            attendeeText,
+                            this,
+                            applicationContext
+                        )
                     }
                     attendees_layout.addView(myButton)
                 }
@@ -124,7 +134,12 @@ class EventPageActivity : AppCompatActivity() {
                                     EventRepository.eventSelected!!.attendees.elementAt(0)
                                 attendee1.text = attendeeText
                                 attendee1.setOnClickListener {
-                                    loadProfileInfo(it, attendeeText, this, applicationContext)
+                                    loadProfileInfo(
+                                        it,
+                                        attendeeText,
+                                        this,
+                                        applicationContext
+                                    )
                                 }
                             } else {
                                 val myButton = Button(this)
@@ -132,7 +147,12 @@ class EventPageActivity : AppCompatActivity() {
                                     EventRepository.eventSelected!!.attendees.elementAt(i)
                                 myButton.text = attendeeText
                                 myButton.setOnClickListener {
-                                    loadProfileInfo(it, attendeeText, this, applicationContext)
+                                    loadProfileInfo(
+                                        it,
+                                        attendeeText,
+                                        this,
+                                        applicationContext
+                                    )
                                 }
                                 attendees_layout.addView(myButton)
                             }

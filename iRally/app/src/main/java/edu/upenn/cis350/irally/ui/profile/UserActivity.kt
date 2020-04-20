@@ -14,17 +14,13 @@ import com.android.volley.toolbox.JsonObjectRequest
 import com.squareup.picasso.Picasso
 import edu.upenn.cis350.irally.R
 import edu.upenn.cis350.irally.data.RequestQueueSingleton
-import edu.upenn.cis350.irally.data.loadEventInfo
-import edu.upenn.cis350.irally.data.model.LoggedInUser
-import edu.upenn.cis350.irally.data.repository.EventRepository
+import edu.upenn.cis350.irally.data.load.loadEventInfo
 import edu.upenn.cis350.irally.data.repository.LoginRepository
 import edu.upenn.cis350.irally.ui.feed.FeedActivity
 import edu.upenn.cis350.irally.ui.login.LoginActivity
 import edu.upenn.cis350.irally.ui.search.SearchActivity
-import kotlinx.android.synthetic.main.activity_profile.*
 import kotlinx.android.synthetic.main.activity_user.*
 import kotlinx.android.synthetic.main.activity_user.profile_picture
-import org.json.JSONArray
 import org.json.JSONObject
 
 class UserActivity : AppCompatActivity() {
@@ -56,13 +52,23 @@ class UserActivity : AppCompatActivity() {
                 if (i == 0) {
                     user_event_created1.text = eventText
                     user_event_created1.setOnClickListener {
-                        loadEventInfo(it, eventText, this, applicationContext)
+                        loadEventInfo(
+                            it,
+                            eventText,
+                            this,
+                            applicationContext
+                        )
                     }
                 } else {
                     val myButton = Button(this)
                     myButton.text = eventText
                     myButton.setOnClickListener {
-                        loadEventInfo(it, eventText, this, applicationContext)
+                        loadEventInfo(
+                            it,
+                            eventText,
+                            this,
+                            applicationContext
+                        )
                     }
                     user_events_created_layout.addView(myButton)
                 }
@@ -75,13 +81,23 @@ class UserActivity : AppCompatActivity() {
                 if (i == 0) {
                     user_events_attending1.text = eventText
                     user_events_attending1.setOnClickListener {
-                        loadEventInfo(it, eventText, this, applicationContext)
+                        loadEventInfo(
+                            it,
+                            eventText,
+                            this,
+                            applicationContext
+                        )
                     }
                 } else {
                     val button = Button(this)
                     button.text = eventText
                     button.setOnClickListener {
-                        loadEventInfo(it, eventText, this, applicationContext)
+                        loadEventInfo(
+                            it,
+                            eventText,
+                            this,
+                            applicationContext
+                        )
                     }
                     user_events_attending_layout.addView(button)
                 }

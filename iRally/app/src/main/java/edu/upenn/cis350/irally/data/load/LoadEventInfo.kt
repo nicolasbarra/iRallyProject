@@ -1,4 +1,4 @@
-package edu.upenn.cis350.irally.data
+package edu.upenn.cis350.irally.data.load
 
 import android.content.Context
 import android.content.Intent
@@ -7,6 +7,7 @@ import android.view.View
 import android.widget.Toast
 import com.android.volley.Response
 import com.android.volley.toolbox.JsonObjectRequest
+import edu.upenn.cis350.irally.data.RequestQueueSingleton
 import edu.upenn.cis350.irally.data.model.Event
 import edu.upenn.cis350.irally.data.repository.EventRepository
 import edu.upenn.cis350.irally.ui.event.EventPageActivity
@@ -87,7 +88,9 @@ fun loadEventInfo(
         }
     )
 
-    RequestQueueSingleton.getInstance(LoginActivity.context)
+    RequestQueueSingleton.getInstance(
+        LoginActivity.context
+    )
         .addToRequestQueue(eventJsonObjectRequest)
 
     //

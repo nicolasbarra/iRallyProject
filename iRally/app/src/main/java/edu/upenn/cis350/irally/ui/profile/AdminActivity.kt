@@ -4,14 +4,11 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.Button
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import com.squareup.picasso.Picasso
 import edu.upenn.cis350.irally.R
-import edu.upenn.cis350.irally.data.loadEventInfo
 import edu.upenn.cis350.irally.data.repository.AdminRepository
-import edu.upenn.cis350.irally.data.repository.LoginRepository
 import edu.upenn.cis350.irally.ui.feed.FeedActivity
 import edu.upenn.cis350.irally.ui.search.SearchActivity
 import kotlinx.android.synthetic.main.activity_admin.*

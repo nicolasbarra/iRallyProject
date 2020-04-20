@@ -14,6 +14,7 @@ import com.android.volley.toolbox.JsonObjectRequest
 import com.squareup.picasso.Picasso
 import edu.upenn.cis350.irally.R
 import edu.upenn.cis350.irally.data.*
+import edu.upenn.cis350.irally.data.load.loadEventInfo
 import edu.upenn.cis350.irally.data.repository.EventRepository
 import edu.upenn.cis350.irally.data.repository.LoginRepository
 import edu.upenn.cis350.irally.ui.event.CreateEventActivity
@@ -48,7 +49,12 @@ class ProfileActivity : AppCompatActivity() {
                 val eventText = EventRepository.eventsCreatedByUser.elementAt(0)
                 event_created1.text = eventText
                 event_created1.setOnClickListener {
-                    loadEventInfo(it, eventText, this, applicationContext)
+                    loadEventInfo(
+                        it,
+                        eventText,
+                        this,
+                        applicationContext
+                    )
                 }
             } else {
                 Log.v("it is not null", "not null")
@@ -57,14 +63,24 @@ class ProfileActivity : AppCompatActivity() {
                         val eventText = EventRepository.eventsCreatedByUser.elementAt(i)
                         event_created1.text = eventText
                         event_created1.setOnClickListener {
-                            loadEventInfo(it, eventText, this, applicationContext)
+                            loadEventInfo(
+                                it,
+                                eventText,
+                                this,
+                                applicationContext
+                            )
                         }
                     } else {
                         val myButton = Button(this)
                         val eventText = EventRepository.eventsCreatedByUser.elementAt(i)
                         myButton.text = eventText
                         myButton.setOnClickListener {
-                            loadEventInfo(it, eventText, this, applicationContext)
+                            loadEventInfo(
+                                it,
+                                eventText,
+                                this,
+                                applicationContext
+                            )
                         }
                         events_created_layout.addView(myButton)
                     }
@@ -78,13 +94,23 @@ class ProfileActivity : AppCompatActivity() {
                 if (i == 0) {
                     event_attending1.text = eventText
                     event_attending1.setOnClickListener {
-                        loadEventInfo(it, eventText, this, applicationContext)
+                        loadEventInfo(
+                            it,
+                            eventText,
+                            this,
+                            applicationContext
+                        )
                     }
                 } else {
                     val button = Button(this)
                     button.text = eventText
                     button.setOnClickListener {
-                        loadEventInfo(it, eventText, this, applicationContext)
+                        loadEventInfo(
+                            it,
+                            eventText,
+                            this,
+                            applicationContext
+                        )
                     }
                     events_attending_layout.addView(button)
                 }

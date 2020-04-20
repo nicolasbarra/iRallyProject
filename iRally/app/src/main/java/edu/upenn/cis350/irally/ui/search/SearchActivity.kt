@@ -12,13 +12,13 @@ import com.android.volley.Response
 import com.android.volley.toolbox.JsonObjectRequest
 import edu.upenn.cis350.irally.R
 import edu.upenn.cis350.irally.data.RequestQueueSingleton
-import edu.upenn.cis350.irally.data.loadEventInfo
-import edu.upenn.cis350.irally.data.loadProfileInfo
+import edu.upenn.cis350.irally.data.load.loadEventInfo
+import edu.upenn.cis350.irally.data.load.loadProfileInfo
 import edu.upenn.cis350.irally.ui.feed.FeedActivity
 import edu.upenn.cis350.irally.ui.login.LoginActivity
 import edu.upenn.cis350.irally.ui.profile.ProfileActivity
 import kotlinx.android.synthetic.main.activity_search.*
-import loadAdminInfo
+import edu.upenn.cis350.irally.data.load.loadAdminInfo
 import org.json.JSONObject
 
 class SearchActivity : AppCompatActivity() {
@@ -49,13 +49,23 @@ class SearchActivity : AppCompatActivity() {
                                 if (i == 0) {
                                     user_search_result1.text = userText
                                     user_search_result1.setOnClickListener {
-                                        loadProfileInfo(it, userText, this, applicationContext)
+                                        loadProfileInfo(
+                                            it,
+                                            userText,
+                                            this,
+                                            applicationContext
+                                        )
                                     }
                                 } else {
                                     val myButton = Button(this)
                                     myButton.text = userText
                                     myButton.setOnClickListener {
-                                        loadProfileInfo(it, userText, this, applicationContext)
+                                        loadProfileInfo(
+                                            it,
+                                            userText,
+                                            this,
+                                            applicationContext
+                                        )
                                     }
                                     user_search_result_layout.addView(myButton)
                                 }
@@ -68,13 +78,23 @@ class SearchActivity : AppCompatActivity() {
                                 if (i == 0) {
                                     event_search_result1.text = eventText
                                     event_search_result1.setOnClickListener {
-                                        loadEventInfo(it, eventText, this, applicationContext)
+                                        loadEventInfo(
+                                            it,
+                                            eventText,
+                                            this,
+                                            applicationContext
+                                        )
                                     }
                                 } else {
                                     val myButton = Button(this)
                                     myButton.text = eventText
                                     myButton.setOnClickListener {
-                                        loadEventInfo(it, eventText, this, applicationContext)
+                                        loadEventInfo(
+                                            it,
+                                            eventText,
+                                            this,
+                                            applicationContext
+                                        )
                                     }
                                     event_search_result_layout.addView(myButton)
                                 }
@@ -88,13 +108,23 @@ class SearchActivity : AppCompatActivity() {
                                 if (i == 0) {
                                     admin_search_result1.text = adminText
                                     admin_search_result1.setOnClickListener {
-                                        loadAdminInfo(it, adminText, this, applicationContext)
+                                        loadAdminInfo(
+                                            it,
+                                            adminText,
+                                            this,
+                                            applicationContext
+                                        )
                                     }
                                 } else {
                                     val myButton = Button(this)
                                     myButton.text = adminText
                                     myButton.setOnClickListener {
-                                        loadAdminInfo(it, adminText, this, applicationContext)
+                                        loadAdminInfo(
+                                            it,
+                                            adminText,
+                                            this,
+                                            applicationContext
+                                        )
                                     }
                                     admin_search_result_layout.addView(myButton)
                                 }
