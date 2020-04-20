@@ -413,48 +413,47 @@ exports.get_event_feed = [
                         errors: err,
                     });
                 } else if (user) {
-                    // user with that username exists
-                    if (user.friendsString) {
-                        const friendsList = user.friendsString;
-                        async.forEach(friendsList, x => {
-                                User.findOne({"username": x}, (err, friend) => {
-                                    if (err) {
+                    // user with that username exists                   
+                     const friendsList = user.friendsString;
+                    // async.forEach(friendsList, x => {
+                    //         User.findOne({"username": x}, (err, friend) => {
+                    //             if (err) {
 
-                                    } else {
-                                        if (friend) {
-                                            friend.eventsToAttendStrings.forEach(e => {
-                                                console.log("in last loop");
-                                                eventsSend.push(e)
-                                            });
+                    //             } else {
+                    //                 if (friend) {
+                    //                     async.forEach(friend.eventsToAttendStrings, e => {
+                    //                         console.log("in last loop");
+                    //                         eventsSend.push(e)
+                    //                     });
 
-                                        } else {
+                    //                 } else {
 
-                                        }
-                                    }
-                                })
-                            }
-                        );
-                        // friendsList.forEach(function(friend) {
+                    //                 }
+                    //             }
+                    //         })
+                    //     }
+                    // );
+                // friendsList.forEach(function(friend) {
 
 
-                        // })
+                // })
 
-                        // User.find({"username": {"$in": friendsList}}).populate('eventsToAttendRefs').exec(function (err, friends) {
-                        //     let eventsList = [];
-                        //     friends.forEach(function (friend) {
-                        //         friend.eventsToAttendRefs.forEach(function (event) {
-                        //             eventsList.push(event.eventId + " on " + event.dateTime);
-                        //         })
-                        //     })
-                        //     return res.json({
-                        //         status: 'Success',
-                        //         errors: null,
-                        //         eventsList: eventsList
-                        //     });
-                        // })
-                    } else {
+                User.find({"username": {"$in": friendsList}}).exec(function (err, friends) {
+                    let eventsList = [];
+                    friends.forEach(function (friend) {
+                        friend.eventsToAttendStrings.forEach(function (event) {
+                            console.log("this is event", event);
+                            eventsList.push(event);
+                        })
+                    })
+//                    console.log(eventsList);
+                    return res.json({
+                        status: 'Success',
+                        errors: null,
+                        eventsList: eventsList
+                    });
+                })
 
-                    }
                 } else {
                     // there is no user with that username
                     return res.json({

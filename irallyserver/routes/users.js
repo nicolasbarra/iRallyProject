@@ -22,6 +22,4 @@ router.post('/removeFriend', user_controller.delete_friend);
 
 router.post('/eventFeed', user_controller.get_event_feed);
 
-
-
 module.exports = router;
