@@ -405,7 +405,8 @@ exports.get_event_feed = [
                 errors: errors.array(),
             });
         } else {
-            User.find({"username" : req.body.username}, (err, user) => {
+            eventsSend = [];
+            User.findOne({"username": req.body.username}, (err, user) => {
                 if (err) {
                     return res.json({
                         status: 'Failure',
@@ -413,37 +414,47 @@ exports.get_event_feed = [
                     });
                 } else if (user) {
                     // user with that username exists
-                     let friendsList = user.friendsString;
-                    // friendsList.forEach(function(friend) {
+                    if (user.friendsString) {
+                        const friendsList = user.friendsString;
+                        async.forEach(friendsList, x => {
+                                User.findOne({"username": x}, (err, friend) => {
+                                    if (err) {
+
+                                    } else {
+                                        if (friend) {
+                                            friend.eventsToAttendStrings.forEach(e => {
+                                                console.log("in last loop");
+                                                eventsSend.push(e)
+                                            });
+
+                                        } else {
+
+                                        }
+                                    }
+                                })
+                            }
+                        );
+                        // friendsList.forEach(function(friend) {
 
 
-                    // })    
-                    User.find({"username" : { "$in" : user[0].friendsString}}).exec(function(err, friends) {
-                        console.log("friends", friends);
-                        let eventsList = [];
-                        friends.forEach(function(friend) {
-                            friend.eventsToAttendStrings.forEach(function(event) {
-                                eventsList.push(event);
-                            })
-                        })   
-                        let counter = 0;
-                        let returnList = [];
-                        eventsList.forEach(function(event) {
-                            Event.find({"eventId" : event}, (err, event) => {
-                                if (counter != eventsList.length - 1) {
-                                    console.log("Event", event);
-                                    returnList.push(event.eventId + " on " + event.dateTime);
-                                    counter++;
-                                } else {
-                                    return res.json({
-                                        status: 'Success',
-                                        errors: null,
-                                        eventsList: returnList
-                                    });    
-                                }
-                            });                                                             
-                        })    
-                    })
+                        // })
+
+                        // User.find({"username": {"$in": friendsList}}).populate('eventsToAttendRefs').exec(function (err, friends) {
+                        //     let eventsList = [];
+                        //     friends.forEach(function (friend) {
+                        //         friend.eventsToAttendRefs.forEach(function (event) {
+                        //             eventsList.push(event.eventId + " on " + event.dateTime);
+                        //         })
+                        //     })
+                        //     return res.json({
+                        //         status: 'Success',
+                        //         errors: null,
+                        //         eventsList: eventsList
+                        //     });
+                        // })
+                    } else {
+
+                    }
                 } else {
                     // there is no user with that username
                     return res.json({
