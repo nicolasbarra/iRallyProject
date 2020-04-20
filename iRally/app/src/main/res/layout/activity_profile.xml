@@ -100,7 +100,7 @@
                 android:textStyle="bold"
                 android:layout_below="@+id/profile_description"
                 android:textColor="#FFC107"
-                android:textSize="12sp" />
+                android:textSize="14sp" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -118,10 +118,10 @@
                     android:minWidth="0dp"
                     android:minHeight="0dp"
                     android:text="@string/no_events_created"
-                    android:textSize="8sp"
                     />
 
             </LinearLayout>
+
             <TextView
                 android:id="@+id/events_attending_title"
                 android:layout_width="wrap_content"
@@ -132,7 +132,7 @@
                 android:textStyle="bold"
                 android:layout_below="@+id/events_created_layout"
                 android:textColor="#FFC107"
-                android:textSize="12sp" />
+                android:textSize="14sp" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -149,7 +149,6 @@
                     android:minWidth="0dp"
                     android:minHeight="0dp"
                     android:text="@string/no_events_to_attend"
-                    android:textSize="8sp"
                     />
 
 
