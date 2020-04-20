@@ -107,11 +107,12 @@ exports.add_attendee = [
                         event.save();
                         if (user.eventsToAttendRefs) {
                             user.eventsToAttendRefs.push(event._id);
-                            user.eventsToAttendStrings.push(event.eventId)
+                            user.eventsToAttendStrings.push(event.eventId + ' on ' + event.dateTime)
                         } else {
                             user.eventsToAttendRefs = [event._id];
-                            user.eventsCreatedStrings = [event.eventId];
+                            user.eventsToAttendStrings = [event.eventId + ' on ' + event.dateTime];
                         }
+                        console.log("PLEASE WORK GOD PLEASE");
                         user.save();
                         return res.json({
                             status: 'Success',
