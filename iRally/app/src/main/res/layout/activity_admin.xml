@@ -119,28 +119,28 @@
                 android:textSize="10sp" />
 
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:id="@+id/admin_events_created_layout"
-                android:layout_height="wrap_content"
+<!--            <LinearLayout-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:id="@+id/admin_events_created_layout"-->
+<!--                android:layout_height="wrap_content"-->
 
-                android:layout_centerHorizontal="true"
-                android:layout_below="@+id/events_created_title"
-                android:orientation="vertical" >
+<!--                android:layout_centerHorizontal="true"-->
+<!--                android:layout_below="@+id/events_created_title"-->
+<!--                android:orientation="vertical" >-->
 
-                <Button
-                    android:id="@+id/admin_event_created1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+<!--                <Button-->
+<!--                    android:id="@+id/admin_event_created1"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
 
-                    android:minHeight="0dp"
-                    android:minWidth="0dp"
-                    android:textSize="8sp"
-                    android:text="@string/no_events_created"
-                    />
+<!--                    android:minHeight="0dp"-->
+<!--                    android:minWidth="0dp"-->
+<!--                    android:textSize="8sp"-->
+<!--                    android:text="@string/no_events_created"-->
+<!--                    />-->
 
 
-            </LinearLayout>
+<!--            </LinearLayout>-->
 
 
 

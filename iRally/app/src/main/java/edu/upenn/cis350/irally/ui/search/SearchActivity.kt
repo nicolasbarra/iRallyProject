@@ -18,6 +18,7 @@ import edu.upenn.cis350.irally.ui.feed.FeedActivity
 import edu.upenn.cis350.irally.ui.login.LoginActivity
 import edu.upenn.cis350.irally.ui.profile.ProfileActivity
 import kotlinx.android.synthetic.main.activity_search.*
+import loadAdminInfo
 import org.json.JSONObject
 
 class SearchActivity : AppCompatActivity() {
@@ -80,24 +81,25 @@ class SearchActivity : AppCompatActivity() {
                             }
                         }
 
-//                        if (adminsList.length() != 0) {
-//                            for (i in 0 until adminsList.length()) {
-//                                val adminText = adminsList.get(i).toString()
-//                                if (i == 0) {
-//                                    admin_search_result1.text = adminText
-//                                    admin_search_result1.setOnClickListener {
-//                                        loadEventInfo(it, adminText, this, applicationContext)
-//                                    }
-//                                } else {
-//                                    val myButton = Button(this)
-//                                    myButton.text = adminText
-//                                    myButton.setOnClickListener {
-//                                        loadEventInfo(it, adminText, this, applicationContext)
-//                                    }
-//                                    admin_search_result_layout.addView(myButton)
-//                                }
-//                            }
-//                        }
+                        if (adminsList.length() != 0) {
+                            for (i in 0 until adminsList.length()) {
+                                val adminText = adminsList.get(i).toString()
+                                Log.v("i is ", adminText)
+                                if (i == 0) {
+                                    admin_search_result1.text = adminText
+                                    admin_search_result1.setOnClickListener {
+                                        loadAdminInfo(it, adminText, this, applicationContext)
+                                    }
+                                } else {
+                                    val myButton = Button(this)
+                                    myButton.text = adminText
+                                    myButton.setOnClickListener {
+                                        loadAdminInfo(it, adminText, this, applicationContext)
+                                    }
+                                    admin_search_result_layout.addView(myButton)
+                                }
+                            }
+                        }
 
                     } else {
                         Log.v("Response Success", "queries not found")
