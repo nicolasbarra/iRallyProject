@@ -71,7 +71,7 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/user_profile_description"
+                android:id="@+id/user_profile_interests"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/user_profile_pronouns"
@@ -89,7 +89,7 @@
                 android:layout_marginTop="10dp"
                 android:text="@string/events_created"
                 android:textStyle="bold"
-                android:layout_below="@+id/user_profile_description"
+                android:layout_below="@+id/user_profile_interests"
                 android:textColor="#FFC107"
                 android:textSize="8sp" />
 
