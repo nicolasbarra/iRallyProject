@@ -189,7 +189,11 @@ exports.profile_user = [
                 } else if (user) {
                     // user with that username exists
                     user.password = "";
-                    return res.json(user);
+                    return res.json({
+                        status: 'Success',
+                        errors: null,
+                        user: user
+                    });
                 } else {
                     // there is no user with that username
                     return res.json({
