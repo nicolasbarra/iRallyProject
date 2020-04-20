@@ -56,6 +56,7 @@ class LocationActivity : AppCompatActivity() {
                             } else {
                                 for (i in 0 until eventJSONList.length()) {
                                     val eventText = eventJSONList.get(i).toString()
+                                    Log.v("clossest vevents", eventText)
                                     if (i == 0) {
                                         near_event1.text = eventText
                                         near_event1.setOnClickListener {
