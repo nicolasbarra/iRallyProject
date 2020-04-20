@@ -175,10 +175,15 @@ exports.event = [
 
 
 exports.grab_closest_events = [
-    (req, res) => {
+    (req, res) => { 
         url = "https://maps.googleapis.com/maps/api/geocode/json?address=" + userData[0].address + userData[0].city + userData[0].state + "&key=AIzaSyB2_4SMM3Bxc-XE90LPTqao04m_XYkbsEw"
         axios.get(url).then(() => {
-            
+            //you get the latitude and longitude 
+            ///
+            Event.findAll(){
+                
+            }
+
         })
     }
 ]
