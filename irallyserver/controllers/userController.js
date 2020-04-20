@@ -402,10 +402,14 @@ exports.get_event_feed = [
                         let eventsList = [];
                         friends.forEach(function(friend) {
                             friend.eventsToAttendRefs.forEach(function(event) {
-                                eventsList.add(event.eventId);
+                                eventsList.push(event);
                             })      
                         })
-                        return res.json(eventsList);
+                        return res.json({
+                            status: 'Success',
+                            errors: null,
+                            eventsList: eventsList
+                        });
                     })
                 } else {
                     // there is no user with that username
