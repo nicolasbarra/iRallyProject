@@ -2,7 +2,7 @@ package edu.upenn.cis350.irally.ui.login
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import edu.upenn.cis350.irally.data.LoginRepository
+import edu.upenn.cis350.irally.data.repository.LoginRepository
 
 /**
  * ViewModel provider factory to instantiate LoginViewModel.
