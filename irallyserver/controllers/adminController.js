@@ -124,7 +124,24 @@ exports.profile_admin = [
     (req, res) => {
         console.log("this is PROFILE req.session.user", req.session);
         Admin.findOne({'username': currSession}, (err, admin) => {
-            res.send({admin: admin});
-        });
+            res.send({
+                status : 'Success',
+                admin: admin
+            });
+         });
     }
 ];
+
+exports.profile_admin_android = [
+    (req, res) => {
+        console.log("this is PROFILE req.session.user", req.session);
+        Admin.findOne({'username': req.body.username}, (err, admin) => {
+            console.log(admin);
+            res.send({
+                status : 'Success',
+                admin: admin
+            });
+         });
+    }
+];
+

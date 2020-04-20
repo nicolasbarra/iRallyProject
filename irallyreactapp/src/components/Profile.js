@@ -37,7 +37,7 @@ class Profile extends Component {
 
     componentDidMount() {
         console.log('first');
-        axios.get('http://localhost:9000/admins/') 
+        axios.post('http://localhost:9000/admins/') 
         .then (res => {
             if (res.data.admin) {
                 console.log(res.data.admin);

@@ -48,7 +48,7 @@ function getAdmins(substrings) {
                 reject(err);
             } else {
                 let adminList = []
-                admins.forEach(function(user) {
+                admins.forEach(function(admin) {
                    adminList.push(admin.username);
                 })
                 resolve(adminList);

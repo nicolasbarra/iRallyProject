@@ -329,6 +329,10 @@ exports.add_friend = [
                     currUser.friends = currUser.push(friendUser._id);
                     currUser.friendsString = currUser.push(friendUser._id);
                     currUser.save();
+                    return res.json({
+                        status: 'Success',
+                        errors: null
+                    });
                 } else {
                     // there is no user with that username
                     return res.json({
@@ -366,6 +370,10 @@ exports.delete_friend = [
                     currUser.friends = currUser.friends.filter(x => x != friendUser._id);
                     currUser.friendsString = currUser.friendsString.filter(x => x != friendUser.username);
                     currUser.save();
+                    return res.json({
+                        status: 'Success',
+                        errors: null
+                    });
                 } else {
                     // there is no user with that username
                     return res.json({
