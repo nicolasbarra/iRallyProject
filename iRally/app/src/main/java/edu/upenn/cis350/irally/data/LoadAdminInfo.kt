@@ -36,47 +36,45 @@ fun loadAdminInfo(
                 val displayName = personalInfo.getString("adminName")
                 val description = personalInfo.getString("description")
                 val politicalAffiliation = personalInfo.getString("politicalAffiliation");
-                val goals = personalInfo.getString("goals")
+                val goalsJSON = personalInfo.getJSONArray("goals")
+                val goalsStrings = mutableSetOf<String>()
+                for (i in 0 until goalsJSON.length()) {
+                    goalsStrings.add(
+                        goalsJSON.get(i).toString()
+                    )
+                }
                 val profilePictureLink = if (personalInfo.has("profilePictureLink")) {
                     personalInfo.getString("profilePictureLink")
                 } else {
                     ""
                 }
-                val interests: String =
-                    personalInfo.getString("interests")
-
-                Log.v("interests arry final", interests.toString())
+                val interestsJSON = personalInfo.getJSONArray("interests")
+                val interestsStrings = mutableSetOf<String>()
+                for (i in 0 until interestsJSON.length()) {
+                    interestsStrings.add(
+                        interestsJSON.get(i).toString()
+                    )
+                }
                 val eventsToHostJson =
                     if (adminJson.has("eventsToHost")) {
                         adminJson.getJSONArray("eventsToHost")
                     } else {
                         JSONArray()
                     }
-
-
                 val eventsString = mutableSetOf<String>()
                 for (i in 0 until eventsToHostJson.length()) {
                     eventsString.add(
                         eventsToHostJson.get(i).toString()
                     )
                 }
-
-//                    val username: String,
-//                    val description: String,
-//                    val politicalAffiliation: String,
-//                    val goals: String,
-//                    var interests: String,
-//                    val profilePictureLink: String?,
-//                    val eventsToHost: MutableSet<Event>?,
-//                    val eventsHosted: MutableSet<String>?,
-//                    var numEventsCreated: Int
                 if (!displayName.isNullOrEmpty()) {
                     val admin = Admin(
                         adminText,
                         displayName,
                         description,
                         politicalAffiliation,
-                        interests,
+                        goalsStrings,
+                        interestsStrings,
                         profilePictureLink,
                         null,
                         eventsString,

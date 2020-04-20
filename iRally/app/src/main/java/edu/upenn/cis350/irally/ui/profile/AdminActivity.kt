@@ -25,11 +25,13 @@ class AdminActivity : AppCompatActivity() {
 
         val adminInfo = AdminRepository.adminSelected!!
         Log.v("AdminInfo ${adminInfo.username}", adminInfo.toString())
-        admin_name.text = adminInfo.username
+        admin_name.text = adminInfo.displayName
         admin_political_affiliation.text = adminInfo.politicalAffiliation
         admin_profile_description.text = adminInfo.description
-        admin_goals.text = adminInfo.goals
-        admin_interests.text = adminInfo.interests
+        admin_goals.text =
+            adminInfo.goals.toString().filter { e -> e != '[' && e != ']' }
+        admin_interests.text =
+            adminInfo.interests.toString().filter { e -> e != '[' && e != ']' }
         if (!adminInfo.profilePictureLink.isNullOrEmpty()) {
             Picasso.with(this).load(adminInfo.profilePictureLink)
                 .into(profile_picture)
