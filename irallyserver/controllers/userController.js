@@ -418,19 +418,31 @@ exports.get_event_feed = [
 
 
                     // })    
-
-                    User.find({"username" : { "$in" : friendsList}}).populate('eventsToAttendRefs').exec(function(err, friends) {
+                    User.find({"username" : { "$in" : user[0].friendsString}}).exec(function(err, friends) {
+                        console.log("friends", friends);
                         let eventsList = [];
                         friends.forEach(function(friend) {
-                            friend.eventsToAttendRefs.forEach(function(event) {
-                                eventsList.push(event.eventId + " on " + event.dateTime);
-                            })      
-                        })
-                        return res.json({
-                            status: 'Success',
-                            errors: null,
-                            eventsList: eventsList
-                        });
+                            friend.eventsToAttendStrings.forEach(function(event) {
+                                eventsList.push(event);
+                            })
+                        })   
+                        let counter = 0;
+                        let returnList = [];
+                        eventsList.forEach(function(event) {
+                            Event.find({"eventId" : event}, (err, event) => {
+                                if (counter != eventsList.length - 1) {
+                                    console.log("Event", event);
+                                    returnList.push(event.eventId + " on " + event.dateTime);
+                                    counter++;
+                                } else {
+                                    return res.json({
+                                        status: 'Success',
+                                        errors: null,
+                                        eventsList: returnList
+                                    });    
+                                }
+                            });                                                             
+                        })    
                     })
                 } else {
                     // there is no user with that username
