@@ -11,9 +11,10 @@ import androidx.appcompat.app.AppCompatActivity
 import com.android.volley.Response
 import com.android.volley.toolbox.JsonObjectRequest
 import edu.upenn.cis350.irally.R
-import edu.upenn.cis350.irally.data.EventRepository
-import edu.upenn.cis350.irally.data.LoginRepository
+import edu.upenn.cis350.irally.data.repository.EventRepository
+import edu.upenn.cis350.irally.data.repository.LoginRepository
 import edu.upenn.cis350.irally.data.RequestQueueSingleton
+import edu.upenn.cis350.irally.data.loadProfileInfo
 import edu.upenn.cis350.irally.ui.feed.FeedActivity
 import edu.upenn.cis350.irally.ui.login.LoginActivity
 import edu.upenn.cis350.irally.ui.profile.ProfileActivity
@@ -52,16 +53,14 @@ class EventPageActivity : AppCompatActivity() {
                     val attendeeText = EventRepository.eventSelected!!.attendees.elementAt(0)
                     attendee1.text = attendeeText
                     attendee1.setOnClickListener {
-//                    loadEventInfo(it, eventText)
-                        // TODO: load attendee, check if the person is the current users
+                        loadProfileInfo(it, attendeeText, this, applicationContext)
                     }
                 } else {
                     val myButton = Button(this)
                     val attendeeText = EventRepository.eventSelected!!.attendees.elementAt(i)
                     myButton.text = attendeeText
                     myButton.setOnClickListener {
-//                    loadEventInfo(it, eventText)
-                        // TODO: load attendee, check if the person is the current user
+                        loadProfileInfo(it, attendeeText, this, applicationContext)
                     }
                     attendees_layout.addView(myButton)
                 }
@@ -115,8 +114,7 @@ class EventPageActivity : AppCompatActivity() {
                                     EventRepository.eventSelected!!.attendees.elementAt(0)
                                 attendee1.text = attendeeText
                                 attendee1.setOnClickListener {
-//                    loadEventInfo(it, eventText)
-                                    // TODO: load attendee, check if the person is the current users
+                                    loadProfileInfo(it, attendeeText, this, applicationContext)
                                 }
                             } else {
                                 val myButton = Button(this)
@@ -124,8 +122,7 @@ class EventPageActivity : AppCompatActivity() {
                                     EventRepository.eventSelected!!.attendees.elementAt(i)
                                 myButton.text = attendeeText
                                 myButton.setOnClickListener {
-//                    loadEventInfo(it, eventText)
-                                    // TODO: load attendee, check if the person is the current user
+                                    loadProfileInfo(it, attendeeText, this, applicationContext)
                                 }
                                 attendees_layout.addView(myButton)
                             }
