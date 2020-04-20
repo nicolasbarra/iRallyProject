@@ -13,10 +13,7 @@ import com.android.volley.Response
 import com.android.volley.toolbox.JsonObjectRequest
 import com.squareup.picasso.Picasso
 import edu.upenn.cis350.irally.R
-import edu.upenn.cis350.irally.data.EventRepository
-import edu.upenn.cis350.irally.data.LocationManagerActivity
-import edu.upenn.cis350.irally.data.LoginRepository
-import edu.upenn.cis350.irally.data.RequestQueueSingleton
+import edu.upenn.cis350.irally.data.*
 import edu.upenn.cis350.irally.data.model.Event
 import edu.upenn.cis350.irally.ui.event.CreateEventActivity
 import edu.upenn.cis350.irally.ui.event.EventPageActivity
@@ -46,96 +43,12 @@ class ProfileActivity : AppCompatActivity() {
                 .into(profile_picture)
         }
 
-        fun loadEventInfo(view: View, eventText: String) {
-            val eventId = eventText.substring(0, eventText.lastIndexOf(" on "))
-
-            val eventRequestBody = JSONObject()
-            eventRequestBody.put("eventId", eventId)
-
-            val eventJsonObjectRequest = JsonObjectRequest(
-                "http://10.0.2.2:9000/events/",
-                eventRequestBody,
-                Response.Listener { response ->
-                    Log.v("PROCESS", "got a response (register")
-                    Log.v("RESPONSE", response.toString())
-                    if (response.getString("status") == "Success") {
-                        Log.v("Response Success", "Event received")
-                        val eventJSON = response.getJSONObject("event")
-                        val interestsOfAttendeesJSONArray: JSONArray =
-                            eventJSON.getJSONArray("interestsOfAttendees")
-                        val interestsOfAttendees = mutableSetOf<String>()
-                        for (j in 0 until interestsOfAttendeesJSONArray.length()) {
-                            interestsOfAttendees.add(
-                                interestsOfAttendeesJSONArray.get(j).toString()
-                            )
-                        }
-                        val attendeesStringsJSONArray =
-                            if (eventJSON.has("eventsToAttendStrings")) {
-                                eventJSON.getJSONArray("eventsToAttendStrings")
-                            } else {
-                                JSONArray()
-                            }
-                        val attendeesStrings = mutableSetOf<String>()
-                        for (k in 0 until attendeesStringsJSONArray.length()) {
-                            attendeesStrings.add(
-                                attendeesStringsJSONArray.get(k).toString()
-                            )
-                        }
-                        val newEvent = Event(
-                            eventJSON.getString("eventId"),
-                            eventJSON.getString("creatorId"),
-                            eventJSON.getString("description"),
-                            eventJSON.getString("address"),
-                            eventJSON.getString("dateTime"),
-                            attendeesStrings,
-                            eventJSON.getInt("numberOfAttendees"),
-                            interestsOfAttendees
-                        )
-                        EventRepository.eventSelected = newEvent
-                        val intent = Intent(this, EventPageActivity::class.java)
-                        startActivity(intent)
-                    } else {
-                        Log.v("Response Success", "Event not found")
-                        Log.v("ERROR", response.getString("errors"))
-                        Toast.makeText(
-                            applicationContext,
-                            "Unable to load event: ${response.getString("errors")}",
-                            Toast.LENGTH_LONG
-                        ).show()
-                    }
-                },
-                Response.ErrorListener { error ->
-                    Log.e("Response Error", "Error occurred", error)
-                    Toast.makeText(
-                        applicationContext,
-                        "Unable to load event: ${error.message}",
-                        Toast.LENGTH_LONG
-                    ).show()
-                }
-            )
-
-            RequestQueueSingleton.getInstance(LoginActivity.context)
-                .addToRequestQueue(eventJsonObjectRequest)
-
-            //
-            //                        Response.ErrorListener { error ->
-            //                            Toast.makeText(
-            //                                applicationContext,
-            //                                ("Network connection error. Please try again. " +
-            //                                        "Error: %s").format(error.toString()),
-            //                                Toast.LENGTH_LONG
-            //                            ).show()
-            //
-            //                        }
-            //                    )
-        }
-
         if (EventRepository.eventsCreatedByUser.isNotEmpty()) {
             if (EventRepository.eventsCreatedByUser.size == 1) {
                 val eventText = EventRepository.eventsCreatedByUser.elementAt(0)
                 event_created1.text = eventText
                 event_created1.setOnClickListener {
-                    loadEventInfo(it, eventText)
+                    loadEventInfo(it, eventText, this, applicationContext)
                 }
             } else {
                 Log.v("it is not null", "not null")
@@ -144,14 +57,14 @@ class ProfileActivity : AppCompatActivity() {
                         val eventText = EventRepository.eventsCreatedByUser.elementAt(i)
                         event_created1.text = eventText
                         event_created1.setOnClickListener {
-                            loadEventInfo(it, eventText)
+                            loadEventInfo(it, eventText, this, applicationContext)
                         }
                     } else {
                         val myButton = Button(this)
                         val eventText = EventRepository.eventsCreatedByUser.elementAt(i)
                         myButton.text = eventText
                         myButton.setOnClickListener {
-                            loadEventInfo(it, eventText)
+                            loadEventInfo(it, eventText, this, applicationContext)
                         }
                         events_created_layout.addView(myButton)
                     }
@@ -166,7 +79,7 @@ class ProfileActivity : AppCompatActivity() {
                 val eventText = LoginRepository.user?.eventsToAttend!!.elementAt(0)
                 event_attending1.text = eventText
                 event_attending1.setOnClickListener {
-                    loadEventInfo(it, eventText)
+                    loadEventInfo(it, eventText, this, applicationContext)
                 }
             } else {
                 Log.v("it is not null", "not null")
@@ -176,14 +89,14 @@ class ProfileActivity : AppCompatActivity() {
                         val eventText = LoginRepository.user?.eventsToAttend!!.elementAt(i)
                         event_attending1.text = eventText
                         event_attending1.setOnClickListener {
-                            loadEventInfo(it, eventText)
+                            loadEventInfo(it, eventText, this, applicationContext)
                         }
                     } else {
                         val button = Button(this)
                         val eventText = LoginRepository.user?.eventsToAttend!!.elementAt(i)
                         button.text = eventText
                         button.setOnClickListener {
-                            loadEventInfo(it, eventText)
+                            loadEventInfo(it, eventText, this, applicationContext)
                         }
                         events_attending_layout.addView(button)
                     }

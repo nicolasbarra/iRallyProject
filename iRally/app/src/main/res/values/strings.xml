@@ -65,4 +65,9 @@
     <string name="search">Search</string>
     <string name="feed">Feed</string>
     <string name="profile">Profile</string>
+    <string name="going">Going</string>
+    <string name="no_attendees_yet">No attendees yet</string>
+    <string name="no_events_yet">No events yet.</string>
+    <string name="loading_event_feed">Loading event feed</string>
+    <string name="no_events_yet_add_friends">No events in feed yet. Try adding friends through the search bar!</string>
 </resources>
