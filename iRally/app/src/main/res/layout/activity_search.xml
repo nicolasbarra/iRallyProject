@@ -35,7 +35,8 @@
                         android:layout_width="319dp"
                         android:layout_height="wrap_content"
                         android:autofillHints="Search for events, users, or admins"
-                        android:hint="@string/search_for_events_users_or_admins" />
+                        android:hint="@string/search_for_events_users_or_admins"
+                        android:inputType="text" />
                 </com.google.android.material.textfield.TextInputLayout>
                 <ImageView
                     android:id="@+id/search_button"
@@ -43,14 +44,16 @@
                     android:layout_height="30dp"
                     android:layout_marginTop="16dp"
                     android:clickable="true"
-                    android:src="@drawable/baseline_search_black_18dp" />
+                    android:src="@drawable/baseline_search_black_18dp"
+                    android:contentDescription="@string/search_button" />
                 <ImageView
                     android:id="@+id/map_button"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:layout_marginTop="10dp"
                     android:clickable="true"
-                    android:src="@drawable/map" />
+                    android:src="@drawable/map"
+                    android:contentDescription="@string/map_button" />
 
             </LinearLayout>
 
