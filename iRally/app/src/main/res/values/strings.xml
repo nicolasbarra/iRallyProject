@@ -73,4 +73,7 @@
     <string name="already_friends">Already friends</string>
     <string name="search_button">Search button</string>
     <string name="map_button">Map button</string>
+    <string name="nearest_events_to_your_location">Nearest Events to Your Location</string>
+    <string name="feed">Feed</string>
+    <string name="getting_nearest_events_to_your_location">Getting nearest events to your location</string>
 </resources>
