@@ -101,6 +101,14 @@ class SearchActivity : AppCompatActivity() {
                             }
                         }
 
+                        if (adminsList.length() == 0 && eventsList.length() == 0 && usersList.length() == 0) {
+                            Toast.makeText(
+                                applicationContext,
+                                "No search results found. Try a different search!",
+                                Toast.LENGTH_LONG
+                            ).show()
+                        }
+
                     } else {
                         Log.v("Response Success", "queries not found")
                         Log.v("ERROR", response.getString("errors"))
