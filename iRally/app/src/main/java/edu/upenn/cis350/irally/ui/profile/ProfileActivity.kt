@@ -14,9 +14,9 @@ import com.android.volley.toolbox.JsonObjectRequest
 import com.squareup.picasso.Picasso
 import edu.upenn.cis350.irally.R
 import edu.upenn.cis350.irally.data.*
-import edu.upenn.cis350.irally.data.model.Event
+import edu.upenn.cis350.irally.data.repository.EventRepository
+import edu.upenn.cis350.irally.data.repository.LoginRepository
 import edu.upenn.cis350.irally.ui.event.CreateEventActivity
-import edu.upenn.cis350.irally.ui.event.EventPageActivity
 import edu.upenn.cis350.irally.ui.feed.FeedActivity
 import edu.upenn.cis350.irally.ui.login.LoginActivity
 import edu.upenn.cis350.irally.ui.search.SearchActivity
