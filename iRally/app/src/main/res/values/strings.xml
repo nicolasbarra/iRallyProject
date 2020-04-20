@@ -71,4 +71,6 @@
     <string name="loading_event_feed">Loading event feed</string>
     <string name="no_events_yet_add_friends">No events in feed yet. Try adding friends through the search bar!</string>
     <string name="already_friends">Already friends</string>
+    <string name="search_button">Search button</string>
+    <string name="map_button">Map button</string>
 </resources>
