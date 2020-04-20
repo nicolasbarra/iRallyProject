@@ -1,4 +1,4 @@
-package edu.upenn.cis350.irally.data
+package edu.upenn.cis350.irally.data.repository
 
 import edu.upenn.cis350.irally.data.model.Admin
 import edu.upenn.cis350.irally.data.model.Event
