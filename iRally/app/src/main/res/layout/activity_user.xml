@@ -109,7 +109,6 @@
                     android:minHeight="0dp"
                     android:minWidth="0dp"
                     android:text="@string/no_events_created"
-                    android:textSize="8sp"
                     />
 
 
@@ -155,14 +154,12 @@
                 android:orientation="vertical" >
 
                 <Button
-                    android:id="@+id/test"
+                    android:id="@+id/user_events_attending1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-
                     android:minHeight="0dp"
                     android:minWidth="0dp"
                     android:text="@string/no_events_to_attend"
-                    android:textSize="8sp"
                     />
 
             </LinearLayout>
