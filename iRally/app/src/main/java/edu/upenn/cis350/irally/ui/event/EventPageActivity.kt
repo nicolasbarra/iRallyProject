@@ -74,6 +74,14 @@ class EventPageActivity : AppCompatActivity() {
                 attendingEventBool = true
             }
         }
+        for (i in EventRepository.eventSelected?.attendees!!) {
+            Log.v("The attendees are", i)
+            Log.v("The logged in user is", LoginRepository.user!!.userId)
+            if (i == LoginRepository.user!!.userId) {
+                Log.v("it was true", "evaluateed if condition")
+                attendingEventBool = true
+            }
+        }
         if (attendingEventBool) {
             markAsGoing.text = getString(R.string.going);
             markAsGoing.isEnabled = false;
