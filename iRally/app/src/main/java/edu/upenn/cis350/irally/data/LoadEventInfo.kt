@@ -8,6 +8,7 @@ import android.widget.Toast
 import com.android.volley.Response
 import com.android.volley.toolbox.JsonObjectRequest
 import edu.upenn.cis350.irally.data.model.Event
+import edu.upenn.cis350.irally.data.repository.EventRepository
 import edu.upenn.cis350.irally.ui.event.EventPageActivity
 import edu.upenn.cis350.irally.ui.login.LoginActivity
 import org.json.JSONArray
