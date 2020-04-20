@@ -19,6 +19,7 @@ import edu.upenn.cis350.irally.ui.login.LoginActivity
 import edu.upenn.cis350.irally.ui.profile.ProfileActivity
 import kotlinx.android.synthetic.main.activity_search.*
 import edu.upenn.cis350.irally.data.load.loadAdminInfo
+import edu.upenn.cis350.irally.ui.location.LocationActivity
 import org.json.JSONObject
 
 class SearchActivity : AppCompatActivity() {
@@ -164,7 +165,8 @@ class SearchActivity : AppCompatActivity() {
         }
 
         map_button.setOnClickListener {
-            //todo: set to new activity?? with 5 closest events
+            val intent = Intent(this, LocationActivity::class.java)
+            startActivity(intent)
         }
 
 
