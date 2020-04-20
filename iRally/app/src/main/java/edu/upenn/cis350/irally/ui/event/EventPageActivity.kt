@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
@@ -45,14 +46,27 @@ class EventPageActivity : AppCompatActivity() {
         event_page_date.text =
             EventRepository.eventSelected?.dateTime ?: "Error date and time cannot be found"
 
-        // TODO: FIX HAYLEY BELOW
-        for (i in 0 until EventRepository.eventSelected!!.attendees!!.size) {
-            if (event_page_attendees.text == "Currently no attendees") {
-                event_page_attendees.text = ""
+        if (!EventRepository.eventSelected?.attendees.isNullOrEmpty()) {
+            for (i in 0 until EventRepository.eventSelected!!.attendees.size) {
+                if (i == 0) {
+                    val attendeeText = EventRepository.eventSelected!!.attendees.elementAt(0)
+                    attendee1.text = attendeeText
+                    attendee1.setOnClickListener {
+//                    loadEventInfo(it, eventText)
+                        // TODO: load attendee, check if the person is the current users
+                    }
+                } else {
+                    val myButton = Button(this)
+                    val attendeeText = EventRepository.eventSelected!!.attendees.elementAt(i)
+                    myButton.text = attendeeText
+                    myButton.setOnClickListener {
+//                    loadEventInfo(it, eventText)
+                        // TODO: load attendee, check if the person is the current user
+                    }
+                    attendees_layout.addView(myButton)
+                }
             }
-            event_page_attendees.append("\n" + i)
         }
-
 
         val markAsGoing = event_page_button
         var attendingEventBool = false
@@ -62,13 +76,13 @@ class EventPageActivity : AppCompatActivity() {
             }
         }
         if (attendingEventBool) {
-            markAsGoing.text = "Going";
+            markAsGoing.text = getString(R.string.going);
             markAsGoing.isEnabled = false;
         }
         markAsGoing.setOnClickListener {
             val eventRequestBody = JSONObject()
             val eventName = EventRepository.eventSelected?.eventId
-            var username = LoginRepository.user?.userId
+            val username = LoginRepository.user?.userId
             eventRequestBody.put("username", LoginRepository.user?.userId)
             eventRequestBody.put("eventId", eventName);
             val eventJsonObjectRequest = JsonObjectRequest(
@@ -87,13 +101,34 @@ class EventPageActivity : AppCompatActivity() {
                     } else {
                         Log.v("PROCESS", "got a response (register")
                         Log.v("RESPONSE", response.toString())
-                        markAsGoing.text = "Going";
+                        markAsGoing.text = getString(R.string.going);
                         markAsGoing.isEnabled = false;
                         if (eventName != null) {
                             LoginRepository.user?.eventsToAttend?.add(eventName)
                         }
                         if (username != null) {
                             EventRepository.eventSelected?.attendees?.add(username)
+                        }
+                        for (i in 0 until EventRepository.eventSelected!!.attendees.size) {
+                            if (i == 0) {
+                                val attendeeText =
+                                    EventRepository.eventSelected!!.attendees.elementAt(0)
+                                attendee1.text = attendeeText
+                                attendee1.setOnClickListener {
+//                    loadEventInfo(it, eventText)
+                                    // TODO: load attendee, check if the person is the current users
+                                }
+                            } else {
+                                val myButton = Button(this)
+                                val attendeeText =
+                                    EventRepository.eventSelected!!.attendees.elementAt(i)
+                                myButton.text = attendeeText
+                                myButton.setOnClickListener {
+//                    loadEventInfo(it, eventText)
+                                    // TODO: load attendee, check if the person is the current user
+                                }
+                                attendees_layout.addView(myButton)
+                            }
                         }
                         Toast.makeText(
                             applicationContext,
