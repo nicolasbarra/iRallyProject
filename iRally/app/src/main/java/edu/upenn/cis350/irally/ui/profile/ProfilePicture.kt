@@ -11,7 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.android.volley.Response
 import com.android.volley.toolbox.Volley
 import edu.upenn.cis350.irally.R
-import edu.upenn.cis350.irally.data.LoginRepository
+import edu.upenn.cis350.irally.data.repository.LoginRepository
 import org.json.JSONObject
 import java.io.File
 import java.io.IOException
