@@ -1,4 +1,5 @@
 const {check, validationResult} = require("express-validator");
+const
 
 const User = require('../models/user');
 const Event = require('../models/event');
@@ -397,7 +398,7 @@ exports.delete_friend = [
 
 exports.get_event_feed = [
     check('username').isString().notEmpty().trim().isLength({min: 3}).escape(),
-    (req, res) => {
+     (req, res) => {
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
             return res.json({
@@ -405,7 +406,8 @@ exports.get_event_feed = [
                 errors: errors.array(),
             });
         } else {
-            User.find({"username" : req.body.username}, (err, user) => {
+            eventsSend = [];
+            User.findOne({"username": req.body.username}, (err, user) => {
                 if (err) {
                     return res.json({
                         status: 'Failure',
@@ -413,25 +415,47 @@ exports.get_event_feed = [
                     });
                 } else if (user) {
                     // user with that username exists
-                     let friendsList = user.friendsString;
-                    // friendsList.forEach(function(friend) {
+                    if (user.friendsString) {
+                        const friendsList = user.friendsString;
+                        async.forEach(friendsList, x => {
+                                User.findOne({"username": x}, (err, friend) => {
+                                    if (err) {
+
+                                    } else {
+                                        if (friend) {
+                                            friend.eventsToAttendStrings.forEach(e => {
+                                                console.log("in last loop");
+                                                eventsSend.push(e)
+                                            });
+
+                                        } else {
+
+                                        }
+                                    }
+                                })
+                            }
+                        );
+                        // friendsList.forEach(function(friend) {
 
 
-                    // })    
+                        // })
 
-                    User.find({"username" : { "$in" : friendsList}}).populate('eventsToAttendRefs').exec(function(err, friends) {
-                        let eventsList = [];
-                        friends.forEach(function(friend) {
-                            friend.eventsToAttendRefs.forEach(function(event) {
-                                eventsList.push(event.eventId + " on " + event.dateTime);
-                            })      
-                        })
-                        return res.json({
-                            status: 'Success',
-                            errors: null,
-                            eventsList: eventsList
-                        });
-                    })
+                        // User.find({"username": {"$in": friendsList}}).populate('eventsToAttendRefs').exec(function (err, friends) {
+                        //     let eventsList = [];
+                        //     friends.forEach(function (friend) {
+                        //         friend.eventsToAttendRefs.forEach(function (event) {
+                        //             eventsList.push(event.eventId + " on " + event.dateTime);
+                        //         })
+                        //     })
+                        //     return res.json({
+                        //         status: 'Success',
+                        //         errors: null,
+                        //         eventsList: eventsList
+                        //     });
+                        // })
+                    } else {
+
+                    }
                 } else {
                     // there is no user with that username
                     return res.json({
@@ -439,6 +463,11 @@ exports.get_event_feed = [
                         errors: 'No user with that username can be found.'
                     });
                 }
+            });
+            return res.json({
+                status: 'Success',
+                errors: null,
+                eventsList: eventsSend
             });
         }
     }
