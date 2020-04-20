@@ -402,7 +402,7 @@ exports.get_event_feed = [
                         let eventsList = [];
                         friends.forEach(function(friend) {
                             friend.eventsToAttendRefs.forEach(function(event) {
-                                eventsList.push(event);
+                                eventsList.push(event.eventId + " on " + event.dateTime);
                             })      
                         })
                         return res.json({
@@ -422,3 +422,12 @@ exports.get_event_feed = [
         }
     }
 ];
+
+
+
+
+
+
+// search query: 
+
+// get back all the list of all the users that match events that match and admins that match
