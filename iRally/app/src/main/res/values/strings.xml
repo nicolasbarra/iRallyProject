@@ -76,4 +76,5 @@
     <string name="nearest_events_to_your_location">Nearest Events to Your Location</string>
     <string name="feed">Feed</string>
     <string name="getting_nearest_events_to_your_location">Getting nearest events to your location</string>
+    <string name="no_events_found_nearby">No events found nearby. Start one!</string>
 </resources>
