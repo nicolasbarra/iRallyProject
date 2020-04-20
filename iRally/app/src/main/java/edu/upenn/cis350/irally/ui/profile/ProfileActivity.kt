@@ -72,38 +72,24 @@ class ProfileActivity : AppCompatActivity() {
             }
         }
 
-        // TODO: Figure out WHAT THE FUCK THIS SHIT BELOW IS
-        //TODO: need to create a route to get event from event name!
         if (LoginRepository.user?.eventsToAttend!!.isNotEmpty()) {
-            if (LoginRepository.user?.eventsToAttend!!.size == 1) {
-                val eventText = LoginRepository.user?.eventsToAttend!!.elementAt(0)
-                event_attending1.text = eventText
-                event_attending1.setOnClickListener {
-                    loadEventInfo(it, eventText, this, applicationContext)
-                }
-            } else {
-                Log.v("it is not null", "not null")
-                for (i in 0 until LoginRepository.user?.eventsToAttend!!.size) {
-                    //todo: add the route call here
-                    if (i == 0) {
-                        val eventText = LoginRepository.user?.eventsToAttend!!.elementAt(i)
-                        event_attending1.text = eventText
-                        event_attending1.setOnClickListener {
-                            loadEventInfo(it, eventText, this, applicationContext)
-                        }
-                    } else {
-                        val button = Button(this)
-                        val eventText = LoginRepository.user?.eventsToAttend!!.elementAt(i)
-                        button.text = eventText
-                        button.setOnClickListener {
-                            loadEventInfo(it, eventText, this, applicationContext)
-                        }
-                        events_attending_layout.addView(button)
+            for (i in 0 until LoginRepository.user?.eventsToAttend!!.size) {
+                val eventText = LoginRepository.user?.eventsToAttend!!.elementAt(i)
+                if (i == 0) {
+                    event_attending1.text = eventText
+                    event_attending1.setOnClickListener {
+                        loadEventInfo(it, eventText, this, applicationContext)
                     }
+                } else {
+                    val button = Button(this)
+                    button.text = eventText
+                    button.setOnClickListener {
+                        loadEventInfo(it, eventText, this, applicationContext)
+                    }
+                    events_attending_layout.addView(button)
                 }
             }
         }
-        // TODO: figure out what the fuck the shit above is
 
         logout.setOnClickListener {
             LoginRepository.logout()

@@ -13,6 +13,7 @@ import com.android.volley.toolbox.JsonObjectRequest
 import edu.upenn.cis350.irally.R
 import edu.upenn.cis350.irally.data.RequestQueueSingleton
 import edu.upenn.cis350.irally.data.loadEventInfo
+import edu.upenn.cis350.irally.data.loadProfileInfo
 import edu.upenn.cis350.irally.ui.feed.FeedActivity
 import edu.upenn.cis350.irally.ui.login.LoginActivity
 import edu.upenn.cis350.irally.ui.profile.ProfileActivity
@@ -41,24 +42,24 @@ class SearchActivity : AppCompatActivity() {
                         val usersList = response.getJSONArray("usersList")
                         val eventsList = response.getJSONArray("eventsList")
                         val adminsList = response.getJSONArray("adminsList")
-//                        if (usersList.length() != 0) {
-//                            for (i in 0 until usersList.length()) {
-//                                val userText = usersList.get(i).toString()
-//                                if (i == 0) {
-//                                    user_search_result1.text = userText
-//                                    user_search_result1.setOnClickListener {
-//                                        loadEventInfo(it, userText, this, applicationContext)
-//                                    }
-//                                } else {
-//                                    val myButton = Button(this)
-//                                    myButton.text = userText
-//                                    myButton.setOnClickListener {
-//                                        loadEventInfo(it, this, applicationContext)
-//                                    }
-//                                    user_search_result_layout.addView(myButton)
-//                                }
-//                            }
-//                        }
+                        if (usersList.length() != 0) {
+                            for (i in 0 until usersList.length()) {
+                                val userText = usersList.get(i).toString()
+                                if (i == 0) {
+                                    user_search_result1.text = userText
+                                    user_search_result1.setOnClickListener {
+                                        loadProfileInfo(it, userText, this, applicationContext)
+                                    }
+                                } else {
+                                    val myButton = Button(this)
+                                    myButton.text = userText
+                                    myButton.setOnClickListener {
+                                        loadProfileInfo(it, userText, this, applicationContext)
+                                    }
+                                    user_search_result_layout.addView(myButton)
+                                }
+                            }
+                        }
 
                         if (eventsList.length() != 0) {
                             for (i in 0 until eventsList.length()) {

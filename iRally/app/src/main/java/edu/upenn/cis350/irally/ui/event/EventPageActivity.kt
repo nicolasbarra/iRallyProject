@@ -83,7 +83,7 @@ class EventPageActivity : AppCompatActivity() {
             val eventName = EventRepository.eventSelected?.eventId
             val username = LoginRepository.user?.userId
             eventRequestBody.put("username", LoginRepository.user?.userId)
-            eventRequestBody.put("eventId", eventName);
+            eventRequestBody.put("eventId", eventName)
             val eventJsonObjectRequest = JsonObjectRequest(
                 "http://10.0.2.2:9000/events/addAttendee",
                 eventRequestBody,
@@ -103,7 +103,9 @@ class EventPageActivity : AppCompatActivity() {
                         markAsGoing.text = getString(R.string.going);
                         markAsGoing.isEnabled = false;
                         if (eventName != null) {
-                            LoginRepository.user?.eventsToAttend?.add(eventName)
+                            LoginRepository.user?.eventsToAttend?.add(
+                                eventName + " on " + EventRepository.eventSelected?.dateTime
+                            )
                         }
                         if (username != null) {
                             EventRepository.eventSelected?.attendees?.add(username)
