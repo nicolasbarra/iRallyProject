@@ -6,21 +6,55 @@ const Admin = require('../models/admin');
 
 
 function getUsers(substrings) {
-    User.find({"username" : {$in : substrings}}, (err, users) => {
-        return users;
-    }) 
+    return new Promise(function(resolve, reject) {
+        User.find({"username" : {$in : substrings}}, (err, users) => {
+            //console.log("users", users);
+            if (err) {
+                reject(err);
+            } else {
+                let userList = []
+                users.forEach(function(user) { 
+                   userList.push(user.username);
+                })
+                resolve(userList);
+            }
+        }) 
+    });   
 }
 
 function getEvents(substrings) {
-    Event.find({"eventId" : {$in : substrings}}, (err, events) => {
-        return events;
-    }) 
+    return new Promise(function(resolve, reject) {
+        Event.find({"eventId" : {$in : substrings}}, (err, events) => {
+            //console.log("events", events);
+            if (err) {
+                reject(err);
+            } else {
+                let eventList = []
+                events.forEach(function(event) { 
+                   console.log(event);
+                   eventList.push(event.eventId + " on " + event.dateTime);
+                })
+                resolve(eventList);
+            }
+        }) 
+    });
 }
 
 function getAdmins(substrings) {
-    Admin.find({username  : {$in : substrings}}, (err, admins) => {
-        return admins;
-    })
+    return new Promise(function(resolve, reject) {
+        Admin.find({username  : {$in : substrings}}, (err, admins) => {
+            //console.log("admins", admins);
+            if (err) {
+                reject(err);
+            } else {
+                let adminList = []
+                admins.forEach(function(user) {
+                   adminList.push(admin.username);
+                })
+                resolve(adminList);
+            }
+        })
+    });
 }
 
 
@@ -29,11 +63,11 @@ router.get('/', function (req, res, next) {
     res.render('index', {title: 'Express'});
 });
 
-router.get('/search', function(req, res, next) {  
+router.post('/search', function(req, res, next) {  
     var i, j, result = [];    
-    for (i = 0; i < str.length; i++) {
-        for (j = i + 1; j < str.length + 1; j++) {
-            result.push(str.slice(i, j));
+    for (i = 0; i < req.body.query.length; i++) {
+        for (j = i + 1; j < req.body.query.length + 1; j++) {
+            result.push(req.body.query.slice(i, j));
         }
     }
     Promise.all([
@@ -41,6 +75,9 @@ router.get('/search', function(req, res, next) {
         getEvents(result),
         getAdmins(result)
     ]).then(([users, events, admins]) => {
+        // console.log("users", users);
+        // console.log("events", events);
+        // console.log("admins", admins);
         return res.json({
             status: 'Success',
             errors: null,
