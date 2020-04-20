@@ -315,8 +315,9 @@ exports.add_friend = [
                 errors: errors.array(),
             });
         } else {
-            User.findOne({"username" : { "$in" : [  
+            User.find({"username" : { "$in" : [  
                 req.body.currUsername,req.body.friendUsername ]}}, (err, users) => {
+                //console.log("friendUsername1 ", req.body.friendUsername);
                 if (err) {
                     return res.json({
                         status: 'Failure',
@@ -324,15 +325,23 @@ exports.add_friend = [
                     });
                 } else if (users.length == 2) {
                     // user with that username exists
+                    console.log("USERNAME: ", users[0].username, users[1].username);
                     let currUser = (users[0].username == req.body.currUsername) ? users[0] : users[1];
-                    let friendUser = (users[0].username == req.body.friendUsername) ? users[0] : users[1];  
-                    currUser.friends = currUser.push(friendUser._id);
-                    currUser.friendsString = currUser.push(friendUser._id);
-                    currUser.save();
-                    return res.json({
-                        status: 'Success',
-                        errors: null
-                    });
+                    let friendUser = (users[0].username == req.body.friendUsername) ? users[0] : users[1];          
+                    if (currUser.friends) {
+                        currUser.friends.push(friendUser._id);
+                        currUser.friendsString.push(friendUser.username);
+                    } else {
+                        currUser.friends = [friendUser._id];
+                        currUser.friendsString = [friendUser.username];
+                    }            
+
+                    currUser.save(() => {
+                        return res.json({
+                            status: 'Success',
+                            errors: null
+                        });
+                    });                 
                 } else {
                     // there is no user with that username
                     return res.json({
@@ -356,7 +365,7 @@ exports.delete_friend = [
                 errors: errors.array(),
             });
         } else {
-            User.findOne({"username" : { "$in" : [  
+            User.find({"username" : { "$in" : [  
                 req.body.currUsername,req.body.friendUsername ]}}, (err, users) => {
                 if (err) {
                     return res.json({
@@ -396,7 +405,7 @@ exports.get_event_feed = [
                 errors: errors.array(),
             });
         } else {
-            User.findOne({"username" : req.body.username}, (err, user) => {
+            User.find({"username" : req.body.username}, (err, user) => {
                 if (err) {
                     return res.json({
                         status: 'Failure',

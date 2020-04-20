@@ -30,7 +30,7 @@ class Register extends Component {
             password: this.state.password,
             description: this.state.description,
             politicalAffiliation: this.state.politicalAffiliation,
-            goals: this.state.politicalAffiliation,
+            goals: this.state.goals,
             interests: this.state.interests  
         }).then(res => {
                 if (res.data.err) {

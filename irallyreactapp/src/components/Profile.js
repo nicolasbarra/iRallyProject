@@ -9,7 +9,7 @@ class Profile extends Component {
         currUser: null,
         loading: true,
         selectedFile: null,
-        imageURL: "//placehold.it/150"
+        imageURL: "https://placehold.it/150/"
     }
 
     fileSelectedHandler = event => {
@@ -67,7 +67,7 @@ class Profile extends Component {
                     <div className="container-fluid"> 
                         <div>
                             <h6>Profile Picture</h6>
-                            <img className="img" src={this.state.imageURL} alt="//placehold.it/150"/>                          
+                            <img className="img" src={this.state.imageURL ? this.state.imageURL : "https://lh3.googleusercontent.com/proxy/AXSsm_La27yo6rbQX2olA80GK2zLdl4XaLKpMonky7qyC_c-vvjbNAV9Ezdu4YV0CwOldbBpE9GZRgv_nuZ-1S2squv5pHs6r26aTXUOBH_4s6TZ7ePRndxcKlOy7g"} alt = ""/>                          
                             <label class="custom-file">
                                 <input type="file" onChange={this.fileSelectedHandler} />                             
                             </label>
