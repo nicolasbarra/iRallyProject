@@ -35,9 +35,9 @@ class AdminActivity : AppCompatActivity() {
         }
 
 
-//        friend.setOnClickListener {
-//            // TODO: set friend button onclick listener
-//        }
+        follow.setOnClickListener {
+            // TODO: set friend button onclick listener
+        }
 
         //toolbar
         supportActionBar?.displayOptions = ActionBar.DISPLAY_SHOW_CUSTOM

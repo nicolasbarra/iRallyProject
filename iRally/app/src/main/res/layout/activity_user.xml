@@ -81,6 +81,8 @@
                 android:textColor="#fff"
                 android:textSize="16sp" />
 
+
+
             <TextView
                 android:id="@+id/user_events_created_title"
                 android:layout_width="wrap_content"
@@ -91,7 +93,7 @@
                 android:textStyle="bold"
                 android:layout_below="@+id/user_profile_interests"
                 android:textColor="#FFC107"
-                android:textSize="8sp" />
+                android:textSize="12sp" />
 
 
             <LinearLayout
@@ -143,7 +145,7 @@
                 android:textStyle="bold"
                 android:layout_below="@+id/user_events_created_layout"
                 android:textColor="#FFC107"
-                android:textSize="8sp" />
+                android:textSize="12sp" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -162,7 +164,9 @@
                     android:text="@string/no_events_to_attend"
                     />
 
+
             </LinearLayout>
+
 
         </RelativeLayout>
 
