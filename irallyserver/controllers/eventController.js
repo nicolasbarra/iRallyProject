@@ -177,11 +177,8 @@ exports.event = [
     }
 ];
 
-
 exports.grab_closest_events = [
-    (req, res) => { 
-        console.log("did it get here1")
-        console.log("REQ BODY", req.body.userPosition)
+    (req, res) => {
         Event.find((err, events) => {
             if (err) {
 
@@ -195,12 +192,8 @@ exports.grab_closest_events = [
                     const cityAddr = addressArr[1].substring(0, cityStateSpaceIndex).trim();
                     const stateAddr = addressArr[1].substring(cityStateSpaceIndex, addressArr[1].length).trim()                  
                     const url = "https://maps.googleapis.com/maps/api/geocode/json?address=" + streetAddr + cityAddr + stateAddr + "&key=AIzaSyB2_4SMM3Bxc-XE90LPTqao04m_XYkbsEw"
-                    console.log(url);
-                    console.log("did it get here")
                     axios.post(url).then((response) => {
-                        const eventPos = response.data.results[0].geometry.location;    
-                        console.log("EVENt POS", eventPos)   
-                        console.log("user pos" ,req.body.userPosition)       
+                        const eventPos = response.data.results[0].geometry.location;
                         if(getDistance(eventPos, req.body.userPosition) < (50 * 1609.34)){
                             closestEvents.push(event.eventId + " on " + event.dateTime)
                         }             
@@ -215,4 +208,4 @@ exports.grab_closest_events = [
             }
         });
     }
-]
+];
