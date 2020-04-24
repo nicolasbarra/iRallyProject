@@ -442,7 +442,6 @@ exports.get_event_feed = [
                     let eventsList = [];
                     friends.forEach(function (friend) {
                         friend.eventsToAttendStrings.forEach(function (event) {
-                            console.log("this is event", event);
                             eventsList.push(event);
                         })
                     })
