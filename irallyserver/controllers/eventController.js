@@ -1,7 +1,7 @@
 const Event = require('../models/event');
 const Admin = require('../models/admin');
 const User = require('../models/user');
-
+const axios = require ("axios");
 var getDistance = function(p1, p2) {
     var R = 6378137; // Earth’s mean radius in meter
     var dLat = rad(p2.lat - p1.lat);
@@ -12,6 +12,10 @@ var getDistance = function(p1, p2) {
     var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
     var d = R * c;
     return d; // returns the distance in meter
+};
+
+var rad = function(x) {
+    return x * Math.PI / 180;
 };
  
 exports.create_event = [
@@ -176,14 +180,39 @@ exports.event = [
 
 exports.grab_closest_events = [
     (req, res) => { 
-        url = "https://maps.googleapis.com/maps/api/geocode/json?address=" + userData[0].address + userData[0].city + userData[0].state + "&key=AIzaSyB2_4SMM3Bxc-XE90LPTqao04m_XYkbsEw"
-        axios.get(url).then(() => {
-            //you get the latitude and longitude 
-            ///
-            Event.findAll(){
-                
-            }
+        console.log("did it get here1")
+        console.log("REQ BODY", req.body.userPosition)
+        Event.find((err, events) => {
+            if (err) {
 
-        })
+            } else if (events) {
+                var counter = 0;
+                closestEvents = [];
+                events.forEach((event) => {                     
+                    const addressArr = event.address.split(",");
+                    const streetAddr = addressArr[0].trim();
+                    const cityStateSpaceIndex = addressArr[1].lastIndexOf(" ");
+                    const cityAddr = addressArr[1].substring(0, cityStateSpaceIndex).trim();
+                    const stateAddr = addressArr[1].substring(cityStateSpaceIndex, addressArr[1].length).trim()                  
+                    const url = "https://maps.googleapis.com/maps/api/geocode/json?address=" + streetAddr + cityAddr + stateAddr + "&key=AIzaSyB2_4SMM3Bxc-XE90LPTqao04m_XYkbsEw"
+                    console.log(url);
+                    console.log("did it get here")
+                    axios.post(url).then((response) => {
+                        const eventPos = response.data.results[0].geometry.location;    
+                        console.log("EVENt POS", eventPos)   
+                        console.log("user pos" ,req.body.userPosition)       
+                        if(getDistance(eventPos, req.body.userPosition) < (50 * 1609.34)){
+                            closestEvents.push(event.eventId + " on " + event.dateTime)
+                        }             
+                        counter++;
+                        if(counter == events.length){                        
+                            res.json({status: "Success", closestEvents: closestEvents});
+                        }
+                    });
+                });
+            } else {
+
+            }
+        });
     }
 ]

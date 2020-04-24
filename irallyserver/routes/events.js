@@ -11,4 +11,7 @@ router.post('/create', event_controller.create_event);
 
 router.post('/addAttendee', event_controller.add_attendee);
 
+
+router.post('/getClosestEvents', event_controller.grab_closest_events);
+
 module.exports = router;
