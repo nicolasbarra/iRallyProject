@@ -55,6 +55,9 @@ class NavBar extends Component {
                         <ul className="navbar-nav ml-auto">
                         <li className="nav-item">
                             <NavLink to="/" className="nav-link">Profile</NavLink>
+                        </li>     
+                        <li className="nav-item">
+                            <NavLink to="/feed" className="nav-link">Feed</NavLink>
                         </li>                                  
                         <li className="nav-item">
                              <NavLink to= "/logout" className="nav-link">Logout</NavLink>

@@ -4,6 +4,8 @@ import Register from './components/Authorization/Register';
 import Login from './components/Authorization/Login';
 import Loading from './components/Authorization/Loading';
 import Logout from './components/Authorization/Logout';
+import Feed from './components/Feed'
+import EventPage from './components/EventPage'
 import NavBar from './components/NavBar';
 import Profile from './components/Profile';
 import axios from 'axios';
@@ -50,8 +52,12 @@ class App extends Component {
                      render={(props) => <Logout {...props} {...this.state} changeState={this.changeState}/>}/>
               <Route exact path='/login'
                      render={(props) => <Login {...props} {...this.state} changeState={this.changeState}/>}/>
+              <Route exact path='/feed'
+                     render={(props) => <Feed {...props} {...this.state} changeState={this.changeState}/>}/>       
               <Route exact path='/register'
                      render={(props) => <Register {...props} {...this.state} changeState={this.changeState}/>}/>
+              <Route exact path='/feed/:event'
+              render={(props) => <EventPage {...props} {...this.state} changeState={this.changeState}/>}/>
           </Router>
       </div>
     );

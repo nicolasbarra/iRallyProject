@@ -209,3 +209,29 @@ exports.grab_closest_events = [
         });
     }
 ];
+
+
+exports.grab_all_events = [
+    (req, res) => {
+        Event.find((err, events) => {
+            if (err) {
+                return res.json({
+                    status: 'Failure',
+                    errors: err
+                });
+            } else if (events) {
+                return res.json({
+                    status: 'Success',
+                    errors: null,
+                    events: events
+                });
+            } else {
+                // there is no event with that eventId
+                return res.json({
+                    status: 'Failure',
+                    errors: "Unable to find event: there is no event with that name."
+                });
+            }
+        });
+    }
+];
