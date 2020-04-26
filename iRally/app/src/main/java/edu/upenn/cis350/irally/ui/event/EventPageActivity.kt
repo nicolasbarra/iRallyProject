@@ -47,6 +47,8 @@ class EventPageActivity : AppCompatActivity() {
         event_page_date.text =
             EventRepository.eventSelected?.dateTime ?: "Error date and time cannot be found"
 
+        previous_comments_title.text = "See what people are saying about " + event_page_name.text
+
         if (!EventRepository.eventSelected?.attendees.isNullOrEmpty()) {
             for (i in 0 until EventRepository.eventSelected!!.attendees.size) {
                 if (i == 0) {
