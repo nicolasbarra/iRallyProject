@@ -4,15 +4,22 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
+import com.android.volley.Response
+import com.android.volley.toolbox.JsonObjectRequest
 import com.squareup.picasso.Picasso
 import edu.upenn.cis350.irally.R
+import edu.upenn.cis350.irally.data.RequestQueueSingleton
 import edu.upenn.cis350.irally.data.repository.AdminRepository
+import edu.upenn.cis350.irally.data.repository.LoginRepository
 import edu.upenn.cis350.irally.ui.feed.FeedActivity
+import edu.upenn.cis350.irally.ui.login.LoginActivity
 import edu.upenn.cis350.irally.ui.search.SearchActivity
 import kotlinx.android.synthetic.main.activity_admin.*
 import kotlinx.android.synthetic.main.activity_user.*
+import org.json.JSONObject
 
 class AdminActivity : AppCompatActivity() {
 
@@ -34,11 +41,53 @@ class AdminActivity : AppCompatActivity() {
                 .into(profile_picture)
         }
 
-
+        //todo: admin following
         follow.setOnClickListener {
-            // TODO: set friend button onclick listener
-        }
+            val requestBody = JSONObject()
+            requestBody.put("loggedInUsername", LoginRepository.user?.userId)
+            requestBody.put("adminToFollow", adminInfo.username)
 
+            val jsonObjectRequest = JsonObjectRequest(
+                //todo: change
+                "http://10.0.2.2:9000/admins/followRequest",
+                requestBody,
+                Response.Listener { response ->
+                    Log.v("PROCESS", "got a response")
+                    Log.v("RESPONSE", response.toString())
+                    if (response.getString("status") == "Success") {
+                        LoginRepository.user?.adminsFollowedNames?.add(adminInfo.username)
+                        follow.text = "Already following"
+                        follow.isEnabled = false;
+                        Log.v("Response Success", "Followed Admin")
+                        Toast.makeText(
+                            applicationContext,
+                            "Followed ${adminInfo.displayName} !",
+                            Toast.LENGTH_LONG
+                        ).show()
+                    } else {
+                        Log.v("Response Success", "Admin not found")
+                        Log.v("ERROR", response.getString("errors"))
+                        Toast.makeText(
+                            applicationContext,
+                            "Unable to follow admin: ${response.getString("errors")}",
+                            Toast.LENGTH_LONG
+                        ).show()
+                    }
+                },
+                Response.ErrorListener { error ->
+                    Log.e("Response Error", "Error occurred", error)
+                    Toast.makeText(
+                        applicationContext,
+                        "Unable to follow admin: ${error.message}",
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
+            )
+
+            RequestQueueSingleton.getInstance(LoginActivity.context)
+                .addToRequestQueue(jsonObjectRequest)
+
+        }
         //toolbar
         supportActionBar?.displayOptions = ActionBar.DISPLAY_SHOW_CUSTOM
         supportActionBar?.setCustomView(R.layout.toolbar)

@@ -12,6 +12,7 @@ import edu.upenn.cis350.irally.R
 import edu.upenn.cis350.irally.data.repository.EventRepository
 import edu.upenn.cis350.irally.data.repository.LoginRepository
 import edu.upenn.cis350.irally.data.RequestQueueSingleton
+import edu.upenn.cis350.irally.data.model.Comment
 import edu.upenn.cis350.irally.data.model.Event
 import edu.upenn.cis350.irally.ui.login.LoginActivity
 import edu.upenn.cis350.irally.ui.profile.ProfileActivity
@@ -105,6 +106,19 @@ class CreateEventActivity : AppCompatActivity() {
                                     interestsOfAttendeesJSONArray.get(i).toString()
                                 )
                             }
+                            //todo: set comment field
+                            val commentsJSONArray: JSONArray =
+                                newEventJSON.getJSONArray("comments")
+                            Log.v("commentscreated", commentsJSONArray.toString())
+                            val comments = mutableSetOf<Comment>()
+                            for (i in 0 until commentsJSONArray.length()) {
+                                comments.add(
+                                    commentsJSONArray.get(i) as Comment
+
+                                //todo: what type is comment?
+                                )
+                            }
+
                             Log.v("code has reached here", "or not")
                             val newEvent = Event(
                                 newEventJSON.getString("eventId"),
@@ -114,7 +128,9 @@ class CreateEventActivity : AppCompatActivity() {
                                 newEventJSON.getString("dateTime"),
                                 mutableSetOf(),
                                 0,
-                                interestsOfAttendees
+                                interestsOfAttendees,
+                                comments
+                                //todo: comment parameter
                             )
                             Log.v("code has erached here as well", "or not")
 

@@ -91,6 +91,8 @@ fun loadProfileInfo(
                             eventsToAttendStrings,
                             userJson.getInt("numEventsCreated"),
                             null,
+                            null,
+                            //todo: added adminsFollowed parameter, unclear
                             null
                         )
                         LoginRepository.userSelected = user

@@ -1,16 +1,21 @@
 package edu.upenn.cis350.irally.ui.event
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Button
+import android.widget.EditText
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.marginLeft
 import com.android.volley.Response
 import com.android.volley.toolbox.JsonObjectRequest
 import edu.upenn.cis350.irally.R
+import edu.upenn.cis350.irally.R.*
 import edu.upenn.cis350.irally.data.repository.EventRepository
 import edu.upenn.cis350.irally.data.repository.LoginRepository
 import edu.upenn.cis350.irally.data.RequestQueueSingleton
@@ -20,10 +25,12 @@ import edu.upenn.cis350.irally.ui.login.LoginActivity
 import edu.upenn.cis350.irally.ui.profile.ProfileActivity
 import edu.upenn.cis350.irally.ui.search.SearchActivity
 import kotlinx.android.synthetic.main.activity_event_page.*
+import kotlinx.android.synthetic.main.activity_user.*
 import org.json.JSONObject
 
 class EventPageActivity : AppCompatActivity() {
 
+    @SuppressLint("ResourceAsColor")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_event_page)
@@ -95,7 +102,7 @@ class EventPageActivity : AppCompatActivity() {
             }
         }
         if (attendingEventBool) {
-            markAsGoing.text = getString(R.string.going);
+            markAsGoing.text = getString(string.going);
             markAsGoing.isEnabled = false;
         }
         markAsGoing.setOnClickListener {
@@ -120,7 +127,7 @@ class EventPageActivity : AppCompatActivity() {
                     } else {
                         Log.v("PROCESS", "got a response (register")
                         Log.v("RESPONSE", response.toString())
-                        markAsGoing.text = getString(R.string.going);
+                        markAsGoing.text = getString(string.going);
                         markAsGoing.isEnabled = false;
                         if (eventName != null) {
                             LoginRepository.user?.eventsToAttend?.add(
@@ -179,6 +186,65 @@ class EventPageActivity : AppCompatActivity() {
             RequestQueueSingleton.getInstance(LoginActivity.context)
                 .addToRequestQueue(eventJsonObjectRequest)
         }
+
+
+        //todo: comment request here
+        comment_button.setOnClickListener {
+            if (comment.text.isEmpty()) {
+                Toast.makeText(
+                    applicationContext,
+                    "Type a comment first.",
+                    Toast.LENGTH_LONG
+                ).show()
+            }
+
+            val requestBody = JSONObject()
+            requestBody.put("currUsername", LoginRepository.user?.userId)
+            requestBody.put("comment", comment.text)
+
+            val jsonObjectRequest = JsonObjectRequest(
+                "http://10.0.2.2:9000/events/addComment",
+                requestBody,
+                Response.Listener { response ->
+                    Log.v("PROCESS", "got a response")
+                    Log.v("RESPONSE", response.toString())
+                    if (response.getString("status") == "Success") {
+                       // EventRepository.eventSelected?.comments?.add()//todo: event comment request)
+
+                        Log.v("Response Success", "Wrote comment")
+                        Toast.makeText(
+                            applicationContext,
+                            "Comment posted!",
+                            Toast.LENGTH_LONG
+                        ).show()
+                    } else {
+                        Log.v("Response Success", "User not found")
+                        Log.v("ERROR", response.getString("errors"))
+                        Toast.makeText(
+                            applicationContext,
+                            "Unable to friend user: ${response.getString("errors")}",
+                            Toast.LENGTH_LONG
+                        ).show()
+                    }
+                },
+                Response.ErrorListener { error ->
+                    Log.e("Response Error", "Error occurred", error)
+                    Toast.makeText(
+                        applicationContext,
+                        "Unable to friend user: ${error.message}",
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
+            )
+
+            RequestQueueSingleton.getInstance(LoginActivity.context)
+                .addToRequestQueue(jsonObjectRequest)
+
+        }
+
+
+
+
     }
 
     //toolbar stuff

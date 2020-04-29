@@ -8,6 +8,7 @@ import android.widget.Toast
 import com.android.volley.Response
 import com.android.volley.toolbox.JsonObjectRequest
 import edu.upenn.cis350.irally.data.RequestQueueSingleton
+import edu.upenn.cis350.irally.data.model.Comment
 import edu.upenn.cis350.irally.data.model.Event
 import edu.upenn.cis350.irally.data.repository.EventRepository
 import edu.upenn.cis350.irally.ui.event.EventPageActivity
@@ -55,6 +56,14 @@ fun loadEventInfo(
                         attendeesStringsJSONArray.get(k).toString()
                     )
                 }
+//                //todo: populating event comment set, is this right?
+                val comments = mutableSetOf<Comment>()
+//                for (k in 0 until commentsJSONArray.length()) {
+//                    comments.add(
+//                        comments.get(k)
+//                    //string format?? ?
+//                    )
+//                }
                 val newEvent = Event(
                     eventJSON.getString("eventId"),
                     eventJSON.getString("creatorId"),
@@ -63,7 +72,9 @@ fun loadEventInfo(
                     eventJSON.getString("dateTime"),
                     attendeesStrings,
                     eventJSON.getInt("numberOfAttendees"),
-                    interestsOfAttendees
+                    interestsOfAttendees,
+                    comments
+                    //todo: fill in with comment parameter
                 )
                 EventRepository.eventSelected = newEvent
                 val intent = Intent(packageContext, EventPageActivity::class.java)

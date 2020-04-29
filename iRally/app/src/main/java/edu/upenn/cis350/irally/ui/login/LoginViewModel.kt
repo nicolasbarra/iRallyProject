@@ -99,7 +99,8 @@ class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel()
                                     eventsToAttendStrings,
                                     userJson.getInt("numEventsCreated"),
                                     null,
-                                    friendsStrings
+                                    friendsStrings,
+                                    null
                                 )
                                 _loginResult.value =
                                     LoginResult(success = user)
