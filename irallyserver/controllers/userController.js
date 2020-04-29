@@ -2,6 +2,7 @@ const {check, validationResult} = require("express-validator");
 
 const User = require('../models/user');
 const Event = require('../models/event');
+const Admin = require('../models/admin');
 
 function getData(username) {
     return new Promise ((resolve, reject) => {
@@ -464,6 +465,58 @@ exports.get_event_feed = [
         }
     }
 ];
+
+exports.follow_admin = [
+    (req, res) => {
+        console.log(req.body.username);
+        console.log(req.body.admin);
+        User.findOne({"username" : req.body.username}, (err, user) => {
+            if (err) {
+                return res.json({
+                    status: 'Failure',
+                    errors: err,
+                });
+            } else if (user) {
+                console.log("this is user", user);
+                if (user.adminsFollowed && !user.adminsFollowed.includes(req.body.admin)) {
+                        Admin.findOne({"username" : req.body.admin}, (err, admin) => {
+                            if (err) {
+                                return res.json({
+                                    status: 'Failure',
+                                    errors: err,
+                                });
+                            } else if (admin){
+                                user.adminsFollowed.push(admin._id);
+                                if (admin.followers.includes(req.body.username)) {
+                                    return res.json({
+                                        status: 'Success',                                
+                                    });
+                                } else {
+                                    admin.followers.push(req.body.username);
+                                    user.save();
+                                    admin.save();
+                                    console.log("this is adminfollowers", admin.followers);
+                                    return res.json({
+                                        status: 'Success',                                
+                                    });
+                                }                                                             
+                            } else {
+                                return res.json({
+                                    status: 'Failure',
+                                    errors: 'No admin with that username can be found.'
+                                });
+                            }                         
+                        })  
+                } 
+            } else {
+                return res.json({
+                    status: 'Failure',
+                    errors: 'No user with that username can be found.'
+                });
+            }    
+        })
+    }
+]
 
 
 

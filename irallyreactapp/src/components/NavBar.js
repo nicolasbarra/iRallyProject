@@ -58,7 +58,10 @@ class NavBar extends Component {
                         </li>     
                         <li className="nav-item">
                             <NavLink to="/feed" className="nav-link">Feed</NavLink>
-                        </li>                                  
+                        </li>            
+                        <li className="nav-item">
+                             <NavLink to= "/statistics" className="nav-link">Statistics</NavLink>
+                        </li>                      
                         <li className="nav-item">
                              <NavLink to= "/logout" className="nav-link">Logout</NavLink>
                         </li>

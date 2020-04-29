@@ -8,6 +8,7 @@ import Feed from './components/Feed'
 import EventPage from './components/EventPage'
 import NavBar from './components/NavBar';
 import Profile from './components/Profile';
+import StatPage from './components/StatPage'
 import axios from 'axios';
 
 class App extends Component {
@@ -56,6 +57,8 @@ class App extends Component {
                      render={(props) => <Feed {...props} {...this.state} changeState={this.changeState}/>}/>       
               <Route exact path='/register'
                      render={(props) => <Register {...props} {...this.state} changeState={this.changeState}/>}/>
+              <Route exact path='/statistics'
+                     render={(props) => <StatPage {...props} {...this.state} changeState={this.changeState}/>}/>
               <Route exact path='/feed/:event'
               render={(props) => <EventPage {...props} {...this.state} changeState={this.changeState}/>}/>
           </Router>

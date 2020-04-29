@@ -52,6 +52,11 @@ const adminSchema = new Schema(
             ],
             profilePictureLink: String
         },
+        followers: [
+            {
+                type: String,               
+            }
+        ],
         currentEventAttendees: [
             {
                 type: mongoose.Schema.Types.ObjectID,

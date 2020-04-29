@@ -18,4 +18,6 @@ router.post('/validateLogin', admin_controller.validate_login_admin);
 
 router.post('/logout', admin_controller.logout_admin);
 
+router.post('/getUserStatistics', admin_controller.get_user_statistics);
+
 module.exports = router;
