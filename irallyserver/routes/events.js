@@ -16,4 +16,7 @@ router.post('/getClosestEvents', event_controller.grab_closest_events);
 
 router.post('/getAllEvents', event_controller.grab_all_events);
 
+router.post('/deleteEvent', event_controller.delete_event);
+
+
 module.exports = router;
