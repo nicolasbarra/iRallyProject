@@ -41,6 +41,13 @@ class AdminActivity : AppCompatActivity() {
                 .into(profile_picture)
         }
 
+        for (i in LoginRepository.user?.adminsFollowedNames!!) {
+            if (i == adminInfo.username) {
+                follow.text = getString(R.string.following)
+                follow.isEnabled = false;
+            }
+        }
+
         follow.setOnClickListener {
             val requestBody = JSONObject()
             Log.v("HIT", "this is run!!!");
