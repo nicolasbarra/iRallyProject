@@ -55,10 +55,15 @@ const eventSchema = new Schema(
                 required: [true, 'need to have some interest, start with those of creator']
             }
         ],
-        comments: [
+        commentsRefs: [
             {
                 type: mongoose.Schema.Types.ObjectID,
                 ref: 'comment'
+            }
+        ],
+        commentsStrings: [
+            {
+                type: String
             }
         ]
     },
