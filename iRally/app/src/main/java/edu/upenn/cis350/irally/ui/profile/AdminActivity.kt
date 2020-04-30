@@ -41,7 +41,6 @@ class AdminActivity : AppCompatActivity() {
                 .into(profile_picture)
         }
 
-        //todo: admin following
         follow.setOnClickListener {
             val requestBody = JSONObject()
             Log.v("HIT", "this is run!!!");
@@ -49,7 +48,6 @@ class AdminActivity : AppCompatActivity() {
             requestBody.put("admin", adminInfo.username)
 
             val jsonObjectRequest = JsonObjectRequest(
-                //todo: change
                 "http://10.0.2.2:9000/users/followAdmin",
                 requestBody,
                 Response.Listener { response ->
