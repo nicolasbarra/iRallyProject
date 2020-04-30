@@ -153,18 +153,13 @@
                     android:layout_height="wrap_content"
                     android:minWidth="0dp"
                     android:minHeight="0dp"
-                    android:text="Follow"
+                    android:text="@string/follow"
                     android:textSize="8sp" />
 
-
             </LinearLayout>
-
-
 
         </RelativeLayout>
 
     </RelativeLayout>
-
-
 
 </ScrollView>

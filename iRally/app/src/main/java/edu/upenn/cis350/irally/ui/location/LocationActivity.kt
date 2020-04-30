@@ -172,7 +172,7 @@ class LocationActivity : AppCompatActivity() {
 
     private val mLocationCallback = object : LocationCallback() {
         override fun onLocationResult(locationResult: LocationResult) {
-            var mLastLocation: Location = locationResult.lastLocation
+            val mLastLocation: Location = locationResult.lastLocation
 //            latTextView.text = mLastLocation.latitude.toString()
 //            lonTextView.text = mLastLocation.longitude.toString()
             val positionObject = JSONObject()

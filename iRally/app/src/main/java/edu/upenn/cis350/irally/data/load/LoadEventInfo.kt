@@ -56,14 +56,58 @@ fun loadEventInfo(
                         attendeesStringsJSONArray.get(k).toString()
                     )
                 }
-//                //todo: populating event comment set, is this right?
-                val comments = mutableSetOf<Comment>()
-//                for (k in 0 until commentsJSONArray.length()) {
-//                    comments.add(
-//                        comments.get(k)
-//                    //string format?? ?
-//                    )
-//                }
+                val commentsStringsJSONArray =
+                    if (eventJSON.has("commentsStrings")) {
+                        eventJSON.getJSONArray("commentsStrings")
+                    } else {
+                        JSONArray()
+                    }
+                Log.v("commentsStringsJSONArray is", commentsStringsJSONArray.toString())
+                val commentsComments = mutableSetOf<Comment>()
+                for (k in 0 until commentsStringsJSONArray.length()) {
+                    val commentUserRepliesCombo =
+                        commentsStringsJSONArray.get(k).toString().split("&&")
+                    for (comUse in commentUserRepliesCombo) {
+                        comUse.trim()
+                    }
+                    val commentingUser = commentUserRepliesCombo[0]
+                    val commentText = commentUserRepliesCombo[1]
+                    Log.v("commentUserRepliesCombo[2] is", commentUserRepliesCombo[2].toString())
+                    if (commentUserRepliesCombo[2].isNotEmpty()) {
+                        val repliesUsers = commentUserRepliesCombo[2].split("~")
+                        val replyComments = mutableSetOf<Comment>()
+                        for (replyUser in repliesUsers) {
+                            val replyUserArr = replyUser.split("::")
+                            val replyingUser = replyUserArr[0]
+                            Log.v("replyUserArr is", replyUserArr.toString())
+                            val replyingComment = replyUserArr[1]
+                            replyComments.add(
+                                Comment(
+                                    eventText,
+                                    replyingUser,
+                                    replyingComment,
+                                    null
+                                )
+                            )
+                        }
+                        commentsComments.add(
+                            Comment(
+                                eventText,
+                                commentingUser,
+                                commentText,
+                                replyComments
+                            )
+                        )
+                    }
+                    commentsComments.add(
+                        Comment(
+                            eventText,
+                            commentingUser,
+                            commentText,
+                            null
+                        )
+                    )
+                }
                 val newEvent = Event(
                     eventJSON.getString("eventId"),
                     eventJSON.getString("creatorId"),
@@ -73,8 +117,7 @@ fun loadEventInfo(
                     attendeesStrings,
                     eventJSON.getInt("numberOfAttendees"),
                     interestsOfAttendees,
-                    comments
-                    //todo: fill in with comment parameter
+                    commentsComments
                 )
                 EventRepository.eventSelected = newEvent
                 val intent = Intent(packageContext, EventPageActivity::class.java)

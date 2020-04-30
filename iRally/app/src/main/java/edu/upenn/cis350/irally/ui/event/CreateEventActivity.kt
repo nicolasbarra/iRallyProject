@@ -106,20 +106,7 @@ class CreateEventActivity : AppCompatActivity() {
                                     interestsOfAttendeesJSONArray.get(i).toString()
                                 )
                             }
-                            //todo: set comment field
-                            val commentsJSONArray: JSONArray =
-                                newEventJSON.getJSONArray("comments")
-                            Log.v("commentscreated", commentsJSONArray.toString())
                             val comments = mutableSetOf<Comment>()
-                            for (i in 0 until commentsJSONArray.length()) {
-                                comments.add(
-                                    commentsJSONArray.get(i) as Comment
-
-                                //todo: what type is comment?
-                                )
-                            }
-
-                            Log.v("code has reached here", "or not")
                             val newEvent = Event(
                                 newEventJSON.getString("eventId"),
                                 LoginRepository.user!!.userId,
@@ -130,15 +117,10 @@ class CreateEventActivity : AppCompatActivity() {
                                 0,
                                 interestsOfAttendees,
                                 comments
-                                //todo: comment parameter
                             )
-                            Log.v("code has erached here as well", "or not")
-
                             EventRepository.events.add(newEvent)
                             EventRepository.eventsCreatedByUser.add(newEvent.eventId + " on " + newEvent.dateTime)
-                            Log.v("code has erached here0", "or not")
                             if (LoginRepository.user != null) {
-                                Log.v("code has erached here1", "or not")
                                 val prevVal = LoginRepository.user!!.numEventsCreated
                                 Log.v(
                                     "code has erached here2",

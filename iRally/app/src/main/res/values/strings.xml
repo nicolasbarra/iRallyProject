@@ -77,4 +77,11 @@
     <string name="getting_nearest_events_to_your_location">Getting nearest events to your location</string>
     <string name="no_events_found_nearby">No events found nearby. Start one!</string>
     <string name="leave_a_comment">Leave a comment:</string>
+    <string name="follow">Follow</string>
+    <string name="event_created_by">Event created by:</string>
+    <string name="clock">clock</string>
+    <string name="leave_a_comment_on_this_event">Leave a comment on this event</string>
+    <string name="type_your_comment_here">Type your comment here</string>
+    <string name="comment">Comment</string>
+    <string name="see_what_people_are_saying_about_this_event">See what people are saying about this event:</string>
 </resources>

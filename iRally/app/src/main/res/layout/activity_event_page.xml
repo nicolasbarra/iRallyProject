@@ -18,7 +18,7 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="24dp"
-            android:text="Event title"
+            android:text="@string/event_title"
             android:gravity="center"
             android:textStyle="bold"
             android:textColor="#021D45"
@@ -42,7 +42,7 @@
                 android:layout_height="42dp"
                 android:layout_marginBottom="24dp"
                 android:gravity="start"
-                android:text="Event created by:"
+                android:text="@string/event_created_by"
                 android:textColor="@color/colorPrimaryDark"
                 android:textSize="16sp" />
 
@@ -91,7 +91,7 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="24dp"
-                android:gravity="left"
+                android:gravity="start"
                 android:text="@string/event_address_address"
                 android:textColor="@color/colorPrimaryDark"
                 android:textSize="16sp" />
@@ -108,7 +108,7 @@
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_marginEnd="10dp"
-                android:contentDescription="clock"
+                android:contentDescription="@string/clock"
                 android:src="@drawable/clock" />
 
             <TextView
@@ -125,7 +125,6 @@
 
         <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_centerHorizontal="true"
             android:orientation="vertical"
             android:layout_height="wrap_content">
 
@@ -134,7 +133,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="40dp"
-                android:text="Leave a comment on this event"
+                android:text="@string/leave_a_comment_on_this_event"
                 android:textColor="@color/colorPrimary"
                 android:textStyle="bold"
                 android:textSize="15sp" />
@@ -142,7 +141,6 @@
 
             <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_centerHorizontal="true"
                 android:orientation="horizontal"
                 android:layout_height="wrap_content">
 
@@ -150,12 +148,10 @@
                     android:id="@+id/comment"
                     android:layout_width="197dp"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/comment_title"
-                    android:layout_centerHorizontal="true"
                     android:autofillHints="Type your comment here"
                     android:inputType="text"
                     android:textColor="@color/colorPrimary"
-                    android:hint="Type your comment here"
+                    android:hint="@string/type_your_comment_here"
 
                     android:textSize="15sp" />
                 <ImageView
@@ -164,7 +160,8 @@
                     android:layout_height="30dp"
                     android:layout_marginTop="5dp"
                     android:clickable="true"
-                    android:src="@drawable/pencil" />
+                    android:src="@drawable/pencil"
+                    android:contentDescription="@string/comment" />
             </LinearLayout>
 
 
@@ -173,7 +170,6 @@
     <LinearLayout
         android:id="@+id/comment_layout"
         android:layout_width="wrap_content"
-        android:layout_centerHorizontal="true"
         android:orientation="vertical"
         android:layout_height="wrap_content">
 
@@ -182,7 +178,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="40dp"
-            android:text="See what people are saying about this event:"
+            android:text="@string/see_what_people_are_saying_about_this_event"
             android:textColor="@color/colorPrimary"
             android:textStyle="bold"
             android:textSize="15sp" />
