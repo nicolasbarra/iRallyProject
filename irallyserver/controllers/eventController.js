@@ -263,6 +263,72 @@ exports.delete_event = [
 
 exports.add_comment = [
     (req, res) => {
+        if (req.body.isReply === "False") {
+            Event.findOne({"eventId" : req.body.eventId}, (err, event) => {
+                if (err) {
+                    return res.json({
+                        status: 'Failure',
+                        errors: err
+                    });
+                } else if (event) {
+                    let sep = "&&";
+                    let comm = req.body.username + sep + req.body.comment + sep;
+                    if (event.commentsStrings) {
+                        event.commentsStrings.push(comm);
+                    } else {
+                        event.commentsStrings = [comm];
+                    }
+
+                    event.save(() => {
+                        return res.json({
+                            status: 'Success',
+                            errors: null
+                        });
+                    });
+
+                }
+            })
+
+        } else {
+            Event.findOne({"eventId" : req.body.eventId}, (err, event) => {
+                if (err) {
+                    return res.json({
+                        status: 'Failure',
+                        errors: err
+                    });
+                } else if (event) {
+
+                    event.commentsStrings.forEach( comme => {
+                        let l = comme.split("&&");
+                        if (l[0] === req.body.poster && l[1] === req.body.originalComment) {
+                            let updatedComment = comme + req.body.username + sep +
+                        }
+                    });
+                    let comm = req.body.username + sep + req.body.comment + sep;
+                    if (event.commentsStrings) {
+                        event.commentsStrings.push(comm);
+                    } else {
+                        event.commentsStrings = [comm];
+                    }
+
+                    event.save(() => {
+                        return res.json({
+                            status: 'Success',
+                            errors: null
+                        });
+                    });
+
+                }
+            })
+        }
+        //req.body.username
+        //req.body.comment
+        //req.cody.eventId
+        //req.bidy.isReply
+        //if isReply false
+
+            //lookup event
+            //
 
     }
 ];
