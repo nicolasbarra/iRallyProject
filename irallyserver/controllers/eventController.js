@@ -299,41 +299,42 @@ exports.add_comment = [
                         errors: err
                     });
                 } else if (event) {
+                    let commentsStringsTemp = event.commentsStrings;
                     console.log(event.commentsStrings);
-                    for (let i = 0; i < event.commentsStrings.length; i++) {
-                        let comme = event.commentsStrings[i];
+                    for (let i = 0; i < commentsStringsTemp.length; i++) {
+                        let comme = commentsStringsTemp[i];
                         let l = comme.split("&&");
                         if (l[0] === req.body.poster && l[1] === req.body.originalComment) {
                             console.log("HITTING: " + req.body.poster + " " + req.body.originalComment);
-                            event.commentsStrings[i] = comme + req.body.username + "::" + req.body.comment + "~";
+                            commentsStringsTemp[i] = comme + req.body.username + "::" + req.body.comment + "~";
                         }
                     }
-                    console.log(event.commentsStrings);
-                    console.log("EVENT ID", event.eventId);
-                   //Event.findOneAndUpdate({"eventId" : event.eventId}, {"commentsStrings" : event.commentsStrings}, {new: true} ,(err, eventBefore) => {
-                       //console.log("Updated event", eventBefore.commentsStrings);
-                       //Event.findOne({"eventId" : event.eventId}, (err, eventFinal) => {
-                       //     console.log("new comments!",  eventFinal.commentsStrings);
-                       // })
-                   // });
+                  console.log(event.commentsStrings);
+                  console.log("EVENT ID", event.eventId);
+                   Event.findOneAndUpdate({"eventId" : event.eventId}, {"commentsStrings" : commentsStringsTemp}, {new: true} ,(err, eventBefore) => {
+                       console.log("Updated event", eventBefore.commentsStrings);
+                       Event.findOne({"eventId" : event.eventId}, (err, eventFinal) => {
+                            if (err) {
+                                console.log("Eror isssy "+ err)
+                                return res.json({
+                                    status: 'Failure',
+                                    errors: err
+                                });
+                            } else {
+                                return res.json({
+                                    status: 'Success',
+                                    errors: null
+                                });
+                            }
+                       })
+                   });
 
 
 
 
-                    event.save((err) => {
-                        if (err) {
-                            console.log("Eror isssy "+ err)
-                            return res.json({
-                                status: 'Failure',
-                                errors: err
-                            });
-                        } else {
-                            return res.json({
-                                status: 'Success',
-                                errors: null
-                            });
-                        }
-                    });
+                    // event.save((err) => {
+
+                    // });
                 }
             });
         }
