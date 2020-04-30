@@ -88,6 +88,11 @@ const userSchema = new Schema(
                 ref: 'admin'
             }
         ],
+        adminsFollowedStrings: [
+            {
+                ref: String
+            }
+        ],
         friends: [
             {
                 type: mongoose.Schema.Types.ObjectID,
