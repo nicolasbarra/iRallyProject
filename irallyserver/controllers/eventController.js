@@ -286,9 +286,10 @@ exports.add_comment = [
                         });
                     });
 
-                }
-            })
+                } else {
 
+                }
+            });
         } else {
             Event.findOne({"eventId" : req.body.eventId}, (err, event) => {
                 if (err) {
@@ -297,38 +298,21 @@ exports.add_comment = [
                         errors: err
                     });
                 } else if (event) {
-
-                    event.commentsStrings.forEach( comme => {
+                    for (let i = 0; i < event.commentsStrings.length; i++) {
+                        let comme = event.commentsStrings[i];
                         let l = comme.split("&&");
                         if (l[0] === req.body.poster && l[1] === req.body.originalComment) {
-                            let updatedComment = comme + req.body.username;
+                            event.commentsStrings[i] = comme + req.body.username + "::" + req.body.comment + "~";
                         }
-                    });
-                    let comm = req.body.username + sep + req.body.comment + sep;
-                    if (event.commentsStrings) {
-                        event.commentsStrings.push(comm);
-                    } else {
-                        event.commentsStrings = [comm];
                     }
-
                     event.save(() => {
                         return res.json({
                             status: 'Success',
                             errors: null
                         });
                     });
-
                 }
-            })
+            });
         }
-        //req.body.username
-        //req.body.comment
-        //req.cody.eventId
-        //req.bidy.isReply
-        //if isReply false
-
-            //lookup event
-            //
-
     }
 ];
