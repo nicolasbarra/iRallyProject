@@ -4,10 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.Button
-import android.widget.EditText
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.marginLeft
@@ -88,18 +85,20 @@ class EventPageActivity : AppCompatActivity() {
         if (!EventRepository.eventSelected!!.comments.isNullOrEmpty()) {
             for (i in 0 until EventRepository.eventSelected!!.comments.size) {
                 val currComment = EventRepository.eventSelected!!.comments.elementAt(i)
+                val myLayout = LinearLayout(this)
+                myLayout.orientation = LinearLayout.VERTICAL
                 val parentComment = TextView(this)
                 parentComment.text =
                     currComment.userId + " says: " +
                             currComment.message
-                comment_layout.addView(parentComment)
+                myLayout.addView(parentComment)
                 if (!currComment.replies.isNullOrEmpty()) {
                     for (j in 0 until EventRepository.eventSelected!!.comments.elementAt(i).replies!!.size) {
                         val replyComment = TextView(this)
                         replyComment.text =
-                            "\t" + currComment.replies?.elementAt(j)?.userId + "'s reply: " +
-                                    currComment.replies?.elementAt(j)?.message
-                        comment_layout.addView(replyComment)
+                            "\t" + "\t" + "\t" + "\t" + "\t" +"\t" + currComment.replies?.elementAt(j)?.userId + "'s reply: " +
+                                    currComment.replies?.elementAt(j)?.message + "\n"
+                        myLayout.addView(replyComment)
                     }
                 }
                 val replyBox = EditText(this)
@@ -144,9 +143,8 @@ class EventPageActivity : AppCompatActivity() {
                                         currComment.replies!!.add(newReply1)
                                     }
                                     val replyCommentNew1 = TextView(this)
-                                    replyCommentNew1.text =
-                                        "\t" + newReply1.userId + "'s reply: " + newReply1.message
-                                    comment_layout.addView(replyCommentNew1)
+                                    replyCommentNew1.text = "\t" + "\t" + "\t" +"\t" + "\t" + "\t" + newReply1.userId + "'s reply: " + newReply1.message + "\n"
+                                    myLayout.addView(replyCommentNew1)
                                     Toast.makeText(
                                         applicationContext,
                                         "Reply posted!",
@@ -175,11 +173,10 @@ class EventPageActivity : AppCompatActivity() {
                         RequestQueueSingleton.getInstance(LoginActivity.context)
                             .addToRequestQueue(jsonObjectRequestReply1)
                     }
-                    //todo: JSON request?? you're gonna have to add this reply to the current comment's reply set
-
                 }
-                comment_layout.addView(replyBox)
-                comment_layout.addView(replySend)
+                myLayout.addView(replyBox)
+                myLayout.addView(replySend)
+                comment_layout.addView(myLayout)
             }
         }
 
@@ -285,7 +282,6 @@ class EventPageActivity : AppCompatActivity() {
         }
 
 
-        //todo: comment request here
         comment_button.setOnClickListener {
             if (comment.text.isEmpty()) {
                 Toast.makeText(
@@ -293,139 +289,141 @@ class EventPageActivity : AppCompatActivity() {
                     "Type a comment first.",
                     Toast.LENGTH_LONG
                 ).show()
-            }
+            } else {
+                val requestBody = JSONObject()
+                requestBody.put("username", LoginRepository.user?.userId)
+                requestBody.put("comment", comment.text)
+                requestBody.put("eventId", EventRepository.eventSelected?.eventId)
+                requestBody.put("isReply", "False")
 
-            val requestBody = JSONObject()
-            requestBody.put("username", LoginRepository.user?.userId)
-            requestBody.put("comment", comment.text)
-            requestBody.put("eventId", EventRepository.eventSelected?.eventId)
-            requestBody.put("isReply", "False")
+                val jsonObjectRequest = JsonObjectRequest(
+                    "http://10.0.2.2:9000/events/addComment",
+                    requestBody,
+                    Response.Listener { response ->
+                        Log.v("PROCESS", "got a response")
+                        Log.v("RESPONSE", response.toString())
+                        if (response.getString("status") == "Success") {
+                            Log.v("Response Success", "Wrote comment")
+                            val myLayout1 = LinearLayout(this)
+                            myLayout1.orientation = LinearLayout.VERTICAL
+                            val newComment = Comment(
+                                EventRepository.eventSelected?.eventId!!,
+                                LoginRepository.user?.userId!!,
+                                comment.text.toString(),
+                                null
+                            )
+                            EventRepository.eventSelected?.comments?.add(newComment)
+                            val parentComment = TextView(this)
+                            parentComment.text =
+                                newComment.userId + " says: " +
+                                        newComment.message
+                            myLayout1.addView(parentComment)
+                            val replyBox = EditText(this)
+                            val replySend = Button(this)
+                            replySend.text = "Submit reply"
+                            replySend.setOnClickListener {
+                                if (replyBox.text.isEmpty()) {
+                                    Toast.makeText(
+                                        applicationContext,
+                                        "Type a reply first.",
+                                        Toast.LENGTH_LONG
+                                    ).show()
+                                } else {
+                                    val replyRequestBody = JSONObject()
+                                    replyRequestBody.put("username", LoginRepository.user?.userId)
+                                    replyRequestBody.put("originalComment", newComment.message)
+                                    replyRequestBody.put(
+                                        "eventId",
+                                        EventRepository.eventSelected?.eventId
+                                    )
+                                    replyRequestBody.put("isReply", "True")
+                                    replyRequestBody.put("poster", newComment.userId)
+                                    replyRequestBody.put("comment", replyBox.text)
 
-            val jsonObjectRequest = JsonObjectRequest(
-                "http://10.0.2.2:9000/events/addComment",
-                requestBody,
-                Response.Listener { response ->
-                    Log.v("PROCESS", "got a response")
-                    Log.v("RESPONSE", response.toString())
-                    if (response.getString("status") == "Success") {
-                        Log.v("Response Success", "Wrote comment")
-                        val newComment = Comment(
-                            EventRepository.eventSelected?.eventId!!,
-                            LoginRepository.user?.userId!!,
-                            comment.text.toString(),
-                            null
-                        )
-                        EventRepository.eventSelected?.comments?.add(newComment)
-                        val parentComment = TextView(this)
-                        parentComment.text =
-                            newComment.userId + " says: " +
-                                    newComment.message
-                        comment_layout.addView(parentComment)
-                        val replyBox = EditText(this)
-                        val replySend = Button(this)
-                        replySend.text = "Submit reply"
-                        replySend.setOnClickListener {
-                            if (replyBox.text.isEmpty()) {
-                                Toast.makeText(
-                                    applicationContext,
-                                    "Type a reply first.",
-                                    Toast.LENGTH_LONG
-                                ).show()
-                            } else {
-                                val replyRequestBody = JSONObject()
-                                replyRequestBody.put("username", LoginRepository.user?.userId)
-                                replyRequestBody.put("originalComment", newComment.message)
-                                replyRequestBody.put(
-                                    "eventId",
-                                    EventRepository.eventSelected?.eventId
-                                )
-                                replyRequestBody.put("isReply", "True")
-                                replyRequestBody.put("poster", newComment.userId)
-                                replyRequestBody.put("comment", replyBox.text)
-
-                                val jsonObjectRequestReply = JsonObjectRequest(
-                                    "http://10.0.2.2:9000/events/addComment",
-                                    replyRequestBody,
-                                    Response.Listener { response ->
-                                        Log.v("PROCESS", "got a response")
-                                        Log.v("RESPONSE", response.toString())
-                                        if (response.getString("status") == "Success") {
-                                            Log.v("Response Success", "Wrote reply")
-                                            val newReply = Comment(
-                                                EventRepository.eventSelected?.eventId!!,
-                                                LoginRepository.user?.userId!!,
-                                                replyBox.text.toString(),
-                                                null
-                                            )
-                                            if (newComment.replies == null) {
-                                                newComment.replies = mutableSetOf(newReply)
+                                    val jsonObjectRequestReply = JsonObjectRequest(
+                                        "http://10.0.2.2:9000/events/addComment",
+                                        replyRequestBody,
+                                        Response.Listener { response ->
+                                            Log.v("PROCESS", "got a response")
+                                            Log.v("RESPONSE", response.toString())
+                                            if (response.getString("status") == "Success") {
+                                                Log.v("Response Success", "Wrote reply")
+                                                val newReply = Comment(
+                                                    EventRepository.eventSelected?.eventId!!,
+                                                    LoginRepository.user?.userId!!,
+                                                    replyBox.text.toString(),
+                                                    null
+                                                )
+                                                if (newComment.replies == null) {
+                                                    newComment.replies = mutableSetOf(newReply)
+                                                } else {
+                                                    newComment.replies!!.add(newReply)
+                                                }
+                                                val replyCommentNew = TextView(this)
+                                                replyCommentNew.text =
+                                                    newReply.userId + "'s reply: " + newReply.message
+                                                myLayout1.addView(replyCommentNew)
+                                                Toast.makeText(
+                                                    applicationContext,
+                                                    "Reply posted!",
+                                                    Toast.LENGTH_LONG
+                                                ).show()
                                             } else {
-                                                newComment.replies!!.add(newReply)
+                                                Log.v("Response Success", "User or Event not found")
+                                                Log.v("ERROR", response.getString("errors"))
+                                                Toast.makeText(
+                                                    applicationContext,
+                                                    "Unable to add reply: ${response.getString("errors")}",
+                                                    Toast.LENGTH_LONG
+                                                ).show()
                                             }
-                                            val replyCommentNew = TextView(this)
-                                            replyCommentNew.text =
-                                                newReply.userId + "'s reply: " + newReply.message
-                                            comment_layout.addView(replyCommentNew)
+
+                                        },
+                                        Response.ErrorListener { error ->
+                                            Log.e("Response Error", "Error occurred", error)
                                             Toast.makeText(
                                                 applicationContext,
-                                                "Reply posted!",
-                                                Toast.LENGTH_LONG
-                                            ).show()
-                                        } else {
-                                            Log.v("Response Success", "User or Event not found")
-                                            Log.v("ERROR", response.getString("errors"))
-                                            Toast.makeText(
-                                                applicationContext,
-                                                "Unable to add reply: ${response.getString("errors")}",
+                                                "Unable to add reply: ${error.message}",
                                                 Toast.LENGTH_LONG
                                             ).show()
                                         }
-
-                                    },
-                                    Response.ErrorListener { error ->
-                                        Log.e("Response Error", "Error occurred", error)
-                                        Toast.makeText(
-                                            applicationContext,
-                                            "Unable to add reply: ${error.message}",
-                                            Toast.LENGTH_LONG
-                                        ).show()
-                                    }
-                                )
-                                RequestQueueSingleton.getInstance(LoginActivity.context)
-                                    .addToRequestQueue(jsonObjectRequestReply)
+                                    )
+                                    RequestQueueSingleton.getInstance(LoginActivity.context)
+                                        .addToRequestQueue(jsonObjectRequestReply)
+                                }
                             }
-                        }
-                        comment_layout.addView(replyBox)
-                        comment_layout.addView(replySend)
+                            myLayout1.addView(replyBox)
+                            myLayout1.addView(replySend)
+                            comment_layout.addView(myLayout1)
 
+                            Toast.makeText(
+                                applicationContext,
+                                "Comment posted!",
+                                Toast.LENGTH_LONG
+                            ).show()
+                        } else {
+                            Log.v("Response Success", "User or Event not found")
+                            Log.v("ERROR", response.getString("errors"))
+                            Toast.makeText(
+                                applicationContext,
+                                "Unable to add comment: ${response.getString("errors")}",
+                                Toast.LENGTH_LONG
+                            ).show()
+                        }
+                    },
+                    Response.ErrorListener { error ->
+                        Log.e("Response Error", "Error occurred", error)
                         Toast.makeText(
                             applicationContext,
-                            "Comment posted!",
-                            Toast.LENGTH_LONG
-                        ).show()
-                    } else {
-                        Log.v("Response Success", "User or Event not found")
-                        Log.v("ERROR", response.getString("errors"))
-                        Toast.makeText(
-                            applicationContext,
-                            "Unable to add comment: ${response.getString("errors")}",
+                            "Unable to add comment: ${error.message}",
                             Toast.LENGTH_LONG
                         ).show()
                     }
-                },
-                Response.ErrorListener { error ->
-                    Log.e("Response Error", "Error occurred", error)
-                    Toast.makeText(
-                        applicationContext,
-                        "Unable to add comment: ${error.message}",
-                        Toast.LENGTH_LONG
-                    ).show()
-                }
-            )
+                )
 
-            RequestQueueSingleton.getInstance(LoginActivity.context)
-                .addToRequestQueue(jsonObjectRequest)
-
+                RequestQueueSingleton.getInstance(LoginActivity.context)
+                    .addToRequestQueue(jsonObjectRequest)
+            }
         }
 
 
