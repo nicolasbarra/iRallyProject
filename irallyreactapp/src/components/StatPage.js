@@ -54,7 +54,10 @@ class StatPage extends Component {
                           This is percentage of female followers: {(this.state.statistics.countFemale / (this.state.statistics.countFemale + this.state.statistics.countMale))*100} %
                         </div>
                         <div class="card text-center">          
-                          These are top 2 interests of followers: {this.state.statistics.highestInterestsKeys.map((interest, i) => <div>{(i+1) + " : " + interest}</div>)}
+                          These are top 3 interests of followers: {this.state.statistics.highestInterestsKeys.map((interest, i) => <div>{(i+1) + " : " + interest}</div>)}
+                        </div>
+                        <div class="card text-center">          
+                          These are top 3 events attended of followers: {this.state.statistics.highestEventsAttendedKeys.map((event, i) => <div>{(i+1) + " : " + event}</div>)}
                         </div>
                     </div>
                 )

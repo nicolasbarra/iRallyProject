@@ -44,12 +44,13 @@ class AdminActivity : AppCompatActivity() {
         //todo: admin following
         follow.setOnClickListener {
             val requestBody = JSONObject()
-            requestBody.put("loggedInUsername", LoginRepository.user?.userId)
-            requestBody.put("adminToFollow", adminInfo.username)
+            Log.v("HIT", "this is run!!!");
+            requestBody.put("username", LoginRepository.user?.userId)
+            requestBody.put("admin", adminInfo.username)
 
             val jsonObjectRequest = JsonObjectRequest(
                 //todo: change
-                "http://10.0.2.2:9000/admins/followRequest",
+                "http://10.0.2.2:9000/users/followAdmin",
                 requestBody,
                 Response.Listener { response ->
                     Log.v("PROCESS", "got a response")

@@ -166,7 +166,7 @@ exports.get_user_statistics = [
             } else if (admin) {       
                 console.log("I HIT THIS")   
                 let counter = 0;
-                let followers = ["Wedddy", "xxxxxx", "redddy"] //should be admin.followers
+                let followers = (admin.followers) ? (admin.followers) : [];
                 statistics = {
                     countMale: 0,
                     countFemale: 0,
@@ -177,6 +177,12 @@ exports.get_user_statistics = [
                 }
                 interests = {};
                 eventsAttended = {};
+                if (followers.length == 0) {
+                    return res.json({
+                        status: 'Success',
+                        statistics: statistics,
+                    });
+                }
                 followers.forEach((follower) => {
                     console.log("this is follower: ", follower)
                     User.findOne({"username" : follower}, (err, user) => {
@@ -199,14 +205,15 @@ exports.get_user_statistics = [
                                     interests[interest] = interests[interest] + 1;
                                 }
                             }) 
-                            // user.personalInfo.eventsAttended.forEach((event) => {
-                            //     if (eventsAttended[event]) {
-                            //         eventsAttended[event] = 1;
-                            //     } else {
-                            //         eventsAttended[event] = eventsAttended[event] + 1;
-                            //     }
-                            // })               
-                                                
+                            if (user.personalInfo.eventsAttended) {
+                                user.personalInfo.eventsAttended.forEach((event) => {
+                                    if (eventsAttended[event]) {
+                                        eventsAttended[event] = 1;
+                                    } else {
+                                        eventsAttended[event] = eventsAttended[event] + 1;
+                                    }
+                                })     
+                            }                      
                             if (counter == followers.length) {           
                                 let highestInterestsKeys = getKeysWithHighestValue(interests, 2);     
                                 let highestEventsAttendedKeys = getKeysWithHighestValue(eventsAttended, 2);  
