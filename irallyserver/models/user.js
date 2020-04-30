@@ -90,7 +90,7 @@ const userSchema = new Schema(
         ],
         adminsFollowedStrings: [
             {
-                ref: String
+                type: String
             }
         ],
         friends: [

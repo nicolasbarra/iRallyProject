@@ -468,8 +468,6 @@ exports.get_event_feed = [
 
 exports.follow_admin = [
     (req, res) => {
-        console.log(req.body.username);
-        console.log(req.body.admin);
         User.findOne({"username" : req.body.username}, (err, user) => {
             if (err) {
                 return res.json({
@@ -477,85 +475,59 @@ exports.follow_admin = [
                     errors: err,
                 });
             } else if (user) {
-                console.log("this is user", user);
-                if (user.adminsFollowed && !user.adminsFollowed.includes(req.body.admin)) {
-                        Admin.findOne({"username" : req.body.admin}, (err, admin) => {
+                Admin.findOne({"username" : req.body.admin}, (err, admin) => {
+                    if (err) {
+                        return res.json({
+                            status: 'Failure',
+                            errors: err,
+                        });
+                    } else if (admin) {
+                        const adminus = admin.username
+                        if (user.adminsFollowedStrings) {
+                            user.adminsFollowed.push(admin._id);
+                            user.adminsFollowedStrings.push(adminus);
+                        } else {
+                            user.adminsFollowed = [admin._id];
+                            user.adminsFollowedStrings = [adminus];
+                        }
+                        user.save((err) => {
+                            console.log("User Error isss " + err)
+                        });
+                        if (admin.followers) {
+                            admin.followers.push(user.username)
+                        } else {
+                            admin.followers = [user.username]
+                        }
+                        admin.save((err) => {
                             if (err) {
-                                return res.json({
-                                    status: 'Failure',
-                                    errors: err,
-                                });
-                            } else if (admin){
-                                console.log("admin", admin);
-                                user.adminsFollowed.push(admin._id);
-                                user.adminsFollowedStrings.push(req.body.admin);
-                                if (!admin.followers) {
-                                    admin.followers = [req.body.username];
-                                    user.save();
-                                    admin.save();
-                                    return res.json({
-                                        status: 'Success',                                
-                                    });
-                                } else {
-                                    admin.followers.push(req.body.username);
-                                    user.save();
-                                    admin.save();
-                                    console.log("this is adminfollowers", admin.followers);
-                                    return res.json({
-                                        status: 'Success',                                
-                                    });
-                                }                                                             
-                            } else {
+                                console.log("Admin Error is " + err)
                                 return res.json({
                                     status: 'Failure',
                                     errors: 'No admin with that username can be found.'
                                 });
-                            }                         
-                        })  
-                } else {
-                    Admin.findOne({"username" : req.body.admin}, (err, admin) => {
-                        if (err) {
-                            return res.json({
-                                status: 'Failure',
-                                errors: err,
-                            });
-                        } else if (admin){
-                            user.adminsFollowed = [admin._id];
-                            user.adminsFollowedStrings = [req.body.admin];
-                            if (!admin.followers) {
-                                admin.followers = [req.body.username];
-                                user.save();
-                                admin.save();
-                                return res.json({
-                                    status: 'Success',
-                                });
                             } else {
-                                admin.followers.push(req.body.username);
-                                user.save();
-                                admin.save();
-                                console.log("this is adminfollowers", admin.followers);
                                 return res.json({
                                     status: 'Success',
                                 });
                             }
-                        } else {
-                            return res.json({
-                                status: 'Failure',
-                                errors: 'No admin with that username can be found.'
-                            });
-                        }
-                    })
-                }
+                        });
+
+                    } else {
+                        return res.json({
+                            status: 'Failure',
+                            errors: 'No admin with that username can be found.'
+                        });
+                    }
+                });
             } else {
                 return res.json({
                     status: 'Failure',
                     errors: 'No user with that username can be found.'
                 });
-            }    
-        })
+            }
+        });
     }
-]
-
+];
 
 
 
