@@ -487,7 +487,11 @@ exports.follow_admin = [
                                 });
                             } else if (admin){
                                 user.adminsFollowed.push(admin._id);
-                                if (admin.followers.includes(req.body.username)) {
+                                user.adminsFollowedStrings.push(req.body.admin);
+                                if (!admin.followers) {
+                                    admin.followers = [req.body.username];
+                                    user.save();
+                                    admin.save();
                                     return res.json({
                                         status: 'Success',                                
                                     });
@@ -507,7 +511,40 @@ exports.follow_admin = [
                                 });
                             }                         
                         })  
-                } 
+                } else {
+                    Admin.findOne({"username" : req.body.admin}, (err, admin) => {
+                        if (err) {
+                            return res.json({
+                                status: 'Failure',
+                                errors: err,
+                            });
+                        } else if (admin){
+                            user.adminsFollowed = [admin._id];
+                            user.adminsFollowedStrings = [req.body.admin];
+                            if (!admin.followers) {
+                                admin.followers = [req.body.username];
+                                user.save();
+                                admin.save();
+                                return res.json({
+                                    status: 'Success',
+                                });
+                            } else {
+                                admin.followers.push(req.body.username);
+                                user.save();
+                                admin.save();
+                                console.log("this is adminfollowers", admin.followers);
+                                return res.json({
+                                    status: 'Success',
+                                });
+                            }
+                        } else {
+                            return res.json({
+                                status: 'Failure',
+                                errors: 'No admin with that username can be found.'
+                            });
+                        }
+                    })
+                }
             } else {
                 return res.json({
                     status: 'Failure',
