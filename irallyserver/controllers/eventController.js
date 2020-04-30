@@ -128,7 +128,6 @@ exports.add_attendee = [
                             user.eventsToAttendRefs = [event._id];
                             user.eventsToAttendStrings = [event.eventId + ' on ' + event.dateTime];
                         }
-                        console.log("PLEASE WORK GOD PLEASE");
                         user.save();
                         return res.json({
                             status: 'Success',
@@ -183,22 +182,22 @@ exports.grab_closest_events = [
             if (err) {
 
             } else if (events) {
-                var counter = 0;
-                closestEvents = [];
-                events.forEach((event) => {                     
+                let counter = 0;
+                let closestEvents = [];
+                events.forEach((event) => {
                     const addressArr = event.address.split(",");
                     const streetAddr = addressArr[0].trim();
                     const cityStateSpaceIndex = addressArr[1].lastIndexOf(" ");
                     const cityAddr = addressArr[1].substring(0, cityStateSpaceIndex).trim();
-                    const stateAddr = addressArr[1].substring(cityStateSpaceIndex, addressArr[1].length).trim()                  
+                    const stateAddr = addressArr[1].substring(cityStateSpaceIndex, addressArr[1].length).trim()
                     const url = "https://maps.googleapis.com/maps/api/geocode/json?address=" + streetAddr + cityAddr + stateAddr + "&key=AIzaSyB2_4SMM3Bxc-XE90LPTqao04m_XYkbsEw"
                     axios.post(url).then((response) => {
                         const eventPos = response.data.results[0].geometry.location;
-                        if(getDistance(eventPos, req.body.userPosition) < (50 * 1609.34)){
+                        if (getDistance(eventPos, req.body.userPosition) < (50 * 1609.34)){
                             closestEvents.push(event.eventId + " on " + event.dateTime)
-                        }             
+                        }
                         counter++;
-                        if(counter == events.length){                        
+                        if (counter == events.length) {
                             res.json({status: "Success", closestEvents: closestEvents});
                         }
                     });
@@ -259,5 +258,11 @@ exports.delete_event = [
                 });
             }
         });
+    }
+];
+
+exports.add_comment = [
+    (req, res) => {
+
     }
 ];
