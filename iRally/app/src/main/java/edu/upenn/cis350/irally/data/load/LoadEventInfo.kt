@@ -76,19 +76,22 @@ fun loadEventInfo(
                     if (commentUserRepliesCombo[2].isNotEmpty()) {
                         val repliesUsers = commentUserRepliesCombo[2].split("~")
                         val replyComments = mutableSetOf<Comment>()
+                        Log.v("repliesUsers is", repliesUsers.toString())
                         for (replyUser in repliesUsers) {
-                            val replyUserArr = replyUser.split("::")
-                            val replyingUser = replyUserArr[0]
-                            Log.v("replyUserArr is", replyUserArr.toString())
-                            val replyingComment = replyUserArr[1]
-                            replyComments.add(
-                                Comment(
-                                    eventText,
-                                    replyingUser,
-                                    replyingComment,
-                                    null
+                            if (replyUser.isNotEmpty()) {
+                                val replyUserArr = replyUser.split("::")
+                                val replyingUser = replyUserArr[0]
+                                Log.v("replyUserArr is", replyUserArr.toString())
+                                val replyingComment = replyUserArr[1]
+                                replyComments.add(
+                                    Comment(
+                                        eventText,
+                                        replyingUser,
+                                        replyingComment,
+                                        null
+                                    )
                                 )
-                            )
+                            }
                         }
                         commentsComments.add(
                             Comment(
