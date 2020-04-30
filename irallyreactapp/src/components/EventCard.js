@@ -1,7 +1,6 @@
 import React, {Component} from 'react'
 import {Link} from 'react-router-dom';
 import "./EventCard.css"
-import axios from 'axios';
 
 class EventCard extends Component {
     // deleteEvent = () => {
