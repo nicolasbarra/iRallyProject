@@ -301,7 +301,7 @@ exports.add_comment = [
                     event.commentsStrings.forEach( comme => {
                         let l = comme.split("&&");
                         if (l[0] === req.body.poster && l[1] === req.body.originalComment) {
-                            let updatedComment = comme + req.body.username + sep +
+                            let updatedComment = comme + req.body.username;
                         }
                     });
                     let comm = req.body.username + sep + req.body.comment + sep;
