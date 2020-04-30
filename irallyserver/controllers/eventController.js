@@ -291,6 +291,7 @@ exports.add_comment = [
                 }
             });
         } else {
+            console.log("NOT FALSE CASE HIT");
             Event.findOne({"eventId" : req.body.eventId}, (err, event) => {
                 if (err) {
                     return res.json({
@@ -298,13 +299,16 @@ exports.add_comment = [
                         errors: err
                     });
                 } else if (event) {
+                    console.log(event.commentsStrings);
                     for (let i = 0; i < event.commentsStrings.length; i++) {
                         let comme = event.commentsStrings[i];
                         let l = comme.split("&&");
                         if (l[0] === req.body.poster && l[1] === req.body.originalComment) {
+                            console.log("HITTING: " + req.body.poster + " " + req.body.originalComment);
                             event.commentsStrings[i] = comme + req.body.username + "::" + req.body.comment + "~";
                         }
                     }
+                    console.log(event.commentsStrings);
                     event.save(() => {
                         return res.json({
                             status: 'Success',
