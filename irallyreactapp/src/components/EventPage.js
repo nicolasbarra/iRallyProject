@@ -13,7 +13,7 @@ class EventPage extends Component {
     componentDidMount() {
         axios.post("http://localhost:9000/events/", {eventId : this.props.match.params.event})
         .then((response) => {
-            if (response.data.event) {
+            if (response.data.event) {               
                 this.setState({
                     currEvent: response.data.event,
                     loading: false
@@ -25,7 +25,11 @@ class EventPage extends Component {
     deleteEvent = () => {
         axios.post("http://localhost:9000/events/deleteEvent", {eventId : this.state.currEvent.eventId})
         .then((response) => {
+            console.log("this is deleted event:", response.data.event);
+            console.log("this is response.data", response.data);
             if (response.data.event) {
+                console.log("this is run");
+                window.location.replace("http://localhost:3000/feed");
                 return <Redirect to='/feed'/>
             }
         })

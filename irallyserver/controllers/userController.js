@@ -486,6 +486,7 @@ exports.follow_admin = [
                                     errors: err,
                                 });
                             } else if (admin){
+                                console.log("admin", admin);
                                 user.adminsFollowed.push(admin._id);
                                 if (admin.followers.includes(req.body.username)) {
                                     return res.json({
