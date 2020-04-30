@@ -309,11 +309,30 @@ exports.add_comment = [
                         }
                     }
                     console.log(event.commentsStrings);
-                    event.save(() => {
-                        return res.json({
-                            status: 'Success',
-                            errors: null
-                        });
+                    console.log("EVENT ID", event.eventId);
+                   //Event.findOneAndUpdate({"eventId" : event.eventId}, {"commentsStrings" : event.commentsStrings}, {new: true} ,(err, eventBefore) => {
+                       //console.log("Updated event", eventBefore.commentsStrings);
+                       //Event.findOne({"eventId" : event.eventId}, (err, eventFinal) => {
+                       //     console.log("new comments!",  eventFinal.commentsStrings);
+                       // })
+                   // });
+
+
+
+
+                    event.save((err) => {
+                        if (err) {
+                            console.log("Eror isssy "+ err)
+                            return res.json({
+                                status: 'Failure',
+                                errors: err
+                            });
+                        } else {
+                            return res.json({
+                                status: 'Success',
+                                errors: null
+                            });
+                        }
                     });
                 }
             });
