@@ -1,7 +1,7 @@
 # 350S20-9: iRally
 
 ## Background
-Repository for the iRally Project. The iRally Project involved the development an Android application, React app, and an associated Node Express backend connecting to an MongoDB Atlas instance. Nicolas Barra, Akhil Chandra, and Hayley Sussman, and Amelia Rosenbaum all contributed to the project.
+Repository for the iRally Project. The iRally Project involved the development of an Android application, React app, and an associated Node Express backend connecting to an MongoDB Atlas instance. Nicolas Barra, Akhil Chandra, and Hayley Sussman, and Amelia Rosenbaum all contributed to the project.
 
 ## Motivation
 Historically, young people are among the least politically-engaged demographics, but, with the rise of recent movements among this group, many adolescents and young adults are looking to become more involved with politics. Existing social media platforms can be tricky spaces to navigate when politics are involved. Young people may be wary of posting political opinions that differ from those of their friends, family, and followers, as well as of engaging with those they follow about their political opinions. There’s a demand of young people looking to engage with politics for the first time or of those already politically engaged who are looking to become more politically active. 
