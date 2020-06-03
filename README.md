@@ -13,7 +13,7 @@ On iRally, users are be able to manage their accounts, find out about events tha
 ## Repository File Structure
 ### iRally Folder
 Contains the iRally Android application
-### irallyreactapp
+### irallyreactapp Folder
 Contains the iRally React web app
-### irallyserver
-Contains the iRally Node server which connects to a MongoDB Atlas database and Amazon S3 buckets for image storage.
+### irallyserver Folder
+Contains the iRally Node server which connects to a MongoDB Atlas database and Amazon S3 buckets for image storage
