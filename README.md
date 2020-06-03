@@ -10,7 +10,7 @@ Historically, young people are among the least politically-engaged demographics,
 ## General Feature Set
 On iRally, users are be able to manage their accounts, find out about events that fit their interests, and engage with the political community easily. Organizers are be able to create administrator accounts to post the events they are planning, and users are able to see these events. Administrators can monitor the number of people who plan to attend in order to ensure sufficient space, and users can communicate with the administrators by posting on the event pages if they have questions or suggestions.
 
-## File Structure
+## Repository File Structure
 ### iRally Folder
 Contains the iRally Android application
 ### irallyreactapp
